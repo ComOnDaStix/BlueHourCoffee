@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Blue Hour Coffee — come early. stay late.</title>
 <meta name="description" content="Blue Hour Coffee — a coffee bar for the deep blue hours on Milwaukee's east side. Open daily, 7am–8pm. 2410 N Murray Ave. Espresso, pour over, and the matcha that keeps selling out." />
-<meta name="theme-color" content="#F6F0E3" />
+<meta name="theme-color" content="#1F2BD6" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,10 +14,10 @@
 <style>
   :root{
     --cream:#F6F0E3;
-    --cream-2:#EFE7D5;
+    --cream-2:#EDE4D1;
     --blue:#1F2BD6;          /* brand cobalt */
     --blue-deep:#141C9E;
-    --coral:#E76A3C;         /* sparing accent */
+    --coral:#E76A3C;
     --rule:1.5px;
     --pad:2.1vw;
     --grot:"Space Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -31,58 +31,55 @@
     margin:0; background:var(--cream); color:var(--blue);
     font-family:var(--grot); font-weight:400;
     -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    overflow-x:hidden;
+    overflow-x:clip;
   }
-  @media (pointer:fine){ body{ cursor:none; } }
   img,svg{display:block; max-width:100%;}
   a{color:inherit; text-decoration:none;}
+  button{font:inherit;}
   ::selection{background:var(--blue); color:var(--cream);}
 
-  /* ---------- custom blend cursor (desktop only) ---------- */
-  .cursor{
-    position:fixed; top:0; left:0; width:16px; height:16px; border-radius:50%;
-    background:var(--coral); mix-blend-mode:difference; pointer-events:none; z-index:9999;
-    transform:translate(-50%,-50%); transition:width .3s var(--ease), height .3s var(--ease), opacity .3s;
-    will-change:transform; opacity:0;
-  }
-  .cursor.is-on{opacity:1;}
-  .cursor.is-big{width:60px; height:60px;}
-  @media (pointer:coarse){ .cursor{display:none;} }
-
-  /* ---------- shared ---------- */
   .wrap{ padding:0 var(--pad); }
   .label{ font-size:clamp(.62rem,.92vw,.8rem); letter-spacing:.18em; text-transform:uppercase; font-weight:500; }
   .rule-t{ border-top:var(--rule) solid var(--blue); }
   .rule-b{ border-bottom:var(--rule) solid var(--blue); }
-
-  /* serif display */
   .serif{ font-family:var(--serif); font-weight:300; letter-spacing:-.018em; line-height:.92; }
   .grot-xl{ font-family:var(--grot); font-weight:700; letter-spacing:-.035em; line-height:.82; text-transform:uppercase; }
 
-  /* scroll reveal */
-  .rv{ opacity:0; transform:translateY(34px); transition:opacity 1s var(--ease), transform 1s var(--ease); }
+  .rv{ opacity:0; transform:translateY(30px); transition:opacity 1s var(--ease), transform 1s var(--ease); }
   .rv.in{ opacity:1; transform:none; }
   @media (prefers-reduced-motion:reduce){ .rv{opacity:1;transform:none;transition:none;} html{scroll-behavior:auto;} }
 
-  /* ---------- header ---------- */
-  header{
-    position:sticky; top:0; z-index:50; background:var(--cream);
-    display:flex; align-items:center; justify-content:space-between;
-    padding:.95rem var(--pad); transition:box-shadow .5s var(--ease);
-  }
-  header.stuck{ box-shadow:0 1px 0 rgba(31,43,214,.18); }
-  .brand{ display:flex; align-items:center; gap:.6rem; }
-  .brand svg{ width:18px; height:24px; }
-  .brand-txt{ font-weight:700; letter-spacing:-.02em; text-transform:uppercase; font-size:.82rem; line-height:1; }
-  .brand-txt b{ display:block; color:var(--coral); font-weight:700; }
-  nav.top{ display:flex; gap:clamp(1rem,2.4vw,2.6rem); }
-  nav.top a{ font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500; position:relative; }
+  /* tasteful, swappable image placeholder ----------------------------- */
+  .ph{ position:relative; overflow:hidden; background:
+        radial-gradient(120% 120% at 30% 20%, rgba(31,43,214,.10), transparent 60%),
+        linear-gradient(135deg, #ECE3D0, #E1D7BF); display:grid; place-items:center; }
+  .ph svg.icon{ width:34%; height:auto; opacity:.55; }
+  .ph[data-ph]::after{ content:attr(data-ph); position:absolute; left:.75rem; bottom:.6rem;
+        font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); opacity:.4; }
+
+  /* ---------- header (solid cobalt, centered logo) ---------- */
+  header{ position:sticky; top:0; z-index:50; background:var(--blue); color:var(--cream);
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+    padding:.9rem var(--pad); }
+  header ::selection{ background:var(--cream); color:var(--blue); }
+  nav.top{ display:flex; gap:clamp(1rem,2.2vw,2.2rem); }
+  nav.top a{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:500; position:relative; opacity:.92; }
   nav.top a::after{ content:""; position:absolute; left:0; right:0; bottom:-4px; height:1.5px; background:currentColor;
     transform:scaleX(0); transform-origin:right; transition:transform .5s var(--ease); }
   nav.top a:hover::after, nav.top a:focus-visible::after{ transform:scaleX(1); transform-origin:left; }
-  .burger{ display:none; background:none; border:0; color:inherit; font:inherit; padding:.3rem; }
+  .logo{ justify-self:center; font-weight:700; letter-spacing:.02em; text-transform:uppercase;
+    font-size:clamp(.95rem,1.7vw,1.2rem); white-space:nowrap; }
+  .logo sup{ font-size:.5em; top:-.7em; }
+  .actions{ justify-self:end; display:flex; align-items:center; gap:1.1rem; }
+  .actions .ic{ width:20px; height:20px; opacity:.92; transition:opacity .3s var(--ease), transform .3s var(--ease); }
+  .actions a:hover .ic, .actions button:hover .ic{ opacity:1; transform:translateY(-1px); }
+  .actions button{ background:none; border:0; color:inherit; padding:0; cursor:pointer; }
+  .loc{ font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; border:1px solid rgba(246,240,227,.4);
+    border-radius:100px; padding:.25rem .65rem; }
+  .burger{ display:none; background:none; border:0; color:inherit; font-size:.72rem; letter-spacing:.14em;
+    text-transform:uppercase; font-weight:500; cursor:pointer; }
 
-  /* ---------- hero ---------- */
+  /* ---------- hero (cream, wordmark) ---------- */
   .hero{ position:relative; padding:clamp(2rem,5vw,4rem) var(--pad) 1.6vw; }
   .hero .wordmark{ font-size:clamp(3.4rem,15.5vw,15rem); color:var(--blue); }
   .hero .wordmark span{ display:block; }
@@ -98,34 +95,73 @@
     font-size:clamp(1rem,2.7vw,2.05rem); line-height:1.1; letter-spacing:-.01em; }
   .subtitle .dash{ color:var(--coral); }
 
-  /* ---------- cta row ---------- */
-  .cta{ display:flex; align-items:center; justify-content:space-between; gap:2vw;
-    padding:0 var(--pad) 7vw; text-transform:uppercase; }
-  .cta .col{ text-align:center; flex:0 0 auto; }
-  .cta .col .label{ display:block; margin-bottom:1.1rem; }
-  .cta .col .big{ font-family:var(--serif); font-weight:300; font-size:clamp(1.9rem,4.4vw,4rem); line-height:1; letter-spacing:-.02em; margin-bottom:1.4rem; }
-  .btn{
-    display:inline-block; border:var(--rule) solid var(--blue); border-radius:100px;
-    padding:.7rem 2.4rem .8rem; font-family:var(--grot); font-weight:500;
-    font-size:clamp(.85rem,1.5vw,1.05rem); text-transform:uppercase; letter-spacing:.02em;
-    transition:background-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
-  }
-  .btn:hover{ background:var(--blue); color:var(--cream); }
+  /* ---------- full-bleed campaign band (placeholder + overlay) ---------- */
+  .campaign{ position:relative; height:clamp(420px,62vw,720px); display:grid; place-items:center; text-align:center;
+    color:var(--cream); overflow:hidden; }
+  .campaign .ph{ position:absolute; inset:0; background:
+        radial-gradient(140% 120% at 50% 120%, rgba(231,106,60,.22), transparent 55%),
+        linear-gradient(180deg, #10164f 0%, #141C9E 55%, #232ed1 100%); }
+  .campaign .ph .icon{ width:min(38vw,360px); opacity:.22; stroke:var(--cream); }
+  .campaign .inner{ position:relative; padding:0 var(--pad); }
+  .campaign .eyebrow{ display:block; margin-bottom:1.2rem; opacity:.85; }
+  .campaign h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
+    font-size:clamp(2.4rem,7vw,5.5rem); line-height:.95; letter-spacing:-.02em; }
+  .campaign .ctas{ margin-top:2rem; display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; }
+
+  .btn{ display:inline-block; border:var(--rule) solid currentColor; border-radius:100px;
+    padding:.7rem 2.2rem .8rem; font-weight:500; font-size:clamp(.82rem,1.4vw,1rem);
+    text-transform:uppercase; letter-spacing:.04em; cursor:pointer;
+    transition:background-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease); }
   .btn:active{ transform:translateY(1px); }
   .btn:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; }
-  .cup{ width:clamp(150px,30vw,360px); height:auto; }
+  .btn.cream{ color:var(--cream); }
+  .btn.cream:hover{ background:var(--cream); color:var(--blue); }
+  .btn.blue{ color:var(--blue); }
+  .btn.blue:hover{ background:var(--blue); color:var(--cream); }
+  .btn.solid{ background:var(--blue); color:var(--cream); border-color:var(--blue); }
+  .btn.solid:hover{ background:var(--blue-deep); border-color:var(--blue-deep); }
+
+  /* ---------- shop grid ---------- */
+  .shop{ padding:6vw var(--pad); }
+  .shop .head{ display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; margin-bottom:3vw; }
+  .shop .head h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
+    font-size:clamp(2.2rem,6vw,5rem); line-height:.92; letter-spacing:-.02em; }
+  .shop .head a{ position:relative; white-space:nowrap; }
+  .shop .head a::after{ content:""; position:absolute; left:0; right:0; bottom:-3px; height:1.5px; background:currentColor;
+    transform:scaleX(1); transform-origin:left; transition:transform .5s var(--ease); }
+  .shop .head a:hover::after{ transform:scaleX(0); transform-origin:right; }
+  .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2vw; }
+  .card{ position:relative; }
+  .card .ph{ aspect-ratio:1/1; border-radius:8px; transition:transform .5s var(--ease); }
+  .card:hover .ph{ transform:translateY(-4px); }
+  .card .tag{ position:absolute; top:.8rem; left:.8rem; z-index:2; font-size:.62rem; letter-spacing:.12em;
+    text-transform:uppercase; font-weight:600; padding:.32rem .6rem; border-radius:100px; }
+  .card .tag.drop{ background:var(--coral); color:var(--cream); }
+  .card .tag.sale{ background:var(--blue); color:var(--cream); }
+  .card .add{ position:absolute; top:calc(100% - 1px); right:.8rem; transform:translateY(-130%); z-index:2;
+    width:38px; height:38px; border-radius:8px; background:var(--blue); color:var(--cream); border:0;
+    display:grid; place-items:center; cursor:pointer; transition:background-color .3s var(--ease), transform .3s var(--ease); }
+  .card .add:hover{ background:var(--blue-deep); transform:translateY(-130%) scale(1.06); }
+  .card .row{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; margin-top:1.1rem; }
+  .card .name{ font-weight:600; text-transform:uppercase; letter-spacing:.02em; font-size:clamp(.82rem,1.1vw,.98rem); }
+  .card .price{ font-family:var(--serif); font-size:clamp(.95rem,1.2vw,1.1rem); }
+  .card .price s{ color:var(--blue); opacity:.45; margin-right:.4em; }
+  .card .price .now{ color:var(--coral); }
+  .card .sub{ margin-top:.4rem; font-size:.74rem; letter-spacing:.02em; opacity:.55; text-transform:lowercase; }
 
   /* ---------- what strip ---------- */
-  .what{ display:flex; justify-content:space-between; gap:1rem; padding:1.1vw var(--pad) 0; text-transform:uppercase; }
+  .what{ display:flex; justify-content:space-between; gap:1rem; padding:1.1vw var(--pad); text-transform:uppercase; }
   .what span{ font-size:clamp(1.1rem,2.7vw,2.05rem); letter-spacing:-.01em; line-height:1; }
 
-  /* ---------- editorial ---------- */
-  .editorial{ padding:11vw var(--pad); text-align:center; }
-  .editorial h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(2.6rem,9vw,8rem); line-height:.96; letter-spacing:-.02em; }
-  .editorial .body{ max-width:42rem; margin:clamp(2.4rem,4vw,3.6rem) auto 0; }
-  .editorial p{ text-align:justify; font-size:clamp(.98rem,1.45vw,1.18rem); line-height:1.55; margin:0 0 1.3em; }
-  .editorial p:last-child{ margin-bottom:0; }
+  /* ---------- editorial + lookbook split ---------- */
+  .editorial{ display:grid; grid-template-columns:1.05fr .95fr; gap:4vw; align-items:center; padding:8vw var(--pad); }
+  .editorial .txt h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
+    font-size:clamp(2.4rem,6.5vw,6rem); line-height:.95; letter-spacing:-.02em; }
+  .editorial .txt .body{ max-width:34rem; margin-top:2rem; }
+  .editorial .txt p{ font-size:clamp(.98rem,1.3vw,1.15rem); line-height:1.6; margin:0 0 1.2em; }
+  .editorial .txt p:last-child{ margin-bottom:0; }
+  .editorial .look{ aspect-ratio:4/5; border-radius:10px; }
+  .editorial .look .icon{ stroke:var(--blue); }
 
   /* ---------- marquee ---------- */
   .marquee{ overflow:hidden; white-space:nowrap; padding:1.1vw 0; }
@@ -176,98 +212,154 @@
     background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s var(--ease); }
   .visit-grid .block .val a:hover::after{ transform:scaleX(1); transform-origin:left; }
 
-  /* ---------- footer ---------- */
-  footer{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
-    padding:1.6vw var(--pad) 2.4vw; font-size:clamp(.72rem,1vw,.9rem); text-transform:uppercase; letter-spacing:.06em; }
-  footer .totop{ font-family:var(--serif); text-transform:none; letter-spacing:0; font-size:clamp(.9rem,1.4vw,1.15rem); }
+  /* ---------- footer (solid cobalt) ---------- */
+  footer{ background:var(--blue); color:var(--cream); padding:5vw var(--pad) 2vw; }
+  footer ::selection{ background:var(--cream); color:var(--blue); }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:3vw; }
+  .foot-grid h4{ margin:0 0 1.4rem; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; font-weight:500; opacity:.7; }
+  .foot-grid ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.7rem; }
+  .foot-grid li a, .foot-grid li{ font-size:.92rem; }
+  .foot-grid li a{ position:relative; }
+  .foot-grid li a::after{ content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px; background:currentColor;
+    transform:scaleX(0); transform-origin:right; transition:transform .45s var(--ease); }
+  .foot-grid li a:hover::after{ transform:scaleX(1); transform-origin:left; }
+  .news form{ display:flex; align-items:center; background:var(--cream); border-radius:100px; padding:.3rem .3rem .3rem 1.2rem; max-width:360px; }
+  .news input{ flex:1; border:0; background:none; outline:none; font:inherit; color:var(--blue); font-size:.92rem; padding:.5rem 0; }
+  .news input::placeholder{ color:rgba(20,28,158,.55); }
+  .news button{ border:0; background:none; color:var(--blue); font-weight:600; font-size:.72rem; letter-spacing:.16em;
+    text-transform:uppercase; padding:.5rem 1rem; cursor:pointer; }
+  .socials{ display:flex; gap:1.1rem; margin-top:2rem; }
+  .socials a .ic{ width:22px; height:22px; opacity:.85; transition:opacity .3s var(--ease), transform .3s var(--ease); }
+  .socials a:hover .ic{ opacity:1; transform:translateY(-2px); }
+  .foot-bottom{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+    margin-top:5vw; padding-top:2vw; border-top:1px solid rgba(246,240,227,.2);
+    font-size:.74rem; letter-spacing:.04em; }
+  .pay{ display:flex; gap:.45rem; }
+  .pay span{ font-size:.56rem; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(246,240,227,.35);
+    border-radius:4px; padding:.28rem .45rem; opacity:.8; }
+
+  /* ---------- back to top ---------- */
+  .totop{ position:fixed; right:2vw; bottom:2vw; z-index:60; width:48px; height:48px; border-radius:50%;
+    background:var(--blue); color:var(--cream); border:0; display:grid; place-items:center; cursor:pointer;
+    opacity:0; transform:translateY(14px); pointer-events:none;
+    transition:opacity .4s var(--ease), transform .4s var(--ease), background-color .3s var(--ease);
+    box-shadow:0 10px 28px -10px rgba(20,28,158,.6); }
+  .totop.show{ opacity:1; transform:none; pointer-events:auto; }
+  .totop:hover{ background:var(--blue-deep); }
 
   /* ---------- responsive ---------- */
   @media (max-width:900px){
     :root{ --pad:5.3vw; }
+    header{ grid-template-columns:1fr auto 1fr; }
     nav.top{ display:none; }
-    .burger{ display:block; font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; font-weight:500; }
     nav.top.open{ display:flex; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0;
-      background:var(--cream); padding:0 var(--pad) 1rem; box-shadow:0 12px 24px -16px rgba(31,43,214,.4); }
-    nav.top.open a{ padding:.9rem 0; border-bottom:1px solid rgba(31,43,214,.15); font-size:1rem; }
-    header{ position:relative; }
+      background:var(--blue); padding:0 var(--pad) 1rem; }
+    nav.top.open a{ padding:.95rem 0; border-bottom:1px solid rgba(246,240,227,.18); font-size:.95rem; }
+    header{ position:sticky; }
+    .burger{ display:block; justify-self:start; }
+    .actions .loc{ display:none; }
 
     .hero{ padding-bottom:8vw; }
     .hero .wordmark{ font-size:12.5vw; letter-spacing:-.05em; }
-    /* metadata flows in normal order, stacked, always fits */
     .hero .meta{ position:static; display:block; width:100%; margin-top:6vw; text-align:left; }
     .hero .meta.right{ text-align:left; }
     .hero .meta .val{ font-size:7vw; }
 
-    .cta{ flex-direction:column; gap:9vw; padding-bottom:14vw; }
-    .cta .cup-col{ order:-1; }
-    .cup{ width:62vw; }
+    .grid{ grid-template-columns:1fr 1fr; gap:4vw; }
 
     .what{ flex-wrap:wrap; justify-content:center; gap:.3rem 1.3rem; }
     .what span{ font-size:5.4vw; }
 
-    .editorial{ padding:22vw var(--pad) 16vw; }
-    .editorial h2{ font-size:8vw; }
+    .editorial{ grid-template-columns:1fr; gap:8vw; padding:18vw var(--pad) 16vw; }
+    .editorial .txt h2{ text-align:center; }
+    .editorial .txt .body{ margin-left:auto; margin-right:auto; }
+    .editorial .look{ order:-1; aspect-ratio:4/3; }
 
     .sched-grid, .band-grid{ grid-template-columns:1fr; gap:0; }
     .sched-grid .title, .sched-grid aside,
     .band-grid .title, .band-grid aside{ grid-column:1 / -1; }
-    .sched-grid .title{ margin-bottom:8vw; }
-    .band-grid .title{ margin-bottom:8vw; }
-    .sched-grid .title h2{ text-align:center; }
-    .band-grid .title h2{ text-align:center; }
+    .sched-grid .title, .band-grid .title{ margin-bottom:8vw; }
+    .sched-grid .title h2, .band-grid .title h2{ text-align:center; }
     .row{ grid-template-columns:2.4fr 1fr; }
     .row .cat{ display:none; }
 
     .visit-grid{ grid-template-columns:1fr; gap:8vw; }
+
+    .foot-grid{ grid-template-columns:1fr 1fr; gap:8vw 4vw; }
+    .news{ grid-column:1 / -1; }
+    .totop{ right:5vw; bottom:5vw; }
+  }
+  @media (max-width:540px){
+    .grid{ grid-template-columns:1fr; }
   }
 </style>
 </head>
 
 <body>
 
-<div class="cursor" data-cursor aria-hidden="true"></div>
-
-<!-- brand-mark gradient defs (used in small marks) -->
+<!-- reusable gradient defs + product line icons (hidden) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="gBlue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B49FF"/><stop offset="1" stop-color="#141C9E"/></linearGradient>
     <linearGradient id="gCoral" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2A36B"/><stop offset="1" stop-color="#E1572B"/></linearGradient>
+
+    <g id="ic-cup" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M52 96 L66 280 a14 14 0 0 0 14 12 H160 a14 14 0 0 0 14 -12 L188 96 Z"/>
+      <path d="M44 96 H196"/><path d="M58 96 a62 40 0 0 1 124 0"/><path d="M150 30 L132 96"/>
+      <path d="M60 168 H180" stroke-dasharray="2 9"/>
+    </g>
+    <g id="ic-bag" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M70 96 L70 286 a8 8 0 0 0 8 8 H162 a8 8 0 0 0 8 -8 L170 96 Z"/>
+      <path d="M70 96 C70 64 92 50 120 50 C148 50 170 64 170 96"/>
+      <path d="M70 150 H170"/><circle cx="120" cy="124" r="9"/>
+    </g>
+    <g id="ic-cap" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M44 196 C44 134 80 96 120 96 C160 96 196 134 196 196"/>
+      <path d="M44 196 C24 196 16 212 18 226 L196 226 C196 208 178 196 158 196"/>
+      <path d="M120 96 L120 150"/>
+    </g>
+    <g id="ic-mug" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="58" y="92" width="108" height="156" rx="14"/>
+      <path d="M166 120 H196 a20 20 0 0 1 20 20 v36 a20 20 0 0 1 -20 20 H166"/>
+      <path d="M86 60 V40 M120 60 V36 M154 60 V40" />
+    </g>
   </defs>
 </svg>
 
-<!-- ============ HEADER ============ -->
-<header data-header>
-  <a class="brand" href="#top" aria-label="Blue Hour Coffee — home" data-hover>
-    <svg viewBox="0 0 26 34" aria-hidden="true">
-      <rect x="3" y="1" width="20" height="15" rx="7.5" fill="url(#gBlue)"/>
-      <rect x="3" y="18" width="20" height="15" rx="7.5" fill="url(#gCoral)"/>
-    </svg>
-    <span class="brand-txt">Blue Hour<b>Coffee™</b></span>
-  </a>
+<!-- ============ ANNOUNCEMENT ============ -->
+<a href="#shop" style="display:block; background:var(--blue-deep); color:var(--cream); text-align:center;
+   font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; padding:.55rem 1rem;">
+  Drop 003 — the hats are restocked. <span style="color:var(--coral);">Grab yours →</span>
+</a>
 
+<!-- ============ HEADER ============ -->
+<header>
+  <button class="burger" data-burger aria-expanded="false">Menu</button>
   <nav class="top" data-nav>
-    <a href="#story" data-hover>Story</a>
-    <a href="#menu" data-hover>Menu</a>
-    <a href="#club" data-hover>Run Club</a>
-    <a href="#visit" data-hover>Visit</a>
+    <a href="#shop">Shop</a>
+    <a href="#menu">Menu</a>
+    <a href="#club">Run Club</a>
+    <a href="#story">Story</a>
   </nav>
 
-  <button class="burger" data-burger aria-expanded="false">Menu</button>
+  <a class="logo" href="#top">Blue Hour Coffee<sup>®</sup></a>
+
+  <div class="actions">
+    <span class="loc">Milwaukee, WI</span>
+    <a href="#menu" aria-label="Search the menu">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </a>
+    <a href="#shop" aria-label="Shop" style="position:relative;">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+    </a>
+  </div>
 </header>
 
 <!-- ============ HERO ============ -->
 <section id="top" class="hero rule-b">
-  <h1 class="wordmark grot-xl rv in">
-    <span>Blue Hour</span><span>Coffee</span>
-  </h1>
-  <div class="meta left rv in">
-    <span class="label">Where</span>
-    <div class="val">2410 N<br>Murray</div>
-  </div>
-  <div class="meta right rv in">
-    <span class="label">Hours</span>
-    <div class="val">7AM<br>–8PM</div>
-  </div>
+  <h1 class="wordmark grot-xl rv in"><span>Blue Hour</span><span>Coffee</span></h1>
+  <div class="meta left rv in"><span class="label">Where</span><div class="val">2410 N<br>Murray</div></div>
+  <div class="meta right rv in"><span class="label">Hours</span><div class="val">7AM<br>–8PM</div></div>
 </section>
 
 <!-- ============ SUBTITLE ============ -->
@@ -275,53 +367,69 @@
   <p class="rv">Come early. Stay late. <span class="dash">—</span> A coffee bar in Milwaukee, WI</p>
 </section>
 
-<!-- ============ CTA ROW ============ -->
-<section class="cta rule-b">
-  <div class="col rv">
-    <span class="label">See what's on bar</span>
-    <div class="big">The Menu</div>
-    <a class="btn" href="#menu" data-hover>Menu</a>
+<!-- ============ CAMPAIGN BAND ============ -->
+<section class="campaign rule-b">
+  <div class="ph" aria-hidden="true"><svg class="icon" viewBox="0 0 240 320" stroke="currentColor"><use href="#ic-cup"/></svg></div>
+  <div class="inner rv">
+    <span class="eyebrow label">Open daily · 7am – 8pm</span>
+    <h2>The deep blue<br>hours, on tap.</h2>
+    <div class="ctas">
+      <a href="#visit" class="btn cream">Visit us</a>
+      <a href="#menu" class="btn cream">See the menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHOP GRID ============ -->
+<section id="shop" class="shop rule-b" style="scroll-margin-top:64px;">
+  <div class="head">
+    <h2 class="rv">Take some<br>home.</h2>
+    <a href="#" class="rv label">Shop all →</a>
   </div>
 
-  <div class="col cup-col rv">
-    <!-- editorial line-art matcha cup (no photos) -->
-    <svg class="cup" viewBox="0 0 240 300" fill="none" stroke="var(--blue)" stroke-width="3" aria-hidden="true">
-      <!-- cup -->
-      <path d="M52 96 L66 280 a14 14 0 0 0 14 12 H160 a14 14 0 0 0 14 -12 L188 96 Z"/>
-      <!-- dome lid -->
-      <path d="M44 96 H196" />
-      <path d="M58 96 a62 40 0 0 1 124 0" />
-      <!-- straw -->
-      <path d="M150 30 L132 96" />
-      <!-- matcha fill line -->
-      <path d="M60 168 H180" stroke-dasharray="2 9" stroke-linecap="round" opacity=".7"/>
-      <!-- swirl -->
-      <path d="M104 210 q16 -16 32 0 q-16 16 -32 0Z" fill="var(--coral)" stroke="none" opacity=".9"/>
-    </svg>
-  </div>
+  <div class="grid">
+    <article class="card rv">
+      <span class="tag sale">New</span>
+      <button class="add" aria-label="Add House Blend to bag">+</button>
+      <div class="ph" data-ph="Product photo" aria-hidden="true"><svg class="icon" viewBox="0 0 240 320" stroke="var(--blue)"><use href="#ic-bag"/></svg></div>
+      <div class="row"><span class="name">House Blend Beans</span><span class="price">$18</span></div>
+      <p class="sub">12 oz whole bean · medium roast</p>
+    </article>
 
-  <div class="col rv">
-    <span class="label">Every Sunday</span>
-    <div class="big">Run Club</div>
-    <a class="btn" href="#club" data-hover>Join</a>
+    <article class="card rv">
+      <span class="tag drop">Drop 003</span>
+      <button class="add" aria-label="Add cap to bag">+</button>
+      <div class="ph" data-ph="Product photo" aria-hidden="true"><svg class="icon" viewBox="0 0 240 320" stroke="var(--blue)"><use href="#ic-cap"/></svg></div>
+      <div class="row"><span class="name">Blue Hour Cap</span><span class="price">$34</span></div>
+      <p class="sub">embroidered · one size</p>
+    </article>
+
+    <article class="card rv">
+      <button class="add" aria-label="Add mug to bag">+</button>
+      <div class="ph" data-ph="Product photo" aria-hidden="true"><svg class="icon" viewBox="0 0 240 320" stroke="var(--blue)"><use href="#ic-mug"/></svg></div>
+      <div class="row"><span class="name">Ceramic Mug</span><span class="price"><s>$28</s><span class="now">$22</span></span></div>
+      <p class="sub">10 oz · cobalt glaze</p>
+    </article>
   </div>
 </section>
 
 <!-- ============ WHAT STRIP ============ -->
 <section class="what rule-b rv">
-  <span>Espresso</span>
-  <span>Pour Over</span>
-  <span>Matcha</span>
-  <span>Community</span>
+  <span>Espresso</span><span>Pour Over</span><span>Matcha</span><span>Community</span>
 </section>
 
-<!-- ============ EDITORIAL ============ -->
-<section id="story" class="editorial rule-b" style="scroll-margin-top:90px;">
-  <h2 class="rv">Even Our Building<br>Drinks Matcha</h2>
-  <div class="body">
-    <p class="rv">From the outside we're a small box on Murray Ave, wrapped top to bottom in green ivy that climbs a little higher every summer. You'll find us by the glow in the window at dusk.</p>
-    <p class="rv">Inside it's all soft light — Nelson bubble lamps overhead and a bar carved from backlit onyx that burns like a low sun. We pour single-origin espresso, brew pour over to order, and yes, the matcha keeps selling out. Again.</p>
-    <p class="rv">Pull up a blue chair and stay a while. We built this room to be lingered in — for the deep blue hours at either end of the day. Come early. Stay late.</p>
+<!-- ============ EDITORIAL + LOOKBOOK ============ -->
+<section id="story" class="editorial rule-b" style="scroll-margin-top:64px;">
+  <div class="txt">
+    <h2 class="rv">Even Our Building<br>Drinks Matcha</h2>
+    <div class="body">
+      <p class="rv">From the outside we're a small box on Murray Ave, wrapped top to bottom in green ivy that climbs a little higher every summer. You'll find us by the glow in the window at dusk.</p>
+      <p class="rv">Inside it's all soft light — Nelson bubble lamps overhead and a bar carved from backlit onyx that burns like a low sun. We pour single-origin espresso, brew pour over to order, and yes, the matcha keeps selling out.</p>
+      <p class="rv">Pull up a blue chair and stay a while. We built this room to be lingered in. Come early. Stay late.</p>
+    </div>
+  </div>
+  <div class="ph look rv" data-ph="Lifestyle photo" aria-hidden="true">
+    <svg class="icon" viewBox="0 0 240 320" stroke="var(--blue)"><use href="#ic-cup"/></svg>
   </div>
 </section>
 
@@ -333,8 +441,8 @@
   </div>
 </section>
 
-<!-- ============ SCHEDULE / MENU ============ -->
-<section id="menu" class="schedule" style="scroll-margin-top:0;">
+<!-- ============ MENU ============ -->
+<section id="menu" class="schedule">
   <div class="sched-grid">
     <div class="title">
       <h2 class="rv">The<br>Menu</h2>
@@ -353,19 +461,17 @@
       <div class="row rv"><span class="name">Drip</span><span class="cat">Bottomless</span><span class="price">3.5</span></div>
     </aside>
   </div>
-  <footer style="padding:0;">
+  <div class="sched-foot">
     <span>Open Daily · 2410 N Murray Ave</span>
     <span>© <span data-year>2026</span> Blue Hour Coffee™</span>
-    <a href="mailto:info@bluehour.coffee" data-hover>info@bluehour.coffee</a>
-  </footer>
+    <a href="mailto:info@bluehour.coffee">info@bluehour.coffee</a>
+  </div>
 </section>
 
 <!-- ============ RUN CLUB ============ -->
-<section id="club" class="band rule-b" style="scroll-margin-top:0;">
+<section id="club" class="band rule-b" style="scroll-margin-top:64px;">
   <div class="band-grid">
-    <div class="title">
-      <h2 class="rv">Sunday<br>Run Club</h2>
-    </div>
+    <div class="title"><h2 class="rv">Sunday<br>Run Club</h2></div>
     <aside>
       <div class="row rv"><span class="name">Meet Out Front</span><span class="cat">2410 N Murray</span><span class="price">8:00</span></div>
       <div class="row rv"><span class="name">We Run</span><span class="cat">Oak Leaf Trail</span><span class="price">8:30</span></div>
@@ -377,12 +483,12 @@
 </section>
 
 <!-- ============ VISIT ============ -->
-<section id="visit" class="band rule-b" style="scroll-margin-top:0; padding-top:4.5vw;">
+<section id="visit" class="band rule-b" style="scroll-margin-top:64px; padding-top:4.5vw;">
   <span class="label rv" style="display:block; text-align:center; margin-bottom:2.4vw;">Find Us at Blue Hour</span>
   <div class="visit-grid">
     <div class="block rv">
       <span class="label">Address</span>
-      <div class="val"><a href="https://maps.google.com/?q=2410+N+Murray+Ave+Milwaukee+WI+53211" target="_blank" rel="noopener" data-hover>2410 N Murray Ave<br>Milwaukee, WI 53211</a></div>
+      <div class="val"><a href="https://maps.google.com/?q=2410+N+Murray+Ave+Milwaukee+WI+53211" target="_blank" rel="noopener">2410 N Murray Ave<br>Milwaukee, WI 53211</a></div>
     </div>
     <div class="block rv">
       <span class="label">Hours</span>
@@ -390,26 +496,78 @@
     </div>
     <div class="block rv">
       <span class="label">Say Hello</span>
-      <div class="val"><a href="mailto:info@bluehour.coffee" data-hover>info@bluehour.coffee</a><br><a href="https://instagram.com/bluehour___________coffee" target="_blank" rel="noopener" data-hover>@bluehour</a></div>
+      <div class="val"><a href="mailto:info@bluehour.coffee">info@bluehour.coffee</a><br><a href="https://instagram.com/bluehour___________coffee" target="_blank" rel="noopener">@bluehour</a></div>
     </div>
   </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  <span>Blue Hour Coffee™ · Milwaukee, WI</span>
-  <span data-status>Open Daily 7am–8pm</span>
-  <a href="#top" class="totop" data-hover>Back to top ↑</a>
+  <div class="foot-grid">
+    <div class="news">
+      <h4>Newsletter</h4>
+      <form onsubmit="return false">
+        <input type="email" placeholder="Email address" aria-label="Email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+      <div class="socials">
+        <a href="https://instagram.com/bluehour___________coffee" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.2l5 2.8-5 2.8V9.2Z" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok">
+          <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M14 3h2.4c.2 1.6 1.1 3 2.6 3.6.6.3 1.3.4 2 .5v2.5c-1.7 0-3.3-.5-4.6-1.4v6.1a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.6a3 3 0 1 0 2.1 2.9V3Z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#menu">Search the menu</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Wholesale</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#shop">Beans</a></li>
+        <li><a href="#shop">Merch &amp; Drops</a></li>
+        <li><a href="#shop">Gift Cards</a></li>
+        <li><a href="#shop">Mugs</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Visit</h4>
+      <ul>
+        <li>2410 N Murray Ave</li>
+        <li>Milwaukee, WI 53211</li>
+        <li>Mon–Sun · 7a–8p</li>
+        <li><a href="mailto:info@bluehour.coffee">info@bluehour.coffee</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© <span data-year>2026</span> Blue Hour Coffee™ · Milwaukee, WI</span>
+    <span data-status>Open Daily 7am–8pm</span>
+    <div class="pay"><span>Visa</span><span>MC</span><span>Amex</span><span>Apple Pay</span><span>Cash</span></div>
+  </div>
 </footer>
 
-<script>
-  // year
-  document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+<!-- back to top -->
+<button class="totop" data-totop aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
-  // sticky header shadow
-  const header = document.querySelector('[data-header]');
-  const onScroll = () => header.classList.toggle('stuck', window.scrollY > 12);
-  onScroll(); addEventListener('scroll', onScroll, { passive:true });
+<script>
+  document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 
   // mobile menu
   const burger = document.querySelector('[data-burger]');
@@ -429,24 +587,13 @@
   }, { threshold:0.1, rootMargin:'0px 0px -8% 0px' });
   document.querySelectorAll('.rv:not(.in)').forEach(el => io.observe(el));
 
-  // custom blend cursor (fine pointers only)
-  if (matchMedia('(pointer:fine)').matches){
-    const cur = document.querySelector('[data-cursor]');
-    let x = innerWidth/2, y = innerHeight/2, cx = x, cy = y;
-    addEventListener('mousemove', e => { x = e.clientX; y = e.clientY; cur.classList.add('is-on'); });
-    addEventListener('mouseout', () => cur.classList.remove('is-on'));
-    (function loop(){
-      cx += (x - cx) * 0.2; cy += (y - cy) * 0.2;
-      cur.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
-      requestAnimationFrame(loop);
-    })();
-    document.querySelectorAll('[data-hover], a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => cur.classList.add('is-big'));
-      el.addEventListener('mouseleave', () => cur.classList.remove('is-big'));
-    });
-  }
+  // back to top
+  const toTop = document.querySelector('[data-totop]');
+  const onScroll = () => toTop.classList.toggle('show', window.scrollY > 600);
+  onScroll(); addEventListener('scroll', onScroll, { passive:true });
+  toTop.addEventListener('click', () => scrollTo({ top:0, behavior:'smooth' }));
 
-  // live open/closed in footer
+  // live open/closed
   (function(){
     const el = document.querySelector('[data-status]'); if(!el) return;
     const n = new Date(), d = n.getDay(), h = n.getHours() + n.getMinutes()/60;
