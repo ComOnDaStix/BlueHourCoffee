@@ -1,0 +1,14 @@
+# build / preview artifacts
+temporary screenshots/
+
+# OS cruft
+.DS_Store
+
+# node
+node_modules/
+
+# claude code tooling
+.claude/
+
+# editor / misc
+CLAUDE (1).md
