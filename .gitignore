@@ -10,5 +10,11 @@ node_modules/
 # claude code tooling
 .claude/
 
+# heavy video files - need compression before pushing
+*.MP4
+*.mp4
+*.mov
+*.MOV
+
 # editor / misc
 CLAUDE (1).md

@@ -80,8 +80,16 @@
     text-transform:uppercase; font-weight:500; cursor:pointer; }
 
   /* ---------- hero (cream, wordmark) ---------- */
-  .hero{ position:relative; padding:clamp(2rem,5vw,4rem) var(--pad) 1.6vw; }
-  .hero .wordmark{ font-size:clamp(3.4rem,15.5vw,15rem); color:var(--blue); }
+  .hero{ position:relative; padding:clamp(2rem,5vw,4rem) var(--pad) 1.6vw; isolation:isolate; overflow:hidden; }
+  .hero .hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .hero::before{ content:""; position:absolute; inset:0; background:rgba(246,240,227,.55); z-index:1; pointer-events:none; }
+  .hero .wordmark, .hero .meta{ position:relative; z-index:2; }
+  .hero .wordmark{
+    font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight:700;
+    font-size:clamp(3.4rem,15.5vw,15rem);
+    color:var(--blue);
+  }
   .hero .wordmark span{ display:block; }
   .hero .meta{ position:absolute; bottom:1.6vw; text-align:center; }
   .hero .meta .label{ margin-bottom:.7rem; display:block; }
@@ -182,10 +190,18 @@
     text-transform:uppercase; letter-spacing:.08em; line-height:1.5; }
 
   /* ---------- secondary lookbook (between menu + run club) ---------- */
-  .lookbook-strip{ position:relative; height:clamp(380px,52vw,640px); overflow:hidden; }
-  .lookbook-strip img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .lookbook-strip .cap{ position:absolute; left:var(--pad); bottom:var(--pad); color:var(--cream);
-    text-transform:uppercase; font-size:.72rem; letter-spacing:.18em; font-weight:500; opacity:.85; }
+  .lookbook-strip{ display:grid; grid-template-columns:1fr 1fr; background:#0c1660; color:var(--cream); }
+  .lookbook-strip ::selection{ background:var(--cream); color:var(--blue); }
+  .lookbook-strip figure{ margin:0; aspect-ratio:4/5; overflow:hidden; background:#0a1140; }
+  .lookbook-strip figure img{ width:100%; height:100%; object-fit:cover; object-position:center 36%; display:block;
+    transition:transform 1s var(--ease); }
+  .lookbook-strip figure:hover img{ transform:scale(1.03); }
+  .lookbook-strip .caption{ display:flex; flex-direction:column; justify-content:center; padding:5vw 4vw; gap:1.2rem; }
+  .lookbook-strip .caption .label{ color:var(--coral); }
+  .lookbook-strip .caption h3{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
+    font-size:clamp(2.2rem,5.5vw,4.6rem); line-height:.95; letter-spacing:-.02em; }
+  .lookbook-strip .caption p{ margin:0; font-size:clamp(.92rem,1.15vw,1.08rem); line-height:1.6;
+    max-width:32rem; opacity:.82; }
 
   /* ---------- marquee ---------- */
   .marquee{ overflow:hidden; white-space:nowrap; padding:1.1vw 0; }
@@ -315,7 +331,9 @@
 
     .signature .head{ flex-direction:column; align-items:flex-start; }
     .drink-grid{ grid-template-columns:1fr 1fr; }
-    .lookbook-strip{ height:60vw; }
+    .lookbook-strip{ grid-template-columns:1fr; }
+    .lookbook-strip figure{ aspect-ratio:3/4; }
+    .lookbook-strip .caption{ padding:10vw 6vw; }
   }
   @media (max-width:540px){
     .grid{ grid-template-columns:1fr; }
@@ -386,6 +404,9 @@
 
 <!-- ============ HERO ============ -->
 <section id="top" class="hero rule-b">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+    <source src="IMAGES/Bluehour-export-06.MP4" type="video/mp4">
+  </video>
   <h1 class="wordmark grot-xl rv in"><span>Blue Hour</span><span>Coffee</span></h1>
   <div class="meta left rv in"><span class="label">Where</span><div class="val">2410 N<br>Murray</div></div>
   <div class="meta right rv in"><span class="label">Hours</span><div class="val">7AM<br>–8PM</div></div>
@@ -554,9 +575,15 @@
 </section>
 
 <!-- ============ LOOKBOOK STRIP ============ -->
-<section class="lookbook-strip rule-b" aria-label="Inside the cafe">
-  <img src="IMAGES/2C3A1025.jpeg" alt="Inside Blue Hour Coffee — guests at the glowing onyx bar under Nelson bubble lamps" loading="lazy">
-  <span class="cap">Inside 2410 N Murray</span>
+<section class="lookbook-strip rule-b" aria-label="Inside Blue Hour Coffee">
+  <figure>
+    <img src="IMAGES/2C3A1025.jpeg" alt="Guests ordering at the glowing onyx bar under Nelson bubble lamps inside Blue Hour Coffee" loading="lazy">
+  </figure>
+  <div class="caption rv">
+    <span class="label">Inside</span>
+    <h3>2410 N Murray.</h3>
+    <p>Nelson bubble lamps overhead. An onyx bar lit from within. A blue chair waiting for you, every hour we're open.</p>
+  </div>
 </section>
 
 <!-- ============ RUN CLUB ============ -->
