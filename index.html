@@ -95,13 +95,12 @@
     font-size:clamp(1rem,2.7vw,2.05rem); line-height:1.1; letter-spacing:-.01em; }
   .subtitle .dash{ color:var(--coral); }
 
-  /* ---------- full-bleed campaign band (placeholder + overlay) ---------- */
+  /* ---------- full-bleed campaign band ---------- */
   .campaign{ position:relative; height:clamp(420px,62vw,720px); display:grid; place-items:center; text-align:center;
     color:var(--cream); overflow:hidden; }
-  .campaign .ph{ position:absolute; inset:0; background:
-        radial-gradient(140% 120% at 50% 120%, rgba(231,106,60,.22), transparent 55%),
-        linear-gradient(180deg, #10164f 0%, #141C9E 55%, #232ed1 100%); }
-  .campaign .ph .icon{ width:min(38vw,360px); opacity:.22; stroke:var(--cream); }
+  .campaign .bg-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .campaign .overlay{ position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(7,10,51,.42) 0%, rgba(20,28,158,.55) 60%, rgba(31,43,214,.7) 100%); }
   .campaign .inner{ position:relative; padding:0 var(--pad); }
   .campaign .eyebrow{ display:block; margin-bottom:1.2rem; opacity:.85; }
   .campaign h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
@@ -160,8 +159,33 @@
   .editorial .txt .body{ max-width:34rem; margin-top:2rem; }
   .editorial .txt p{ font-size:clamp(.98rem,1.3vw,1.15rem); line-height:1.6; margin:0 0 1.2em; }
   .editorial .txt p:last-child{ margin-bottom:0; }
-  .editorial .look{ aspect-ratio:4/5; border-radius:10px; }
-  .editorial .look .icon{ stroke:var(--blue); }
+  .editorial .look{ aspect-ratio:4/5; border-radius:10px; overflow:hidden; }
+  .editorial .look img{ width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
+  .editorial .look:hover img{ transform:scale(1.03); }
+
+  /* ---------- signature menu (Blank Street-style photo grid) ---------- */
+  .signature{ padding:6vw var(--pad) 5vw; }
+  .signature .head{ display:flex; justify-content:space-between; align-items:flex-end; gap:2rem; margin-bottom:3.4vw; flex-wrap:wrap; }
+  .signature .head h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
+    font-size:clamp(2rem,5vw,4rem); line-height:.95; letter-spacing:-.02em; }
+  .signature .head .brand-mark{ font-weight:500; letter-spacing:.04em; text-transform:uppercase;
+    font-size:clamp(.85rem,1.4vw,1.05rem); }
+  .signature .head .brand-mark .coral{ color:var(--coral); }
+  .drink-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.5rem,2.4vw,2.8rem) clamp(1rem,2vw,2.2rem); }
+  .drink-card{ display:block; }
+  .drink-card .photo{ aspect-ratio:1/1; background:#0c1660; border-radius:10px; overflow:hidden; position:relative; }
+  .drink-card .photo img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+  .drink-card:hover .photo img{ transform:scale(1.04); }
+  .drink-card h3{ margin:1rem 0 .35rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em;
+    font-size:clamp(.85rem,1.05vw,.95rem); line-height:1.1; }
+  .drink-card p{ margin:0; font-size:clamp(.7rem,.85vw,.78rem); color:rgba(31,43,214,.55);
+    text-transform:uppercase; letter-spacing:.08em; line-height:1.5; }
+
+  /* ---------- secondary lookbook (between menu + run club) ---------- */
+  .lookbook-strip{ position:relative; height:clamp(380px,52vw,640px); overflow:hidden; }
+  .lookbook-strip img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .lookbook-strip .cap{ position:absolute; left:var(--pad); bottom:var(--pad); color:var(--cream);
+    text-transform:uppercase; font-size:.72rem; letter-spacing:.18em; font-weight:500; opacity:.85; }
 
   /* ---------- marquee ---------- */
   .marquee{ overflow:hidden; white-space:nowrap; padding:1.1vw 0; }
@@ -288,9 +312,14 @@
     .foot-grid{ grid-template-columns:1fr 1fr; gap:8vw 4vw; }
     .news{ grid-column:1 / -1; }
     .totop{ right:5vw; bottom:5vw; }
+
+    .signature .head{ flex-direction:column; align-items:flex-start; }
+    .drink-grid{ grid-template-columns:1fr 1fr; }
+    .lookbook-strip{ height:60vw; }
   }
   @media (max-width:540px){
     .grid{ grid-template-columns:1fr; }
+    .drink-grid{ grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -369,7 +398,8 @@
 
 <!-- ============ CAMPAIGN BAND ============ -->
 <section class="campaign rule-b">
-  <div class="ph" aria-hidden="true"><svg class="icon" viewBox="0 0 240 320" stroke="currentColor"><use href="#ic-cup"/></svg></div>
+  <img class="bg-img" src="IMAGES/Sequence%2001.00_00_18_08.Still003.jpeg" alt="" aria-hidden="true">
+  <div class="overlay" aria-hidden="true"></div>
   <div class="inner rv">
     <span class="eyebrow label">Open daily · 7am – 8pm</span>
     <h2>The deep blue<br>hours, on tap.</h2>
@@ -428,8 +458,8 @@
       <p class="rv">Pull up a blue chair and stay a while. We built this room to be lingered in. Come early. Stay late.</p>
     </div>
   </div>
-  <div class="ph look rv" data-ph="Lifestyle photo" aria-hidden="true">
-    <svg class="icon" viewBox="0 0 240 320" stroke="var(--blue)"><use href="#ic-cup"/></svg>
+  <div class="look rv">
+    <img src="IMAGES/IMG_1031%202.JPG" alt="The ivy-covered facade of Blue Hour Coffee at 2410 N Murray Ave" loading="lazy">
   </div>
 </section>
 
@@ -438,6 +468,61 @@
   <div class="track">
     <em>Come Early</em><i>✶</i><em>Stay Late</em><i>✶</i><em>Matcha That Sells Out</em><i>✶</i><em>Pour Over</em><i>✶</i><em>Open Every Day</em><i>✶</i>
     <em>Come Early</em><i>✶</i><em>Stay Late</em><i>✶</i><em>Matcha That Sells Out</em><i>✶</i><em>Pour Over</em><i>✶</i><em>Open Every Day</em><i>✶</i>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE MENU (photo grid) ============ -->
+<section class="signature rule-b">
+  <div class="head">
+    <h2 class="rv">Signature Menu</h2>
+    <span class="brand-mark rv">Blue Hour <span class="coral">Coffee</span></span>
+  </div>
+  <div class="drink-grid">
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Banana_Foster_Latte.png" alt="Banana Foster Latte" loading="lazy"></div>
+      <h3>Banana Foster Latte</h3>
+      <p>Brown Butter · Banana · Cinnamon · Brown Sugar</p>
+    </article>
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Vanilla_Latte.png" alt="Vanilla Latte" loading="lazy"></div>
+      <h3>Vanilla Latte</h3>
+      <p>Madagascar Vanilla · Raw Sugar</p>
+    </article>
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Mont_Blanc.png" alt="Mont Blanc" loading="lazy"></div>
+      <h3>Mont Blanc</h3>
+      <p>Kyoto Cold Brew · Orange Cold Foam · Nutmeg · Orange Zest</p>
+    </article>
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Ube_Matcha.png" alt="Ube Matcha" loading="lazy"></div>
+      <h3>Ube Matcha</h3>
+      <p>Ube (Purple Yam) · Brown Sugar</p>
+    </article>
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Black_Sesame_Matcha.png" alt="Black Sesame Matcha" loading="lazy"></div>
+      <h3>Black Sesame Matcha</h3>
+      <p>Black Sesame · Honey</p>
+    </article>
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Vanilla_Matcha.png" alt="Vanilla Matcha" loading="lazy"></div>
+      <h3>Vanilla Matcha</h3>
+      <p>Madagascar Vanilla · Raw Sugar</p>
+    </article>
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Espresso_Tonic.png" alt="Espresso Tonic" loading="lazy"></div>
+      <h3>Espresso Tonic</h3>
+      <p>Hibiscus · Tonic · Espresso</p>
+    </article>
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Lemon_Green_Tea.png" alt="Lemon Green Tea" loading="lazy"></div>
+      <h3>Lemon Green Tea</h3>
+      <p>Green Tea · Honey · Lemon · Blood Orange · Himalayan Pink Salt</p>
+    </article>
+    <article class="drink-card rv">
+      <div class="photo"><img src="IMAGES/BlueHour_Hibiscus_Lime.png" alt="Hibiscus Lime" loading="lazy"></div>
+      <h3>Hibiscus Lime</h3>
+      <p>Hibiscus · Lime · Coconut Water · Raw Sugar · Himalayan Pink Salt</p>
+    </article>
   </div>
 </section>
 
@@ -466,6 +551,12 @@
     <span>© <span data-year>2026</span> Blue Hour Coffee™</span>
     <a href="mailto:info@bluehour.coffee">info@bluehour.coffee</a>
   </div>
+</section>
+
+<!-- ============ LOOKBOOK STRIP ============ -->
+<section class="lookbook-strip rule-b" aria-label="Inside the cafe">
+  <img src="IMAGES/2C3A1025.jpeg" alt="Inside Blue Hour Coffee — guests at the glowing onyx bar under Nelson bubble lamps" loading="lazy">
+  <span class="cap">Inside 2410 N Murray</span>
 </section>
 
 <!-- ============ RUN CLUB ============ -->
