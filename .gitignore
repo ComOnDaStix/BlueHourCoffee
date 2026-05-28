@@ -10,11 +10,12 @@ node_modules/
 # claude code tooling
 .claude/
 
-# heavy video files - need compression before pushing
+# heavy video files - keep originals out, only ship compressed web versions
 *.MP4
-*.mp4
 *.mov
 *.MOV
+*.mp4
+!IMAGES/hero-bg.mp4
 
 # editor / misc
 CLAUDE (1).md
