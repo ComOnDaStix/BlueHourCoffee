@@ -79,16 +79,22 @@
   .burger{ display:none; background:none; border:0; color:inherit; font-size:.72rem; letter-spacing:.14em;
     text-transform:uppercase; font-weight:500; cursor:pointer; }
 
-  /* ---------- hero (cream, wordmark) ---------- */
-  .hero{ position:relative; padding:clamp(2rem,5vw,4rem) var(--pad) 1.6vw; isolation:isolate; overflow:hidden; }
+  /* ---------- hero (video bg, centered wordmark) ---------- */
+  .hero{ position:relative; padding:clamp(5rem,9vw,8rem) var(--pad) clamp(4rem,7vw,6rem); isolation:isolate; overflow:hidden;
+    min-height:clamp(560px,82vh,860px); display:flex; flex-direction:column; justify-content:center; }
   .hero .hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
-  .hero::before{ content:""; position:absolute; inset:0; background:rgba(246,240,227,.55); z-index:1; pointer-events:none; }
   .hero .wordmark, .hero .meta{ position:relative; z-index:2; }
+  .hero .meta .label, .hero .meta .val{ text-shadow:0 0 14px rgba(246,240,227,.7), 0 0 4px rgba(246,240,227,.5); }
+  .hero .wordmark{ text-shadow:0 0 30px rgba(246,240,227,.35); }
   .hero .wordmark{
     font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:700;
-    font-size:clamp(3.4rem,15.5vw,15rem);
+    font-size:clamp(2.8rem,11.5vw,11rem);
     color:var(--blue);
+    text-align:center;
+    line-height:.88;
+    letter-spacing:-.04em;
+    margin:0 auto;
   }
   .hero .wordmark span{ display:block; }
   .hero .meta{ position:absolute; bottom:1.6vw; text-align:center; }
@@ -108,8 +114,9 @@
     color:var(--cream); overflow:hidden; }
   .campaign .bg-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
   .campaign .overlay{ position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(7,10,51,.42) 0%, rgba(20,28,158,.55) 60%, rgba(31,43,214,.7) 100%); }
+    background:linear-gradient(180deg, transparent 35%, rgba(7,10,51,.55) 100%); }
   .campaign .inner{ position:relative; padding:0 var(--pad); }
+  .campaign h2{ text-shadow:0 2px 24px rgba(7,10,51,.45); }
   .campaign .eyebrow{ display:block; margin-bottom:1.2rem; opacity:.85; }
   .campaign h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
     font-size:clamp(2.4rem,7vw,5.5rem); line-height:.95; letter-spacing:-.02em; }
