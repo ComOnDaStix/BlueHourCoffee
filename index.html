@@ -79,23 +79,40 @@
   .burger{ display:none; background:none; border:0; color:inherit; font-size:.72rem; letter-spacing:.14em;
     text-transform:uppercase; font-weight:500; cursor:pointer; }
 
-  /* ---------- video hero (clean cinematic loop) ---------- */
-  .video-hero{ position:relative; height:clamp(360px,58vh,640px); overflow:hidden; background:#0a1140; }
-  .video-hero video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-
-  /* ---------- wordmark section (cream, brand identity) ---------- */
-  .hero{ position:relative; padding:clamp(4rem,8vw,7rem) var(--pad) clamp(4rem,7vw,6rem); }
+  /* ---------- hero (full-screen video + centered content) ---------- */
+  .hero{ position:relative; min-height:100vh; min-height:100svh; display:flex; align-items:center; justify-content:center;
+    overflow:hidden; background:#0a1140; isolation:isolate;
+    padding:clamp(6rem,12vh,9rem) var(--pad) clamp(4rem,8vh,7rem); text-align:center; }
+  .hero video.hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .hero::before{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(7,10,51,.30) 0%, rgba(7,10,51,.10) 35%, rgba(7,10,51,.55) 100%); }
+  .hero .inner{ position:relative; z-index:2; max-width:62rem; color:var(--cream);
+    display:flex; flex-direction:column; align-items:center; gap:clamp(1.4rem,2vw,2rem);
+    animation:heroIn 1s var(--ease) both .15s; }
+  @keyframes heroIn{ from{ opacity:0; transform:translateY(20px);} to{ opacity:1; transform:none;} }
   .hero .wordmark{
     font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:700;
-    font-size:clamp(2.8rem,12vw,11rem);
-    color:var(--blue);
-    text-align:center;
-    line-height:.88;
-    letter-spacing:-.04em;
-    margin:0 auto;
+    font-size:clamp(2.8rem,11vw,9.5rem);
+    line-height:.86;
+    letter-spacing:-.045em;
+    margin:0;
+    color:var(--cream);
   }
   .hero .wordmark span{ display:block; }
+  .hero .lead{
+    margin:0; max-width:34rem; font-size:clamp(1.05rem,1.5vw,1.3rem); line-height:1.55;
+    color:rgba(246,240,227,.88); font-weight:400;
+  }
+  .hero .ctas{ display:flex; gap:clamp(.7rem,1vw,1rem); flex-wrap:wrap; justify-content:center; margin-top:.6rem; }
+  .hero .btn{ border-color:var(--cream); color:var(--cream); }
+  .hero .btn:hover{ background:var(--cream); color:var(--blue); }
+  .hero .btn.solid{ background:var(--cream); color:var(--blue); border-color:var(--cream); }
+  .hero .btn.solid:hover{ background:transparent; color:var(--cream); }
+  .hero .corner-meta{ position:absolute; bottom:clamp(1rem,2vh,1.6rem); z-index:2; color:rgba(246,240,227,.75);
+    font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; }
+  .hero .corner-meta.left{ left:var(--pad); }
+  .hero .corner-meta.right{ right:var(--pad); }
   .hero .meta{ position:absolute; bottom:1.6vw; text-align:center; }
   .hero .meta .label{ margin-bottom:.7rem; display:block; }
   .hero .meta .val{ font-family:var(--serif); font-weight:300; font-size:clamp(1.3rem,4.6vw,3.4rem); line-height:.95; letter-spacing:-.02em; text-transform:uppercase; }
@@ -304,12 +321,10 @@
     .burger{ display:block; justify-self:start; }
     .actions .loc{ display:none; }
 
-    .video-hero{ height:clamp(240px,42vh,420px); }
-    .hero{ padding:14vw var(--pad) 18vw; }
+    .hero{ min-height:88vh; min-height:88svh; padding:8rem var(--pad) 6rem; }
     .hero .wordmark{ font-size:14vw; letter-spacing:-.05em; }
-    .hero .meta{ position:static; display:block; width:100%; margin-top:6vw; text-align:left; }
-    .hero .meta.right{ text-align:left; }
-    .hero .meta .val{ font-size:7vw; }
+    .hero .lead{ font-size:1rem; max-width:26rem; }
+    .hero .corner-meta{ font-size:.6rem; letter-spacing:.18em; }
 
     .grid{ grid-template-columns:1fr 1fr; gap:4vw; }
 
@@ -408,23 +423,28 @@
   </div>
 </header>
 
-<!-- ============ VIDEO HERO ============ -->
-<section id="top" class="video-hero rule-b">
-  <video autoplay muted loop playsinline preload="auto" aria-hidden="true">
+<!-- ============ HERO ============ -->
+<section id="top" class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
     <source src="IMAGES/hero-bg.mp4" type="video/mp4">
   </video>
-</section>
 
-<!-- ============ WORDMARK ============ -->
-<section class="hero rule-b">
-  <h1 class="wordmark grot-xl rv in"><span>Blue Hour</span><span>Coffee</span></h1>
-  <div class="meta left rv in"><span class="label">Where</span><div class="val">2410 N<br>Murray</div></div>
-  <div class="meta right rv in"><span class="label">Hours</span><div class="val">7AM<br>–8PM</div></div>
-</section>
+  <div class="inner">
+    <h1 class="wordmark">
+      <span>Blue Hour</span>
+      <span>Coffee</span>
+    </h1>
+    <p class="lead">
+      Come early. Stay late. A coffee bar for the deep blue hours on Milwaukee's east side.
+    </p>
+    <div class="ctas">
+      <a href="#visit" class="btn solid">Visit Us</a>
+      <a href="#menu" class="btn">See the Menu</a>
+    </div>
+  </div>
 
-<!-- ============ SUBTITLE ============ -->
-<section class="subtitle rule-b">
-  <p class="rv">Come early. Stay late. <span class="dash">—</span> A coffee bar in Milwaukee, WI</p>
+  <span class="corner-meta left">2410 N Murray · Milwaukee</span>
+  <span class="corner-meta right">Open Daily · 7AM – 8PM</span>
 </section>
 
 <!-- ============ CAMPAIGN BAND ============ -->
