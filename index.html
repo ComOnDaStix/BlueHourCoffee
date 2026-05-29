@@ -199,23 +199,56 @@
   .editorial .look img{ width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
   .editorial .look:hover img{ transform:scale(1.03); }
 
-  /* ---------- signature menu (Blank Street-style photo grid) ---------- */
-  .signature{ padding:6vw var(--pad) 5vw; }
-  .signature .head{ display:flex; justify-content:space-between; align-items:flex-end; gap:2rem; margin-bottom:3.4vw; flex-wrap:wrap; }
-  .signature .head h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(2rem,5vw,4rem); line-height:.95; letter-spacing:-.02em; }
-  .signature .head .brand-mark{ font-weight:500; letter-spacing:.04em; text-transform:uppercase;
-    font-size:clamp(.85rem,1.4vw,1.05rem); }
-  .signature .head .brand-mark .coral{ color:var(--coral); }
-  .drink-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(1.5rem,2.4vw,2.8rem) clamp(1rem,2vw,2.2rem); }
-  .drink-card{ display:block; }
-  .drink-card .photo{ aspect-ratio:1/1; background:#0c1660; border-radius:10px; overflow:hidden; position:relative; }
-  .drink-card .photo img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
-  .drink-card:hover .photo img{ transform:scale(1.04); }
-  .drink-card h3{ margin:1rem 0 .35rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em;
-    font-size:clamp(.85rem,1.05vw,.95rem); line-height:1.1; }
-  .drink-card p{ margin:0; font-size:clamp(.7rem,.85vw,.78rem); color:rgba(31,43,214,.55);
-    text-transform:uppercase; letter-spacing:.08em; line-height:1.5; }
+  /* ---------- menu (Kith Treats-inspired retail tile grid) ---------- */
+  .menu-kith{ padding:5vw var(--pad) 6vw; background:var(--cream); }
+  .menu-banner{ display:grid; grid-template-columns:1.4fr 1fr; gap:3vw; align-items:end;
+    padding-bottom:2.4vw; border-bottom:var(--rule) solid var(--blue); }
+  .menu-banner .eyebrow{ display:block; margin-bottom:1.3rem;
+    font-size:clamp(.64rem,.9vw,.78rem); letter-spacing:.22em; text-transform:uppercase;
+    color:rgba(31,43,214,.6); font-weight:500; }
+  .menu-banner h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
+    font-size:clamp(2.6rem,7.4vw,6.6rem); line-height:.92; letter-spacing:-.025em; }
+  .menu-banner .lede{ margin:0; font-size:clamp(.95rem,1.2vw,1.06rem); line-height:1.55;
+    max-width:24rem; color:rgba(31,43,214,.78); justify-self:end; }
+  .menu-tabs{ display:flex; flex-wrap:wrap; gap:.5rem; padding:2.4vw 0 3vw;
+    border-bottom:var(--rule) solid var(--blue); }
+  .menu-tabs button{ background:transparent; border:1.5px solid rgba(31,43,214,.22); border-radius:100px;
+    padding:.55rem 1.2rem .6rem; color:var(--blue); cursor:pointer;
+    font-family:var(--grot); font-weight:500;
+    font-size:clamp(.7rem,.92vw,.8rem); letter-spacing:.14em; text-transform:uppercase;
+    transition:background-color .28s var(--ease), color .28s var(--ease), border-color .28s var(--ease); }
+  .menu-tabs button:hover{ border-color:var(--blue); }
+  .menu-tabs button.active{ background:var(--blue); color:var(--cream); border-color:var(--blue); }
+  .treats-grid{ display:grid; grid-template-columns:repeat(3,1fr);
+    gap:clamp(2.4rem,3.4vw,3.6rem) clamp(1.4rem,2.4vw,2.4rem);
+    padding-top:3vw; }
+  .treat{ position:relative; display:flex; flex-direction:column; }
+  .treat[hidden]{ display:none; }
+  .treat .photo{ position:relative; aspect-ratio:1/1; background:#0c1660; border-radius:8px;
+    overflow:hidden; transition:transform .6s var(--ease); }
+  .treat:hover .photo{ transform:translateY(-4px); }
+  .treat .photo img{ width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
+  .treat:hover .photo img{ transform:scale(1.05); }
+  .treat .num{ position:absolute; top:1rem; left:1.1rem; z-index:2;
+    font-family:var(--serif); font-weight:300; color:var(--cream); opacity:.92;
+    font-size:clamp(.95rem,1.15vw,1.05rem); letter-spacing:0; }
+  .treat .tag{ position:absolute; top:1rem; right:1.1rem; z-index:2;
+    background:var(--cream); color:var(--blue);
+    font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; font-weight:600;
+    padding:.32rem .6rem .35rem; border-radius:100px; }
+  .treat .tag.coral{ background:var(--coral); color:var(--cream); }
+  .treat .info{ padding-top:1.15rem; display:flex; flex-direction:column; gap:.45rem; }
+  .treat .info .cat{ font-size:.62rem; letter-spacing:.22em; text-transform:uppercase;
+    color:rgba(31,43,214,.55); font-weight:500; }
+  .treat .info h3{ margin:0; font-family:var(--grot); font-weight:600; text-transform:uppercase;
+    font-size:clamp(.92rem,1.18vw,1.08rem); letter-spacing:.04em; line-height:1.15; }
+  .treat .info p{ margin:.15rem 0 0; font-size:clamp(.74rem,.9vw,.82rem); line-height:1.55;
+    color:rgba(31,43,214,.62); letter-spacing:.01em; }
+  .menu-foot{ margin-top:5vw; padding-top:2.4vw; border-top:var(--rule) solid var(--blue);
+    display:flex; justify-content:space-between; align-items:center; gap:1.4rem; flex-wrap:wrap; }
+  .menu-foot .meta{ font-size:clamp(.7rem,.92vw,.82rem); letter-spacing:.16em; text-transform:uppercase;
+    color:rgba(31,43,214,.72); }
+  .menu-foot .btn{ padding:.7rem 1.8rem .75rem; font-size:clamp(.72rem,.95vw,.84rem); }
 
   /* ---------- secondary lookbook (between menu + run club) ---------- */
   .lookbook-strip{ display:grid; grid-template-columns:1fr 1fr; background:#0c1660; color:var(--cream); }
@@ -356,15 +389,18 @@
     .news{ grid-column:1 / -1; }
     .totop{ right:5vw; bottom:5vw; }
 
-    .signature .head{ flex-direction:column; align-items:flex-start; }
-    .drink-grid{ grid-template-columns:1fr 1fr; }
+    .menu-banner{ grid-template-columns:1fr; gap:1.6rem; align-items:flex-start; }
+    .menu-banner .lede{ justify-self:start; }
+    .menu-tabs{ gap:.45rem; }
+    .treats-grid{ grid-template-columns:repeat(2,1fr); gap:8vw 4vw; }
+    .menu-foot{ flex-direction:column; align-items:flex-start; gap:1.4rem; }
     .lookbook-strip{ grid-template-columns:1fr; }
     .lookbook-strip figure{ aspect-ratio:3/4; }
     .lookbook-strip .caption{ padding:10vw 6vw; }
   }
   @media (max-width:540px){
     .grid{ grid-template-columns:1fr; }
-    .drink-grid{ grid-template-columns:1fr; }
+    .treats-grid{ grid-template-columns:1fr; gap:9vw; }
   }
 </style>
 </head>
@@ -452,58 +488,139 @@
   </div>
 </section>
 
-<!-- ============ SIGNATURE MENU (photo grid) ============ -->
-<section id="menu" class="signature rule-b" style="scroll-margin-top:64px;">
-  <div class="head">
-    <h2 class="rv">Signature Menu</h2>
-    <span class="brand-mark rv">Blue Hour <span class="coral">Coffee</span></span>
+<!-- ============ MENU (Kith Treats-inspired retail grid) ============ -->
+<section id="menu" class="menu-kith rule-b" style="scroll-margin-top:64px;">
+  <div class="menu-banner rv">
+    <div>
+      <span class="eyebrow">Menu · 2410 N Murray</span>
+      <h2>Drinks of<br>the Hour</h2>
+    </div>
+    <p class="lede">Single-origin espresso, ceremonial-grade matcha, and house-made syrups. Pulled fresh every blue hour.</p>
   </div>
-  <div class="drink-grid">
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Banana_Foster_Latte.png" alt="Banana Foster Latte" loading="lazy"></div>
-      <h3>Banana Foster Latte</h3>
-      <p>Brown Butter · Banana · Cinnamon · Brown Sugar</p>
+
+  <nav class="menu-tabs rv" aria-label="Menu categories" data-tabs>
+    <button class="active" data-cat="all">All Drinks</button>
+    <button data-cat="latte">Lattes</button>
+    <button data-cat="matcha">Matcha</button>
+    <button data-cat="cold">Cold</button>
+    <button data-cat="tea">Tea &amp; Tonics</button>
+  </nav>
+
+  <div class="treats-grid" data-grid>
+    <article class="treat rv" data-cat="latte">
+      <div class="photo">
+        <span class="num">01</span>
+        <span class="tag coral">Signature</span>
+        <img src="IMAGES/BlueHour_Banana_Foster_Latte.png" alt="Banana Foster Latte" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Hot Latte</span>
+        <h3>Banana Foster Latte</h3>
+        <p>Brown butter · banana · cinnamon · brown sugar</p>
+      </div>
     </article>
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Vanilla_Latte.png" alt="Vanilla Latte" loading="lazy"></div>
-      <h3>Vanilla Latte</h3>
-      <p>Madagascar Vanilla · Raw Sugar</p>
+
+    <article class="treat rv" data-cat="latte">
+      <div class="photo">
+        <span class="num">02</span>
+        <img src="IMAGES/BlueHour_Vanilla_Latte.png" alt="Vanilla Latte" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Hot Latte</span>
+        <h3>Vanilla Latte</h3>
+        <p>Madagascar vanilla · raw sugar</p>
+      </div>
     </article>
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Mont_Blanc.png" alt="Mont Blanc" loading="lazy"></div>
-      <h3>Mont Blanc</h3>
-      <p>Kyoto Cold Brew · Orange Cold Foam · Nutmeg · Orange Zest</p>
+
+    <article class="treat rv" data-cat="cold">
+      <div class="photo">
+        <span class="num">03</span>
+        <img src="IMAGES/BlueHour_Mont_Blanc.png" alt="Mont Blanc" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Cold Brew</span>
+        <h3>Mont Blanc</h3>
+        <p>Kyoto cold brew · orange cold foam · nutmeg · orange zest</p>
+      </div>
     </article>
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Ube_Matcha.png" alt="Ube Matcha" loading="lazy"></div>
-      <h3>Ube Matcha</h3>
-      <p>Ube (Purple Yam) · Brown Sugar</p>
+
+    <article class="treat rv" data-cat="matcha">
+      <div class="photo">
+        <span class="num">04</span>
+        <img src="IMAGES/BlueHour_Ube_Matcha.png" alt="Ube Matcha" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Matcha</span>
+        <h3>Ube Matcha</h3>
+        <p>Ube (purple yam) · brown sugar</p>
+      </div>
     </article>
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Black_Sesame_Matcha.png" alt="Black Sesame Matcha" loading="lazy"></div>
-      <h3>Black Sesame Matcha</h3>
-      <p>Black Sesame · Honey</p>
+
+    <article class="treat rv" data-cat="matcha">
+      <div class="photo">
+        <span class="num">05</span>
+        <img src="IMAGES/BlueHour_Black_Sesame_Matcha.png" alt="Black Sesame Matcha" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Matcha</span>
+        <h3>Black Sesame Matcha</h3>
+        <p>Black sesame · honey</p>
+      </div>
     </article>
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Vanilla_Matcha.png" alt="Vanilla Matcha" loading="lazy"></div>
-      <h3>Vanilla Matcha</h3>
-      <p>Madagascar Vanilla · Raw Sugar</p>
+
+    <article class="treat rv" data-cat="matcha">
+      <div class="photo">
+        <span class="num">06</span>
+        <span class="tag">Best Seller</span>
+        <img src="IMAGES/BlueHour_Vanilla_Matcha.png" alt="Vanilla Matcha" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Matcha</span>
+        <h3>Vanilla Matcha</h3>
+        <p>Madagascar vanilla · raw sugar</p>
+      </div>
     </article>
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Espresso_Tonic.png" alt="Espresso Tonic" loading="lazy"></div>
-      <h3>Espresso Tonic</h3>
-      <p>Hibiscus · Tonic · Espresso</p>
+
+    <article class="treat rv" data-cat="cold">
+      <div class="photo">
+        <span class="num">07</span>
+        <img src="IMAGES/BlueHour_Espresso_Tonic.png" alt="Espresso Tonic" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Iced Espresso</span>
+        <h3>Espresso Tonic</h3>
+        <p>Hibiscus · tonic · espresso</p>
+      </div>
     </article>
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Lemon_Green_Tea.png" alt="Lemon Green Tea" loading="lazy"></div>
-      <h3>Lemon Green Tea</h3>
-      <p>Green Tea · Honey · Lemon · Blood Orange · Himalayan Pink Salt</p>
+
+    <article class="treat rv" data-cat="tea">
+      <div class="photo">
+        <span class="num">08</span>
+        <img src="IMAGES/BlueHour_Lemon_Green_Tea.png" alt="Lemon Green Tea" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Iced Tea</span>
+        <h3>Lemon Green Tea</h3>
+        <p>Green tea · honey · lemon · blood orange · pink salt</p>
+      </div>
     </article>
-    <article class="drink-card rv">
-      <div class="photo"><img src="IMAGES/BlueHour_Hibiscus_Lime.png" alt="Hibiscus Lime" loading="lazy"></div>
-      <h3>Hibiscus Lime</h3>
-      <p>Hibiscus · Lime · Coconut Water · Raw Sugar · Himalayan Pink Salt</p>
+
+    <article class="treat rv" data-cat="tea">
+      <div class="photo">
+        <span class="num">09</span>
+        <img src="IMAGES/BlueHour_Hibiscus_Lime.png" alt="Hibiscus Lime" loading="lazy">
+      </div>
+      <div class="info">
+        <span class="cat">Tonic</span>
+        <h3>Hibiscus Lime</h3>
+        <p>Hibiscus · lime · coconut water · raw sugar · pink salt</p>
+      </div>
     </article>
+  </div>
+
+  <div class="menu-foot rv">
+    <span class="meta">9 drinks · Always pouring</span>
+    <a href="#visit" class="btn blue">Order Pickup</a>
   </div>
 </section>
 
@@ -720,6 +837,22 @@
     const open = (d===0||d===6) ? 8 : 7;
     if (h>=open && h<20) el.textContent = 'Open now · til 8pm';
     else el.textContent = h<open ? ('Opens '+open+'am') : ('Closed · back at '+open+'am');
+  })();
+
+  // menu category tabs
+  (function(){
+    const tabs = document.querySelector('[data-tabs]');
+    const grid = document.querySelector('[data-grid]');
+    if(!tabs || !grid) return;
+    tabs.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-cat]'); if(!btn) return;
+      tabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      grid.querySelectorAll('.treat').forEach(card => {
+        card.hidden = !(cat === 'all' || card.dataset.cat === cat);
+      });
+    });
   })();
 </script>
 </body>
