@@ -79,15 +79,16 @@
   .burger{ display:none; background:none; border:0; color:inherit; font-size:.72rem; letter-spacing:.14em;
     text-transform:uppercase; font-weight:500; cursor:pointer; }
 
-  /* ---------- hero (video bg, centered wordmark) ---------- */
-  .hero{ position:relative; padding:clamp(5rem,9vw,8rem) var(--pad) clamp(4rem,7vw,6rem); isolation:isolate; overflow:hidden;
-    min-height:clamp(560px,82vh,860px); display:flex; flex-direction:column; justify-content:center; }
-  .hero .hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
-  .hero .wordmark, .hero .meta{ position:relative; z-index:2; }
+  /* ---------- video hero (clean cinematic loop) ---------- */
+  .video-hero{ position:relative; height:clamp(360px,58vh,640px); overflow:hidden; background:#0a1140; }
+  .video-hero video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* ---------- wordmark section (cream, brand identity) ---------- */
+  .hero{ position:relative; padding:clamp(4rem,8vw,7rem) var(--pad) clamp(4rem,7vw,6rem); }
   .hero .wordmark{
     font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:700;
-    font-size:clamp(2.8rem,11.5vw,11rem);
+    font-size:clamp(2.8rem,12vw,11rem);
     color:var(--blue);
     text-align:center;
     line-height:.88;
@@ -303,8 +304,9 @@
     .burger{ display:block; justify-self:start; }
     .actions .loc{ display:none; }
 
-    .hero{ padding-bottom:8vw; }
-    .hero .wordmark{ font-size:12.5vw; letter-spacing:-.05em; }
+    .video-hero{ height:clamp(240px,42vh,420px); }
+    .hero{ padding:14vw var(--pad) 18vw; }
+    .hero .wordmark{ font-size:14vw; letter-spacing:-.05em; }
     .hero .meta{ position:static; display:block; width:100%; margin-top:6vw; text-align:left; }
     .hero .meta.right{ text-align:left; }
     .hero .meta .val{ font-size:7vw; }
@@ -406,11 +408,15 @@
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section id="top" class="hero rule-b">
-  <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+<!-- ============ VIDEO HERO ============ -->
+<section id="top" class="video-hero rule-b">
+  <video autoplay muted loop playsinline preload="auto" aria-hidden="true">
     <source src="IMAGES/hero-bg.mp4" type="video/mp4">
   </video>
+</section>
+
+<!-- ============ WORDMARK ============ -->
+<section class="hero rule-b">
   <h1 class="wordmark grot-xl rv in"><span>Blue Hour</span><span>Coffee</span></h1>
   <div class="meta left rv in"><span class="label">Where</span><div class="val">2410 N<br>Murray</div></div>
   <div class="meta right rv in"><span class="label">Hours</span><div class="val">7AM<br>–8PM</div></div>
