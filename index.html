@@ -12,8 +12,8 @@
   :root{
     --cream:#F6F0E3;
     --cream-2:#EDE4D1;
-    --blue:#1F2BD6;          /* brand cobalt */
-    --blue-deep:#141C9E;
+    --blue:#1a1a1a;          /* near-black ink */
+    --blue-deep:#000;        /* true black for hover */
     --coral:#E76A3C;
     --rule:1.5px;
     --pad:2.1vw;
@@ -48,7 +48,7 @@
 
   /* tasteful, swappable image placeholder ----------------------------- */
   .ph{ position:relative; overflow:hidden; background:
-        radial-gradient(120% 120% at 30% 20%, rgba(31,43,214,.10), transparent 60%),
+        radial-gradient(120% 120% at 30% 20%, rgba(26,26,26,.10), transparent 60%),
         linear-gradient(135deg, #ECE3D0, #E1D7BF); display:grid; place-items:center; }
   .ph svg.icon{ width:34%; height:auto; opacity:.55; }
   .ph[data-ph]::after{ content:attr(data-ph); position:absolute; left:.75rem; bottom:.6rem;
@@ -113,7 +113,7 @@
   .subtitle .cap-line{
     margin:.55rem auto 0; max-width:34rem;
     font-size:clamp(.68rem,.85vw,.78rem); letter-spacing:.22em;
-    text-transform:uppercase; color:rgba(31,43,214,.6);
+    text-transform:uppercase; color:rgba(26,26,26,.6);
   }
 
   /* ---------- full-bleed campaign band ---------- */
@@ -188,11 +188,11 @@
   .bs-block.flip > .copy{ order:2; }
   .bs-block .copy{ display:flex; flex-direction:column; gap:1.4rem; max-width:34rem; }
   .bs-block .copy .eyebrow{ font-size:clamp(.66rem,.9vw,.78rem); letter-spacing:.22em;
-    text-transform:uppercase; color:rgba(31,43,214,.55); font-weight:500; }
+    text-transform:uppercase; color:rgba(26,26,26,.55); font-weight:500; }
   .bs-block .copy h2{ margin:0; font-weight:500; text-transform:lowercase;
     font-size:clamp(2.2rem,5vw,4rem); line-height:.95; letter-spacing:-.035em; color:var(--blue); }
   .bs-block .copy p{ margin:0; font-size:clamp(1rem,1.2vw,1.12rem); line-height:1.55;
-    color:rgba(31,43,214,.85); }
+    color:rgba(26,26,26,.85); }
   .bs-block .visual{ aspect-ratio:5/6; overflow:hidden; border-radius:6px; background:var(--cream-2); }
   .bs-block .visual img{ width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
   .bs-block .visual:hover img{ transform:scale(1.03); }
@@ -203,12 +203,12 @@
     padding-bottom:2.4vw; border-bottom:var(--rule) solid var(--blue); }
   .menu-banner .eyebrow{ display:block; margin-bottom:1.3rem;
     font-size:clamp(.64rem,.9vw,.78rem); letter-spacing:.22em; text-transform:uppercase;
-    color:rgba(31,43,214,.6); font-weight:500; }
+    color:rgba(26,26,26,.6); font-weight:500; }
   .menu-banner h2{ margin:0; font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-weight:500;
     text-transform:lowercase;
     font-size:clamp(2.6rem,7.4vw,6.6rem); line-height:.9; letter-spacing:-.035em; }
   .menu-banner .lede{ margin:0; font-size:clamp(.95rem,1.2vw,1.06rem); line-height:1.55;
-    max-width:24rem; color:rgba(31,43,214,.78); justify-self:end; }
+    max-width:24rem; color:rgba(26,26,26,.78); justify-self:end; }
   .treats-rail{ position:relative; padding:3.6vw 0 1.4vw;
     margin:0 calc(var(--pad) * -1); }
   .treats-scroller{ overflow-x:auto; overflow-y:hidden; scrollbar-width:none;
@@ -224,7 +224,7 @@
     width:46px; height:46px; border-radius:50%; border:0; cursor:pointer;
     background:var(--blue); color:var(--cream);
     display:grid; place-items:center; opacity:.95;
-    box-shadow:0 12px 28px -10px rgba(20,28,158,.45);
+    box-shadow:0 12px 28px -10px rgba(0,0,0,.45);
     transition:background-color .3s var(--ease), opacity .3s var(--ease), transform .25s var(--ease); }
   .rail-arrow:hover{ background:var(--blue-deep); opacity:1; transform:translateY(-50%) scale(1.05); }
   .rail-arrow:active{ transform:translateY(-50%) scale(.96); }
@@ -248,20 +248,20 @@
   .treat .tag.coral{ background:var(--coral); color:var(--cream); }
   .treat .info{ padding-top:1.2rem; display:flex; flex-direction:column; gap:.45rem; align-items:flex-start; }
   .treat .info .cat{ font-size:.62rem; letter-spacing:.22em; text-transform:uppercase;
-    color:rgba(31,43,214,.55); font-weight:500; }
+    color:rgba(26,26,26,.55); font-weight:500; }
   .treat .info h3{ margin:0; font-family:var(--grot); font-weight:600; text-transform:uppercase;
     font-size:clamp(.92rem,1.18vw,1.08rem); letter-spacing:.04em; line-height:1.15; color:var(--blue); }
   .treat .info p{ margin:.15rem 0 0; font-size:clamp(.74rem,.9vw,.82rem); line-height:1.55;
-    color:rgba(31,43,214,.62); letter-spacing:.01em; }
+    color:rgba(26,26,26,.62); letter-spacing:.01em; }
   .treat .info .temp{ margin-top:.6rem; display:inline-block;
     font-size:.56rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600;
     color:var(--coral); padding:.3rem .6rem .32rem;
     border:1px solid currentColor; border-radius:100px; }
-  .treat .info .temp.iced-only{ color:rgba(31,43,214,.45); }
+  .treat .info .temp.iced-only{ color:rgba(26,26,26,.45); }
   .menu-foot{ margin-top:5vw; padding-top:2.4vw; border-top:var(--rule) solid var(--blue);
     display:flex; justify-content:space-between; align-items:center; gap:1.4rem; flex-wrap:wrap; }
   .menu-foot .meta{ font-size:clamp(.7rem,.92vw,.82rem); letter-spacing:.16em; text-transform:uppercase;
-    color:rgba(31,43,214,.72); }
+    color:rgba(26,26,26,.72); }
   .menu-foot .btn{ padding:.7rem 1.8rem .75rem; font-size:clamp(.72rem,.95vw,.84rem); }
 
   /* ---------- secondary lookbook (between menu + run club) ---------- */
@@ -331,7 +331,7 @@
   .foot-grid li a:hover::after{ transform:scaleX(1); transform-origin:left; }
   .news form{ display:flex; align-items:center; background:var(--cream); border-radius:100px; padding:.3rem .3rem .3rem 1.2rem; max-width:360px; }
   .news input{ flex:1; border:0; background:none; outline:none; font:inherit; color:var(--blue); font-size:.92rem; padding:.5rem 0; }
-  .news input::placeholder{ color:rgba(20,28,158,.55); }
+  .news input::placeholder{ color:rgba(0,0,0,.55); }
   .news button{ border:0; background:none; color:var(--blue); font-weight:600; font-size:.72rem; letter-spacing:.16em;
     text-transform:uppercase; padding:.5rem 1rem; cursor:pointer; }
   .socials{ display:flex; gap:1.1rem; margin-top:2rem; }
@@ -349,7 +349,7 @@
     background:var(--blue); color:var(--cream); border:0; display:grid; place-items:center; cursor:pointer;
     opacity:0; transform:translateY(14px); pointer-events:none;
     transition:opacity .4s var(--ease), transform .4s var(--ease), background-color .3s var(--ease);
-    box-shadow:0 10px 28px -10px rgba(20,28,158,.6); }
+    box-shadow:0 10px 28px -10px rgba(0,0,0,.6); }
   .totop.show{ opacity:1; transform:none; pointer-events:auto; }
   .totop:hover{ background:var(--blue-deep); }
 
@@ -478,6 +478,19 @@
         <p><span class="day">sat – sun</span> · 8am — 8pm</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ STORY (Blank Street-style block) ============ -->
+<section id="story" class="bs-block rule-b" style="scroll-margin-top:64px;">
+  <div class="copy rv">
+    <span class="eyebrow">The Place</span>
+    <h2>Even our building<br>drinks matcha.</h2>
+    <p>From the outside we're a small box on Murray Ave, wrapped top to bottom in green ivy. Inside it's soft Nelson bubble light and a bar carved from backlit onyx. Pull up a blue chair and stay a while.</p>
+    <a href="#visit" class="arrow-link">Plan your visit</a>
+  </div>
+  <div class="visual rv">
+    <img src="IMAGES/IMG_1031%202.JPG" alt="The ivy-covered facade of Blue Hour Coffee at 2410 N Murray Ave" loading="lazy">
   </div>
 </section>
 
@@ -647,19 +660,6 @@
       <a href="#visit" class="btn cream">Visit us</a>
       <a href="#menu" class="btn cream">See the menu</a>
     </div>
-  </div>
-</section>
-
-<!-- ============ STORY (Blank Street-style block) ============ -->
-<section id="story" class="bs-block rule-b" style="scroll-margin-top:64px;">
-  <div class="copy rv">
-    <span class="eyebrow">The Place</span>
-    <h2>Even our building<br>drinks matcha.</h2>
-    <p>From the outside we're a small box on Murray Ave, wrapped top to bottom in green ivy. Inside it's soft Nelson bubble light and a bar carved from backlit onyx. Pull up a blue chair and stay a while.</p>
-    <a href="#visit" class="arrow-link">Plan your visit</a>
-  </div>
-  <div class="visual rv">
-    <img src="IMAGES/IMG_1031%202.JPG" alt="The ivy-covered facade of Blue Hour Coffee at 2410 N Murray Ave" loading="lazy">
   </div>
 </section>
 
