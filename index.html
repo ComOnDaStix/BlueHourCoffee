@@ -67,8 +67,11 @@
     transform:scaleX(0); transform-origin:right; transition:transform .5s var(--ease); }
   nav.top a:hover::after, nav.top a:focus-visible::after{ transform:scaleX(1); transform-origin:left; }
   .logo{ justify-self:center; font-weight:700; letter-spacing:.02em; text-transform:uppercase;
-    font-size:clamp(.95rem,1.7vw,1.2rem); white-space:nowrap; }
+    font-size:clamp(.95rem,1.7vw,1.2rem); white-space:nowrap;
+    display:inline-flex; align-items:center; gap:.5rem; }
   .logo sup{ font-size:.5em; top:-.7em; }
+  .logo .mark{ width:clamp(14px,1.3vw,20px); height:auto; display:block;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.18)); }
   .actions{ justify-self:end; display:flex; align-items:center; gap:1.1rem; }
   .actions .ic{ width:20px; height:20px; opacity:.92; transition:opacity .3s var(--ease), transform .3s var(--ease); }
   .actions a:hover .ic, .actions button:hover .ic{ opacity:1; transform:translateY(-1px); }
@@ -448,7 +451,10 @@
     <a href="#visit">Visit</a>
   </nav>
 
-  <a class="logo" href="#top">Blue Hour Coffee<sup>®</sup></a>
+  <a class="logo" href="#top">
+    <img class="mark" src="IMAGES/blue-hour-logo.png" alt="" aria-hidden="true">
+    <span>Blue Hour Coffee<sup>®</sup></span>
+  </a>
 
   <div class="actions">
     <span class="loc">Milwaukee, WI</span>
@@ -660,33 +666,6 @@
       <a href="#visit" class="btn cream">Visit us</a>
       <a href="#menu" class="btn cream">See the menu</a>
     </div>
-  </div>
-</section>
-
-<!-- ============ BAR MENU ============ -->
-<section class="schedule">
-  <div class="sched-grid">
-    <div class="title">
-      <h2 class="rv">The<br>Menu</h2>
-      <p class="rv">Rotating roasters and house-made syrups. Oat, whole, or none — all the same price. Ask the bar what's pouring today.</p>
-    </div>
-    <aside>
-      <div class="row rv"><span class="name">Matcha Latte<span class="star">★</span></span><span class="cat">House Signature</span><span class="price">6.5</span></div>
-      <div class="row rv"><span class="name">Espresso</span><span class="cat">Single Origin</span><span class="price">3.5</span></div>
-      <div class="row rv"><span class="name">Cortado</span><span class="cat">Two-to-One</span><span class="price">4.5</span></div>
-      <div class="row rv"><span class="name">Cappuccino</span><span class="cat">Wet / Dry</span><span class="price">5</span></div>
-      <div class="row rv"><span class="name">Latte</span><span class="cat">Oat / Whole</span><span class="price">5.5</span></div>
-      <div class="row rv"><span class="name">Pour Over</span><span class="cat">Brewed to Order</span><span class="price">6</span></div>
-      <div class="row rv"><span class="name">Cold Brew</span><span class="cat">House, 18hr</span><span class="price">5</span></div>
-      <div class="row rv"><span class="name">Blue Hour Chai</span><span class="cat">Spiced</span><span class="price">5.5</span></div>
-      <div class="row rv"><span class="name">Hojicha Latte</span><span class="cat">Roasted Tea</span><span class="price">6</span></div>
-      <div class="row rv"><span class="name">Drip</span><span class="cat">Bottomless</span><span class="price">3.5</span></div>
-    </aside>
-  </div>
-  <div class="sched-foot">
-    <span>Open Daily · 2410 N Murray Ave</span>
-    <span>© <span data-year>2026</span> Blue Hour Coffee™</span>
-    <a href="mailto:info@bluehour.coffee">info@bluehour.coffee</a>
   </div>
 </section>
 
