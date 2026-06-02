@@ -93,14 +93,14 @@
   .hero .wordmark{
     font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:500;
-    font-size:clamp(2.8rem,13vw,11.5rem);
-    line-height:.96;
-    letter-spacing:.012em;
+    font-size:clamp(1.6rem,7.6vw,7.2rem);
+    line-height:1;
+    letter-spacing:.02em;
     text-transform:uppercase;
+    white-space:nowrap;
     margin:0;
     color:var(--cream);
   }
-  .hero .wordmark span{ display:block; }
   .hero .lead{
     margin:0; max-width:34rem; font-size:clamp(1.05rem,1.5vw,1.3rem); line-height:1.55;
     color:rgba(246,240,227,.88); font-weight:400;
@@ -380,7 +380,7 @@
     .actions .loc{ display:none; }
 
     .hero{ min-height:88vh; min-height:88svh; padding:8rem var(--pad) 6rem; }
-    .hero .wordmark{ font-size:18vw; letter-spacing:.01em; }
+    .hero .wordmark{ font-size:8.4vw; letter-spacing:.018em; }
     .hero .lead{ font-size:1rem; max-width:26rem; }
     .hero .corner-meta{ font-size:.6rem; letter-spacing:.18em; }
 
@@ -483,10 +483,7 @@
   </video>
 
   <div class="inner">
-    <h1 class="wordmark">
-      <span>Blue Hour</span>
-      <span>Coffee</span>
-    </h1>
+    <h1 class="wordmark">Blue Hour Coffee</h1>
     <div class="ctas">
       <a href="#visit" class="btn solid">Visit Us</a>
       <a href="#menu" class="btn">See the Menu</a>
