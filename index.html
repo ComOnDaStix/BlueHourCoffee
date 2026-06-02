@@ -54,12 +54,12 @@
   .ph[data-ph]::after{ content:attr(data-ph); position:absolute; left:.75rem; bottom:.6rem;
         font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); opacity:.4; }
 
-  /* ---------- header (transparent over hero, cobalt bg on scroll; text stays cream) ---------- */
-  header{ position:fixed; top:0; left:0; right:0; z-index:50; background:transparent; color:var(--cream);
+  /* ---------- header (always transparent; text color flips per section) ---------- */
+  header{ position:fixed; top:0; left:0; right:0; z-index:50; background:transparent; color:var(--blue);
     display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
     padding:1.25rem var(--pad);
-    transition:background-color .35s var(--ease); }
-  header.scrolled{ background:var(--blue); }
+    transition:color .35s var(--ease); }
+  header.on-dark{ color:var(--cream); }
   header ::selection{ background:var(--cream); color:var(--blue); }
   nav.top{ display:flex; gap:clamp(1rem,2.2vw,2.2rem); }
   nav.top a{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; font-weight:500; position:relative; opacity:.92; }
@@ -801,18 +801,29 @@
   }, { threshold:0.1, rootMargin:'0px 0px -8% 0px' });
   document.querySelectorAll('.rv:not(.in)').forEach(el => io.observe(el));
 
-  // back to top + header background swap when the hero scrolls away
+  // back to top + header text color flip per section
   const toTop = document.querySelector('[data-totop]');
   const header = document.querySelector('header');
-  const hero = document.getElementById('top');
+  const darkSelector = '.hero, .campaign, .lookbook-strip, footer';
+  const trackedSelector = '.hero, #story, .subtitle, #menu, .campaign, .lookbook-strip, #club, #visit, footer';
+  const trackedSections = Array.from(document.querySelectorAll(trackedSelector));
+
   const onScroll = () => {
     toTop.classList.toggle('show', window.scrollY > 600);
-    if (hero && header) {
-      const heroBottom = hero.getBoundingClientRect().bottom;
-      header.classList.toggle('scrolled', heroBottom < 80);
+    // Probe a point just below the header — whichever section is there decides the text color.
+    const probeY = 2;
+    let onDark = false;
+    for (const sec of trackedSections) {
+      const r = sec.getBoundingClientRect();
+      if (r.top <= probeY && r.bottom > probeY) {
+        onDark = sec.matches(darkSelector);
+        break;
+      }
     }
+    header.classList.toggle('on-dark', onDark);
   };
   onScroll(); addEventListener('scroll', onScroll, { passive:true });
+  addEventListener('resize', onScroll, { passive:true });
   toTop.addEventListener('click', () => scrollTo({ top:0, behavior:'smooth' }));
 
   // live open/closed
