@@ -210,20 +210,18 @@
     font-size:clamp(2.6rem,7.4vw,6.6rem); line-height:.92; letter-spacing:-.025em; }
   .menu-banner .lede{ margin:0; font-size:clamp(.95rem,1.2vw,1.06rem); line-height:1.55;
     max-width:24rem; color:rgba(31,43,214,.78); justify-self:end; }
-  .menu-tabs{ display:flex; flex-wrap:wrap; gap:.5rem; padding:2.4vw 0 3vw;
-    border-bottom:var(--rule) solid var(--blue); }
-  .menu-tabs button{ background:transparent; border:1.5px solid rgba(31,43,214,.22); border-radius:100px;
-    padding:.55rem 1.2rem .6rem; color:var(--blue); cursor:pointer;
-    font-family:var(--grot); font-weight:500;
-    font-size:clamp(.7rem,.92vw,.8rem); letter-spacing:.14em; text-transform:uppercase;
-    transition:background-color .28s var(--ease), color .28s var(--ease), border-color .28s var(--ease); }
-  .menu-tabs button:hover{ border-color:var(--blue); }
-  .menu-tabs button.active{ background:var(--blue); color:var(--cream); border-color:var(--blue); }
-  .treats-grid{ display:grid; grid-template-columns:repeat(3,1fr);
-    gap:clamp(2.4rem,3.4vw,3.6rem) clamp(1.4rem,2.4vw,2.4rem);
-    padding-top:3vw; }
-  .treat{ position:relative; display:flex; flex-direction:column; }
-  .treat[hidden]{ display:none; }
+  .treats-rail{ position:relative; overflow:hidden; padding:3.6vw 0 1vw;
+    margin:0 calc(var(--pad) * -1);
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+            mask-image:linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%); }
+  .treats-track{ display:flex; gap:clamp(1.2rem,2vw,2rem); width:max-content;
+    padding:0 1vw;
+    animation:treats-scroll 70s linear infinite; }
+  .treats-rail:hover .treats-track{ animation-play-state:paused; }
+  @media (prefers-reduced-motion:reduce){ .treats-track{ animation:none; } }
+  @keyframes treats-scroll{ to{ transform:translateX(-50%); } }
+  .treat{ position:relative; display:flex; flex-direction:column;
+    flex:0 0 clamp(210px, 22vw, 300px); }
   .treat .photo{ position:relative; aspect-ratio:1/1; background:var(--cream-2); border-radius:8px;
     overflow:hidden; transition:transform .6s var(--ease); }
   .treat:hover .photo{ transform:translateY(-4px); }
@@ -396,8 +394,8 @@
 
     .menu-banner{ grid-template-columns:1fr; gap:1.6rem; align-items:flex-start; }
     .menu-banner .lede{ justify-self:start; }
-    .menu-tabs{ gap:.45rem; }
-    .treats-grid{ grid-template-columns:repeat(2,1fr); gap:8vw 4vw; }
+    .treat{ flex:0 0 64vw; }
+    .treats-track{ animation-duration:55s; }
     .menu-foot{ flex-direction:column; align-items:flex-start; gap:1.4rem; }
     .lookbook-strip{ grid-template-columns:1fr; }
     .lookbook-strip figure{ aspect-ratio:3/4; }
@@ -405,7 +403,7 @@
   }
   @media (max-width:540px){
     .grid{ grid-template-columns:1fr; }
-    .treats-grid{ grid-template-columns:1fr; gap:9vw; }
+    .treat{ flex:0 0 75vw; }
   }
 </style>
 </head>
@@ -503,15 +501,9 @@
     <p class="lede">Single-origin espresso, ceremonial-grade matcha, and house-made syrups. Pulled fresh every blue hour.</p>
   </div>
 
-  <nav class="menu-tabs rv" aria-label="Menu categories" data-tabs>
-    <button class="active" data-cat="all">All Drinks</button>
-    <button data-cat="coffee">Coffee</button>
-    <button data-cat="matcha">Matcha</button>
-    <button data-cat="tea">Tea &amp; Tonics</button>
-  </nav>
-
-  <div class="treats-grid" data-grid>
-    <article class="treat rv" data-cat="coffee">
+  <div class="treats-rail rv" aria-label="Signature drinks">
+    <div class="treats-track" data-track>
+    <article class="treat" data-cat="coffee">
       <div class="photo">
         <span class="num">01</span>
         <span class="tag coral">Signature</span>
@@ -525,7 +517,7 @@
       </div>
     </article>
 
-    <article class="treat rv" data-cat="coffee">
+    <article class="treat" data-cat="coffee">
       <div class="photo">
         <span class="num">02</span>
         <img src="IMAGES/BlueHour_Vanilla_Latte.png" alt="Vanilla Latte" loading="lazy">
@@ -538,7 +530,7 @@
       </div>
     </article>
 
-    <article class="treat rv" data-cat="coffee">
+    <article class="treat" data-cat="coffee">
       <div class="photo">
         <span class="num">03</span>
         <img src="IMAGES/BlueHour_Mont_Blanc.png" alt="Mont Blanc" loading="lazy">
@@ -551,7 +543,7 @@
       </div>
     </article>
 
-    <article class="treat rv" data-cat="matcha">
+    <article class="treat" data-cat="matcha">
       <div class="photo">
         <span class="num">04</span>
         <img src="IMAGES/BlueHour_Ube_Matcha.png" alt="Ube Matcha" loading="lazy">
@@ -564,7 +556,7 @@
       </div>
     </article>
 
-    <article class="treat rv" data-cat="matcha">
+    <article class="treat" data-cat="matcha">
       <div class="photo">
         <span class="num">05</span>
         <img src="IMAGES/BlueHour_Black_Sesame_Matcha.png" alt="Black Sesame Matcha" loading="lazy">
@@ -577,7 +569,7 @@
       </div>
     </article>
 
-    <article class="treat rv" data-cat="matcha">
+    <article class="treat" data-cat="matcha">
       <div class="photo">
         <span class="num">06</span>
         <span class="tag">Best Seller</span>
@@ -591,7 +583,7 @@
       </div>
     </article>
 
-    <article class="treat rv" data-cat="tea">
+    <article class="treat" data-cat="tea">
       <div class="photo">
         <span class="num">07</span>
         <img src="IMAGES/BlueHour_Espresso_Tonic.png" alt="Espresso Tonic" loading="lazy">
@@ -604,7 +596,7 @@
       </div>
     </article>
 
-    <article class="treat rv" data-cat="tea">
+    <article class="treat" data-cat="tea">
       <div class="photo">
         <span class="num">08</span>
         <img src="IMAGES/BlueHour_Lemon_Green_Tea.png" alt="Lemon Green Tea" loading="lazy">
@@ -617,7 +609,7 @@
       </div>
     </article>
 
-    <article class="treat rv" data-cat="tea">
+    <article class="treat" data-cat="tea">
       <div class="photo">
         <span class="num">09</span>
         <img src="IMAGES/BlueHour_Hibiscus_Lime.png" alt="Hibiscus Lime" loading="lazy">
@@ -629,6 +621,7 @@
         <span class="temp iced-only">Iced Only</span>
       </div>
     </article>
+    </div>
   </div>
 
   <div class="menu-foot rv">
@@ -852,20 +845,13 @@
     else el.textContent = h<open ? ('Opens '+open+'am') : ('Closed · back at '+open+'am');
   })();
 
-  // menu category tabs
+  // drinks rail: clone the set once so translateX(-50%) creates a seamless loop
   (function(){
-    const tabs = document.querySelector('[data-tabs]');
-    const grid = document.querySelector('[data-grid]');
-    if(!tabs || !grid) return;
-    tabs.addEventListener('click', (e) => {
-      const btn = e.target.closest('button[data-cat]'); if(!btn) return;
-      tabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.dataset.cat;
-      grid.querySelectorAll('.treat').forEach(card => {
-        card.hidden = !(cat === 'all' || card.dataset.cat === cat);
-      });
-    });
+    const track = document.querySelector('[data-track]');
+    if(!track) return;
+    const cards = Array.from(track.children);
+    cards.forEach(c => track.appendChild(c.cloneNode(true)));
+    track.setAttribute('aria-hidden', 'false');
   })();
 </script>
 </body>
