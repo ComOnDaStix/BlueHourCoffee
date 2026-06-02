@@ -7,9 +7,6 @@
 <meta name="description" content="Blue Hour Coffee — a coffee bar for the deep blue hours on Milwaukee's east side. Open daily, 7am–8pm. 2410 N Murray Ave. Espresso, pour over, and the matcha that keeps selling out." />
 <meta name="theme-color" content="#1F2BD6" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
   :root{
@@ -20,8 +17,8 @@
     --coral:#E76A3C;
     --rule:1.5px;
     --pad:2.1vw;
-    --grot:"Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-    --serif:"Fraunces", Georgia, "Times New Roman", serif;
+    --grot:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    --serif:"Helvetica Neue", Helvetica, Arial, sans-serif;
     --ease:cubic-bezier(.19,1,.22,1);
   }
 
@@ -127,8 +124,8 @@
     background:linear-gradient(180deg, transparent 35%, rgba(7,10,51,.55) 100%); }
   .campaign .inner{ position:relative; padding:0 var(--pad); }
   .campaign .eyebrow{ display:block; margin-bottom:1.2rem; opacity:.85; }
-  .campaign h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(2.4rem,7vw,5.5rem); line-height:.95; letter-spacing:-.02em; }
+  .campaign h2{ margin:0; font-weight:500; text-transform:lowercase;
+    font-size:clamp(2.4rem,7vw,5.5rem); line-height:.95; letter-spacing:-.035em; }
   .campaign .ctas{ margin-top:2rem; display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; }
 
   .btn{ display:inline-block; border:var(--rule) solid currentColor; border-radius:100px;
@@ -192,8 +189,8 @@
   .bs-block .copy{ display:flex; flex-direction:column; gap:1.4rem; max-width:34rem; }
   .bs-block .copy .eyebrow{ font-size:clamp(.66rem,.9vw,.78rem); letter-spacing:.22em;
     text-transform:uppercase; color:rgba(31,43,214,.55); font-weight:500; }
-  .bs-block .copy h2{ margin:0; font-family:var(--grot); font-weight:700; text-transform:uppercase;
-    font-size:clamp(2.2rem,5vw,4rem); line-height:.95; letter-spacing:-.025em; color:var(--blue); }
+  .bs-block .copy h2{ margin:0; font-weight:500; text-transform:lowercase;
+    font-size:clamp(2.2rem,5vw,4rem); line-height:.95; letter-spacing:-.035em; color:var(--blue); }
   .bs-block .copy p{ margin:0; font-size:clamp(1rem,1.2vw,1.12rem); line-height:1.55;
     color:rgba(31,43,214,.85); }
   .bs-block .visual{ aspect-ratio:5/6; overflow:hidden; border-radius:6px; background:var(--cream-2); }
@@ -276,8 +273,8 @@
   .lookbook-strip figure:hover img{ transform:scale(1.03); }
   .lookbook-strip .caption{ display:flex; flex-direction:column; justify-content:center; padding:5vw 4vw; gap:1.2rem; }
   .lookbook-strip .caption .label{ color:var(--coral); }
-  .lookbook-strip .caption h3{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(2.2rem,5.5vw,4.6rem); line-height:.95; letter-spacing:-.02em; }
+  .lookbook-strip .caption h3{ margin:0; font-weight:500; text-transform:lowercase;
+    font-size:clamp(2.2rem,5.5vw,4.6rem); line-height:.95; letter-spacing:-.035em; }
   .lookbook-strip .caption p{ margin:0; font-size:clamp(.92rem,1.15vw,1.08rem); line-height:1.6;
     max-width:32rem; opacity:.82; }
 
@@ -286,8 +283,8 @@
   .schedule ::selection{ background:var(--cream); color:var(--blue); }
   .sched-grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:0 2vw; align-items:start; padding:3vw 0 6vw; }
   .sched-grid .title{ grid-column:1 / span 6; }
-  .sched-grid .title h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(3rem,9.5vw,9rem); line-height:.92; letter-spacing:-.02em; }
+  .sched-grid .title h2{ margin:0; font-weight:500; text-transform:lowercase;
+    font-size:clamp(3rem,9.5vw,9rem); line-height:.92; letter-spacing:-.04em; }
   .sched-grid .title p{ margin:1.4rem 0 0; max-width:22rem; font-size:clamp(.85rem,1.1vw,1rem); line-height:1.5; opacity:.8; }
   .sched-grid aside{ grid-column:7 / span 6; }
   .row{ display:grid; grid-template-columns:2.2fr 2fr 1fr; align-items:baseline; gap:1rem;
@@ -305,8 +302,8 @@
   .band{ padding:7vw var(--pad); }
   .band-grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:0 2vw; align-items:start; }
   .band-grid .title{ grid-column:1 / span 5; }
-  .band-grid .title h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(2.6rem,7.5vw,6.5rem); line-height:.92; letter-spacing:-.02em; }
+  .band-grid .title h2{ margin:0; font-weight:500; text-transform:lowercase;
+    font-size:clamp(2.6rem,7.5vw,6.5rem); line-height:.92; letter-spacing:-.035em; }
   .band-grid aside{ grid-column:7 / span 6; }
   .band .row{ border-color:var(--blue); }
   .band .row:first-child{ border-top-color:var(--blue); }
@@ -314,8 +311,8 @@
 
   .visit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2vw; padding-top:3vw; }
   .visit-grid .block .label{ display:block; margin-bottom:1rem; }
-  .visit-grid .block .val{ font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(1.3rem,2.6vw,2.4rem); line-height:.98; letter-spacing:-.02em; }
+  .visit-grid .block .val{ font-weight:500; text-transform:lowercase;
+    font-size:clamp(1.3rem,2.6vw,2.4rem); line-height:1.04; letter-spacing:-.03em; }
   .visit-grid .block .val a{ position:relative; }
   .visit-grid .block .val a::after{ content:""; position:absolute; left:0; right:0; bottom:2px; height:1.5px;
     background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s var(--ease); }
