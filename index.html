@@ -184,20 +184,33 @@
   .card .price .now{ color:var(--coral); }
   .card .sub{ margin-top:.4rem; font-size:.74rem; letter-spacing:.02em; opacity:.55; text-transform:lowercase; }
 
-  /* ---------- what strip ---------- */
-  .what{ display:flex; justify-content:space-between; gap:1rem; padding:1.1vw var(--pad); text-transform:uppercase; }
-  .what span{ font-size:clamp(1.1rem,2.7vw,2.05rem); letter-spacing:-.01em; line-height:1; }
+  /* ---------- arrow link (Blank Street-style CTA) ---------- */
+  .arrow-link{ display:inline-flex; align-items:center; gap:.55rem;
+    font-weight:600; text-transform:uppercase; letter-spacing:.16em;
+    font-size:clamp(.74rem,.95vw,.84rem);
+    color:var(--blue); align-self:flex-start;
+    transition:color .25s var(--ease); }
+  .arrow-link::after{ content:"→"; font-family:var(--grot); font-size:1.15em;
+    transition:transform .35s var(--ease); display:inline-block; }
+  .arrow-link:hover{ color:var(--blue-deep); }
+  .arrow-link:hover::after{ transform:translateX(5px); }
+  .arrow-link.cream{ color:var(--cream); }
+  .arrow-link.cream:hover{ color:rgba(246,240,227,.78); }
 
-  /* ---------- editorial + lookbook split ---------- */
-  .editorial{ display:grid; grid-template-columns:1.05fr .95fr; gap:4vw; align-items:center; padding:8vw var(--pad); }
-  .editorial .txt h2{ margin:0; font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(2.4rem,6.5vw,6rem); line-height:.95; letter-spacing:-.02em; }
-  .editorial .txt .body{ max-width:34rem; margin-top:2rem; }
-  .editorial .txt p{ font-size:clamp(.98rem,1.3vw,1.15rem); line-height:1.6; margin:0 0 1.2em; }
-  .editorial .txt p:last-child{ margin-bottom:0; }
-  .editorial .look{ aspect-ratio:4/5; border-radius:10px; overflow:hidden; }
-  .editorial .look img{ width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
-  .editorial .look:hover img{ transform:scale(1.03); }
+  /* ---------- Blank Street-style content block ---------- */
+  .bs-block{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2.6rem,5vw,5rem);
+    align-items:center; padding:clamp(4rem,8vw,7rem) var(--pad); }
+  .bs-block.flip > .copy{ order:2; }
+  .bs-block .copy{ display:flex; flex-direction:column; gap:1.4rem; max-width:34rem; }
+  .bs-block .copy .eyebrow{ font-size:clamp(.66rem,.9vw,.78rem); letter-spacing:.22em;
+    text-transform:uppercase; color:rgba(31,43,214,.55); font-weight:500; }
+  .bs-block .copy h2{ margin:0; font-family:var(--grot); font-weight:700; text-transform:uppercase;
+    font-size:clamp(2.2rem,5vw,4rem); line-height:.95; letter-spacing:-.025em; color:var(--blue); }
+  .bs-block .copy p{ margin:0; font-size:clamp(1rem,1.2vw,1.12rem); line-height:1.55;
+    color:rgba(31,43,214,.85); }
+  .bs-block .visual{ aspect-ratio:5/6; overflow:hidden; border-radius:6px; background:var(--cream-2); }
+  .bs-block .visual img{ width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
+  .bs-block .visual:hover img{ transform:scale(1.03); }
 
   /* ---------- menu (Kith Treats-inspired retail tile grid) ---------- */
   .menu-kith{ padding:5vw var(--pad) 6vw; background:var(--cream); }
@@ -277,15 +290,6 @@
     font-size:clamp(2.2rem,5.5vw,4.6rem); line-height:.95; letter-spacing:-.02em; }
   .lookbook-strip .caption p{ margin:0; font-size:clamp(.92rem,1.15vw,1.08rem); line-height:1.6;
     max-width:32rem; opacity:.82; }
-
-  /* ---------- marquee ---------- */
-  .marquee{ overflow:hidden; white-space:nowrap; padding:1.1vw 0; }
-  .marquee .track{ display:inline-flex; will-change:transform; animation:scroll 38s linear infinite; }
-  .marquee:hover .track{ animation-play-state:paused; }
-  .marquee em{ font-style:normal; font-family:var(--serif); font-weight:300; text-transform:uppercase;
-    font-size:clamp(1.6rem,4vw,3.4rem); letter-spacing:-.01em; padding:0 1.6rem; }
-  .marquee i{ font-style:normal; color:var(--coral); font-size:clamp(1.2rem,3vw,2.4rem); align-self:center; }
-  @keyframes scroll{ to{ transform:translateX(-50%); } }
 
   /* ---------- schedule / menu (inverted) ---------- */
   .schedule{ background:var(--blue); color:var(--cream); padding:2.6vw var(--pad); }
@@ -381,13 +385,9 @@
 
     .grid{ grid-template-columns:1fr 1fr; gap:4vw; }
 
-    .what{ flex-wrap:wrap; justify-content:center; gap:.3rem 1.3rem; }
-    .what span{ font-size:5.4vw; }
-
-    .editorial{ grid-template-columns:1fr; gap:8vw; padding:18vw var(--pad) 16vw; }
-    .editorial .txt h2{ text-align:center; }
-    .editorial .txt .body{ margin-left:auto; margin-right:auto; }
-    .editorial .look{ order:-1; aspect-ratio:4/3; }
+    .bs-block{ grid-template-columns:1fr; gap:2.4rem; padding:4.5rem var(--pad); }
+    .bs-block.flip > .copy{ order:0; }
+    .bs-block .visual{ aspect-ratio:4/5; order:-1; }
 
     .sched-grid, .band-grid{ grid-template-columns:1fr; gap:0; }
     .sched-grid .title, .sched-grid aside,
@@ -665,31 +665,16 @@
   </div>
 </section>
 
-<!-- ============ WHAT STRIP ============ -->
-<section class="what rule-b rv">
-  <span>Espresso</span><span>Pour Over</span><span>Matcha</span><span>Community</span>
-</section>
-
-<!-- ============ EDITORIAL + LOOKBOOK ============ -->
-<section id="story" class="editorial rule-b" style="scroll-margin-top:64px;">
-  <div class="txt">
-    <h2 class="rv">Even Our Building<br>Drinks Matcha</h2>
-    <div class="body">
-      <p class="rv">From the outside we're a small box on Murray Ave, wrapped top to bottom in green ivy that climbs a little higher every summer. You'll find us by the glow in the window at dusk.</p>
-      <p class="rv">Inside it's all soft light — Nelson bubble lamps overhead and a bar carved from backlit onyx that burns like a low sun. We pour single-origin espresso, brew pour over to order, and yes, the matcha keeps selling out.</p>
-      <p class="rv">Pull up a blue chair and stay a while. We built this room to be lingered in. Come early. Stay late.</p>
-    </div>
+<!-- ============ STORY (Blank Street-style block) ============ -->
+<section id="story" class="bs-block rule-b" style="scroll-margin-top:64px;">
+  <div class="copy rv">
+    <span class="eyebrow">The Place</span>
+    <h2>Even our building<br>drinks matcha.</h2>
+    <p>From the outside we're a small box on Murray Ave, wrapped top to bottom in green ivy. Inside it's soft Nelson bubble light and a bar carved from backlit onyx. Pull up a blue chair and stay a while.</p>
+    <a href="#visit" class="arrow-link">Plan your visit</a>
   </div>
-  <div class="look rv">
+  <div class="visual rv">
     <img src="IMAGES/IMG_1031%202.JPG" alt="The ivy-covered facade of Blue Hour Coffee at 2410 N Murray Ave" loading="lazy">
-  </div>
-</section>
-
-<!-- ============ MARQUEE ============ -->
-<section class="marquee rule-b" aria-hidden="true">
-  <div class="track">
-    <em>Come Early</em><i>✶</i><em>Stay Late</em><i>✶</i><em>Matcha That Sells Out</em><i>✶</i><em>Pour Over</em><i>✶</i><em>Open Every Day</em><i>✶</i>
-    <em>Come Early</em><i>✶</i><em>Stay Late</em><i>✶</i><em>Matcha That Sells Out</em><i>✶</i><em>Pour Over</em><i>✶</i><em>Open Every Day</em><i>✶</i>
   </div>
 </section>
 
@@ -729,6 +714,7 @@
     <span class="label">Inside</span>
     <h3>2410 N Murray.</h3>
     <p>Nelson bubble lamps overhead. An onyx bar lit from within. A blue chair waiting for you, every hour we're open.</p>
+    <a href="#visit" class="arrow-link cream">Find us</a>
   </div>
 </section>
 
