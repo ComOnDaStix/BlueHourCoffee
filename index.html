@@ -106,17 +106,19 @@
     text-transform:lowercase; }
   .hours-list .day{ color:var(--coral); }
 
-  /* ---------- subtitle (tasteful breather between hero + campaign) ---------- */
-  .subtitle{ padding:clamp(1rem,2vw,1.6rem) var(--pad); text-align:center; background:var(--cream); }
+  /* ---------- subtitle (cobalt banner, cream type) ---------- */
+  .subtitle{ padding:clamp(1.4rem,2.6vw,2.2rem) var(--pad); text-align:center;
+    background:#1F2BD6; color:var(--cream); }
+  .subtitle ::selection{ background:var(--cream); color:#1F2BD6; }
   .subtitle .serif-line{
     margin:0; font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-weight:500;
-    font-size:clamp(1.6rem,3.6vw,2.8rem); line-height:1; letter-spacing:-.03em; color:var(--blue);
+    font-size:clamp(1.6rem,3.6vw,2.8rem); line-height:1; letter-spacing:-.03em; color:var(--cream);
     text-transform:lowercase;
   }
   .subtitle .cap-line{
-    margin:.55rem auto 0; max-width:34rem;
+    margin:.65rem auto 0; max-width:34rem;
     font-size:clamp(.68rem,.85vw,.78rem); letter-spacing:.22em;
-    text-transform:uppercase; color:rgba(26,26,26,.6);
+    text-transform:uppercase; color:rgba(246,240,227,.72);
   }
 
   /* ---------- full-bleed campaign band (overlay text bottom-left) ---------- */
