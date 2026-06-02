@@ -110,6 +110,10 @@
   .hero .btn:hover{ background:var(--cream); color:var(--blue); }
   .hero .btn.solid{ background:var(--cream); color:var(--blue); border-color:var(--cream); }
   .hero .btn.solid:hover{ background:transparent; color:var(--cream); }
+  .hero .hero-orbs{ width:clamp(30px,3.4vw,56px); height:auto; display:block;
+    margin:0 auto clamp(.4rem,.9vw,1rem);
+    filter:drop-shadow(0 8px 22px rgba(0,0,0,.28)); }
+  @media (max-width:540px){ .hero .hero-orbs{ width:28px; margin-bottom:.4rem; } }
   .hero .corner-meta{ position:absolute; bottom:clamp(1rem,2vh,1.6rem); z-index:2; color:rgba(246,240,227,.75);
     font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; }
   .hero .corner-meta.left{ left:var(--pad); }
@@ -484,6 +488,20 @@
   </video>
 
   <div class="inner">
+    <svg class="hero-orbs" viewBox="0 0 100 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="orb-blue" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stop-color="#1F2BD6" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#1F2BD6" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="orb-coral" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stop-color="#E76A3C" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#E76A3C" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="56" r="46" fill="url(#orb-blue)"/>
+      <circle cx="50" cy="184" r="46" fill="url(#orb-coral)"/>
+    </svg>
     <h1 class="wordmark">Blue Hour Coffee</h1>
     <div class="ctas">
       <a href="#visit" class="btn solid">Visit Us</a>
