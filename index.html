@@ -210,18 +210,29 @@
     font-size:clamp(2.6rem,7.4vw,6.6rem); line-height:.92; letter-spacing:-.025em; }
   .menu-banner .lede{ margin:0; font-size:clamp(.95rem,1.2vw,1.06rem); line-height:1.55;
     max-width:24rem; color:rgba(31,43,214,.78); justify-self:end; }
-  .treats-rail{ position:relative; overflow:hidden; padding:3.6vw 0 1vw;
-    margin:0 calc(var(--pad) * -1);
+  .treats-rail{ position:relative; padding:3.6vw 0 1.4vw;
+    margin:0 calc(var(--pad) * -1); }
+  .treats-scroller{ overflow-x:auto; overflow-y:hidden; scrollbar-width:none;
+    scroll-behavior:smooth; padding-bottom:.6rem;
     -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%);
             mask-image:linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%); }
+  .treats-scroller::-webkit-scrollbar{ display:none; }
   .treats-track{ display:flex; gap:clamp(1.2rem,2vw,2rem); width:max-content;
-    padding:0 1vw;
-    animation:treats-scroll 70s linear infinite; }
-  .treats-rail:hover .treats-track{ animation-play-state:paused; }
-  @media (prefers-reduced-motion:reduce){ .treats-track{ animation:none; } }
-  @keyframes treats-scroll{ to{ transform:translateX(-50%); } }
+    padding:0 var(--pad); }
   .treat{ position:relative; display:flex; flex-direction:column;
     flex:0 0 clamp(210px, 22vw, 300px); }
+  .rail-arrow{ position:absolute; top:34%; transform:translateY(-50%); z-index:5;
+    width:46px; height:46px; border-radius:50%; border:0; cursor:pointer;
+    background:var(--blue); color:var(--cream);
+    display:grid; place-items:center; opacity:.95;
+    box-shadow:0 12px 28px -10px rgba(20,28,158,.45);
+    transition:background-color .3s var(--ease), opacity .3s var(--ease), transform .25s var(--ease); }
+  .rail-arrow:hover{ background:var(--blue-deep); opacity:1; transform:translateY(-50%) scale(1.05); }
+  .rail-arrow:active{ transform:translateY(-50%) scale(.96); }
+  .rail-arrow:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; }
+  .rail-arrow svg{ width:18px; height:18px; }
+  .rail-arrow.prev{ left:1.8vw; }
+  .rail-arrow.next{ right:1.8vw; }
   .treat .photo{ position:relative; aspect-ratio:1/1; background:var(--cream-2); border-radius:8px;
     overflow:hidden; transition:transform .6s var(--ease); }
   .treat:hover .photo{ transform:translateY(-4px); }
@@ -395,7 +406,9 @@
     .menu-banner{ grid-template-columns:1fr; gap:1.6rem; align-items:flex-start; }
     .menu-banner .lede{ justify-self:start; }
     .treat{ flex:0 0 64vw; }
-    .treats-track{ animation-duration:55s; }
+    .rail-arrow{ width:40px; height:40px; }
+    .rail-arrow.prev{ left:4vw; }
+    .rail-arrow.next{ right:4vw; }
     .menu-foot{ flex-direction:column; align-items:flex-start; gap:1.4rem; }
     .lookbook-strip{ grid-template-columns:1fr; }
     .lookbook-strip figure{ aspect-ratio:3/4; }
@@ -502,6 +515,7 @@
   </div>
 
   <div class="treats-rail rv" aria-label="Signature drinks">
+    <div class="treats-scroller" data-scroller>
     <div class="treats-track" data-track>
     <article class="treat" data-cat="coffee">
       <div class="photo">
@@ -622,6 +636,13 @@
       </div>
     </article>
     </div>
+    </div>
+    <button class="rail-arrow prev" data-prev aria-label="Previous drinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="rail-arrow next" data-next aria-label="Next drinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
   </div>
 
   <div class="menu-foot rv">
@@ -845,13 +866,82 @@
     else el.textContent = h<open ? ('Opens '+open+'am') : ('Closed · back at '+open+'am');
   })();
 
-  // drinks rail: clone the set once so translateX(-50%) creates a seamless loop
+  // drinks rail: scroll-driven loop with arrow controls + auto drift
   (function(){
-    const track = document.querySelector('[data-track]');
-    if(!track) return;
-    const cards = Array.from(track.children);
-    cards.forEach(c => track.appendChild(c.cloneNode(true)));
-    track.setAttribute('aria-hidden', 'false');
+    const rail = document.querySelector('.treats-rail');
+    const scroller = rail?.querySelector('[data-scroller]');
+    const track = rail?.querySelector('[data-track]');
+    const prev = rail?.querySelector('[data-prev]');
+    const next = rail?.querySelector('[data-next]');
+    if (!scroller || !track) return;
+
+    // Clone the card set once so we can wrap invisibly past the half boundary
+    Array.from(track.children).forEach(c => track.appendChild(c.cloneNode(true)));
+
+    const stepWidth = () => {
+      const card = track.querySelector('.treat');
+      if (!card) return 280;
+      const gap = parseFloat(getComputedStyle(track).gap) || 24;
+      return card.getBoundingClientRect().width + gap;
+    };
+    const half = () => track.scrollWidth / 2;
+
+    let hovering = false;
+    let interactedAt = 0;
+    let smoothUntil = 0;
+    let lastTs = 0;
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DRIFT_PX_PER_SEC = 26;
+
+    rail.addEventListener('pointerenter', () => hovering = true);
+    rail.addEventListener('pointerleave', () => hovering = false);
+
+    function instantSet(left){
+      scroller.style.scrollBehavior = 'auto';
+      scroller.scrollLeft = left;
+      // restore via rAF so the assignment commits first
+      requestAnimationFrame(() => { scroller.style.scrollBehavior = ''; });
+    }
+
+    function wrapIfNeeded(){
+      const h = half();
+      if (scroller.scrollLeft >= h) instantSet(scroller.scrollLeft - h);
+      else if (scroller.scrollLeft < 0.5) instantSet(scroller.scrollLeft + h);
+    }
+
+    function tick(ts){
+      if (!lastTs) lastTs = ts;
+      const dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+      const now = performance.now();
+      if (!reduceMotion && !hovering && now > smoothUntil && now - interactedAt > 1500) {
+        scroller.scrollLeft += DRIFT_PX_PER_SEC * dt;
+        if (scroller.scrollLeft >= half()) instantSet(scroller.scrollLeft - half());
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    function nudge(direction){
+      interactedAt = performance.now();
+      smoothUntil = interactedAt + 700;
+      // Before scrolling backward from near the start, jump invisibly to the mirror
+      if (direction < 0 && scroller.scrollLeft < stepWidth() * 1.2) {
+        instantSet(scroller.scrollLeft + half());
+      }
+      scroller.scrollBy({ left: direction * stepWidth(), behavior: 'smooth' });
+      setTimeout(wrapIfNeeded, 650);
+    }
+    prev?.addEventListener('click', () => nudge(-1));
+    next?.addEventListener('click', () => nudge(1));
+
+    // Pause drift while the user is actively scrolling (wheel / touch)
+    let scrollTimer;
+    scroller.addEventListener('scroll', () => {
+      interactedAt = performance.now();
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(wrapIfNeeded, 140);
+    }, { passive: true });
   })();
 </script>
 </body>
