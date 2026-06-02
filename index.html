@@ -190,19 +190,19 @@
   .arrow-link.cream:hover{ color:rgba(246,240,227,.78); }
 
   /* ---------- Blank Street-style content block ---------- */
-  .bs-block{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2.6rem,5vw,5rem);
+  .bs-block{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,4vw,3.6rem);
     align-items:center; padding:clamp(4rem,8vw,7rem) var(--pad); }
   .bs-block.flip > .copy{ order:2; }
-  .bs-block .copy{ display:flex; flex-direction:column; gap:1.4rem; max-width:34rem; }
+  .bs-block .copy{ display:flex; flex-direction:column; gap:1.4rem;
+    max-width:28rem; justify-self:end; text-align:left; }
   .bs-block .copy .eyebrow{ font-size:clamp(.66rem,.9vw,.78rem); letter-spacing:.22em;
     text-transform:uppercase; color:rgba(26,26,26,.55); font-weight:500; }
   .bs-block .copy h2{ margin:0; font-weight:500; text-transform:lowercase;
     font-size:clamp(2.2rem,5vw,4rem); line-height:.95; letter-spacing:-.035em; color:var(--blue); }
   .bs-block .copy p{ margin:0; font-size:clamp(1rem,1.2vw,1.12rem); line-height:1.55;
     color:rgba(26,26,26,.85); }
-  .bs-block .visual{ aspect-ratio:5/6; overflow:hidden; border-radius:6px; background:var(--cream-2); }
-  .bs-block .visual img{ width:100%; height:100%; object-fit:cover; transition:transform .9s var(--ease); }
-  .bs-block .visual:hover img{ transform:scale(1.03); }
+  .bs-block .visual{ aspect-ratio:1/1; overflow:hidden; border-radius:6px; background:var(--cream-2); }
+  .bs-block .visual img{ width:100%; height:100%; object-fit:cover; display:block; }
 
   /* ---------- menu (Kith Treats-inspired retail tile grid) ---------- */
   .menu-kith{ padding:5vw var(--pad) 6vw; background:var(--cream); }
@@ -500,7 +500,7 @@
     <a href="#visit" class="arrow-link">Plan your visit</a>
   </div>
   <div class="visual rv">
-    <img src="IMAGES/IMG_1031%202.JPG" alt="The ivy-covered facade of Blue Hour Coffee at 2410 N Murray Ave" loading="lazy">
+    <img src="IMAGES/facade-2.jpg" alt="The ivy-covered facade of Blue Hour Coffee at 2410 N Murray Ave" loading="lazy">
   </div>
 </section>
 
