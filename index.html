@@ -119,17 +119,21 @@
     text-transform:uppercase; color:rgba(26,26,26,.6);
   }
 
-  /* ---------- full-bleed campaign band ---------- */
-  .campaign{ position:relative; height:clamp(420px,62vw,720px); display:grid; place-items:center; text-align:center;
-    color:var(--cream); overflow:hidden; }
-  .campaign .bg-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .campaign .overlay{ position:absolute; inset:0;
-    background:linear-gradient(180deg, transparent 35%, rgba(7,10,51,.55) 100%); }
-  .campaign .inner{ position:relative; padding:0 var(--pad); }
-  .campaign .eyebrow{ display:block; margin-bottom:1.2rem; opacity:.85; }
+  /* ---------- full-bleed campaign band (overlay text bottom-left) ---------- */
+  .campaign{ position:relative; height:clamp(440px,62vw,720px);
+    display:flex; align-items:flex-end; justify-content:flex-start;
+    color:var(--cream); overflow:hidden;
+    padding:0 var(--pad) clamp(2rem,4vw,3.6rem); }
+  .campaign .bg-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .campaign .overlay{ position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,.55) 100%); }
+  .campaign .inner{ position:relative; z-index:2; display:flex; flex-direction:column; gap:.7rem;
+    max-width:30rem; }
   .campaign h2{ margin:0; font-weight:500; text-transform:lowercase;
-    font-size:clamp(2.4rem,7vw,5.5rem); line-height:.95; letter-spacing:-.035em; }
-  .campaign .ctas{ margin-top:2rem; display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; }
+    font-size:clamp(2.2rem,5.4vw,4.4rem); line-height:.95; letter-spacing:-.035em; }
+  .campaign p{ margin:0; font-size:clamp(.94rem,1.05vw,1.02rem); line-height:1.55;
+    color:rgba(246,240,227,.92); text-transform:lowercase; }
+  .campaign p .day{ color:var(--coral); }
 
   .btn{ display:inline-block; border:var(--rule) solid currentColor; border-radius:100px;
     padding:.7rem 2.2rem .8rem; font-weight:500; font-size:clamp(.82rem,1.4vw,1rem);
@@ -655,17 +659,13 @@
   </div>
 </section>
 
-<!-- ============ CAMPAIGN BAND ============ -->
+<!-- ============ CAMPAIGN BAND (photo + hours overlay) ============ -->
 <section class="campaign rule-b">
   <img class="bg-img" src="IMAGES/Sequence%2001.00_00_18_08.Still003.jpeg" alt="" aria-hidden="true">
   <div class="overlay" aria-hidden="true"></div>
   <div class="inner rv">
-    <span class="eyebrow label">Open daily · 7am – 8pm</span>
-    <h2>The deep blue<br>hours, on tap.</h2>
-    <div class="ctas">
-      <a href="#visit" class="btn cream">Visit us</a>
-      <a href="#menu" class="btn cream">See the menu</a>
-    </div>
+    <h2>open daily</h2>
+    <p><span class="day">mon – fri</span> · 7am — 8pm<br><span class="day">sat – sun</span> · 8am — 8pm</p>
   </div>
 </section>
 
