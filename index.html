@@ -210,16 +210,16 @@
 
   /* ---------- menu (Kith Treats-inspired retail tile grid) ---------- */
   .menu-kith{ padding:5vw var(--pad) 6vw; background:var(--cream); }
-  .menu-banner{ display:flex; flex-direction:column; gap:1.2rem;
-    padding-bottom:3vw; max-width:46rem; }
+  .menu-banner{ display:flex; flex-direction:column; align-items:center;
+    text-align:center; gap:1rem; padding-bottom:3vw; }
   .menu-banner .eyebrow{ display:block;
     font-size:clamp(.64rem,.9vw,.78rem); letter-spacing:.22em; text-transform:uppercase;
     color:rgba(26,26,26,.6); font-weight:500; }
   .menu-banner h2{ margin:.6rem 0 .4rem; font-family:"Helvetica Neue", Helvetica, Arial, sans-serif; font-weight:500;
-    text-transform:lowercase;
-    font-size:clamp(2.4rem,6vw,5.2rem); line-height:.95; letter-spacing:-.035em; }
-  .menu-banner .lede{ margin:0; font-size:clamp(.98rem,1.2vw,1.08rem); line-height:1.55;
-    max-width:34rem; color:rgba(26,26,26,.78); }
+    text-transform:lowercase; white-space:nowrap;
+    font-size:clamp(2.4rem,9.5vw,9rem); line-height:1; letter-spacing:-.04em; }
+  .menu-banner .lede{ margin:0 auto; font-size:clamp(.98rem,1.2vw,1.08rem); line-height:1.55;
+    max-width:36rem; color:rgba(26,26,26,.78); }
   .treats-rail{ position:relative; padding:3.6vw 0 1.4vw;
     margin:0 calc(var(--pad) * -1); }
   .treats-scroller{ overflow-x:auto; overflow-y:hidden; scrollbar-width:none;
@@ -514,7 +514,7 @@
   <div class="menu-banner rv">
     <div>
       <span class="eyebrow">Menu · 2410 N Murray</span>
-      <h2>Drinks of<br>the Hour</h2>
+      <h2>Drinks of the Hour</h2>
     </div>
     <p class="lede">Single-origin espresso, ceremonial-grade matcha, and house-made syrups. Pulled fresh every blue hour.</p>
   </div>
