@@ -84,18 +84,13 @@
   /* ---------- hero (video bg + editorial typography overlay) ---------- */
   .hero{ position:relative; min-height:100vh; min-height:100svh; overflow:hidden;
     background:#0a1140; isolation:isolate; color:var(--cream);
-    display:flex; flex-direction:column; justify-content:space-between;
+    display:flex; flex-direction:column; justify-content:flex-end;
     padding:clamp(5.5rem,11vh,8rem) var(--pad) clamp(2rem,3.5vw,3.5rem);
     animation:heroIn 1s var(--ease) both .15s; }
   @keyframes heroIn{ from{ opacity:0; transform:translateY(16px);} to{ opacity:1; transform:none;} }
   .hero video.hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
   .hero::before{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(180deg, rgba(7,10,51,.40) 0%, rgba(7,10,51,.08) 30%, rgba(7,10,51,.65) 100%); }
-  .hero-title{ position:relative; z-index:2; flex:1; display:flex; align-items:center; justify-content:center; }
-  .hero-title h1{ margin:0; font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight:500; text-transform:lowercase; white-space:nowrap;
-    font-size:clamp(2rem,9.4vw,10rem); line-height:1; letter-spacing:-.035em;
-    color:var(--cream); text-align:center; }
+    background:linear-gradient(180deg, rgba(7,10,51,.30) 0%, rgba(7,10,51,.08) 35%, rgba(7,10,51,.65) 100%); }
   .hero-foot{ position:relative; z-index:2;
     display:grid; grid-template-columns:1fr 1fr; gap:2rem 4rem; align-items:end; }
   .hero-address p{ margin:0; font-family:var(--grot); font-weight:400;
@@ -372,7 +367,6 @@
     .actions .loc{ display:none; }
 
     .hero{ min-height:92vh; min-height:92svh; padding:5rem var(--pad) 2.4rem; }
-    .hero-title h1{ font-size:clamp(2rem,10.5vw,5rem); letter-spacing:-.03em; }
     .hero-foot{ grid-template-columns:1fr; gap:2rem; }
     .hero-hours{ justify-self:start; text-align:left; align-items:flex-start; }
 
@@ -473,10 +467,6 @@
   <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
     <source src="IMAGES/hero-bg.mp4" type="video/mp4">
   </video>
-
-  <div class="hero-title">
-    <h1>blue hour coffee</h1>
-  </div>
 
   <div class="hero-foot">
     <div class="hero-address">
