@@ -230,7 +230,7 @@
   .treats-track{ display:flex; gap:clamp(1.2rem,2vw,2rem); width:max-content;
     padding:0 var(--pad); }
   .treat{ position:relative; display:flex; flex-direction:column;
-    flex:0 0 clamp(280px, 28vw, 380px); }
+    flex:0 0 clamp(310px, 31vw, 420px); }
   .rail-arrow{ position:absolute; top:34%; transform:translateY(-50%); z-index:5;
     width:46px; height:46px; border-radius:50%; border:0; cursor:pointer;
     background:var(--blue); color:var(--cream);
@@ -248,15 +248,15 @@
   .treat:hover .photo{ transform:translateY(-4px); }
   .treat .photo img{ width:100%; height:100%; object-fit:cover; object-position:center top; transform:scale(1.06); transform-origin:center top; transition:transform .9s var(--ease); }
   .treat:hover .photo img{ transform:scale(1.09); }
-  .treat .num{ position:absolute; top:1.4rem; left:1.6rem; z-index:2;
+  .treat .num{ position:absolute; top:2rem; left:1.8rem; z-index:2;
     font-family:var(--serif); font-weight:300; color:var(--cream); opacity:.92;
     font-size:clamp(.95rem,1.15vw,1.05rem); letter-spacing:0; }
-  .treat .tag{ position:absolute; top:1.4rem; right:1.6rem; z-index:2;
+  .treat .tag{ position:absolute; top:2rem; right:1.8rem; z-index:2;
     background:var(--cream); color:var(--blue);
     font-size:.56rem; letter-spacing:.18em; text-transform:uppercase; font-weight:600;
     padding:.36rem .65rem .38rem; border-radius:100px;
-    max-width:calc(100% - 3.2rem); white-space:nowrap;
-    box-shadow:0 4px 12px rgba(0,0,0,.22); }
+    max-width:calc(100% - 3.6rem); white-space:nowrap;
+    box-shadow:0 6px 16px rgba(0,0,0,.18); }
   .treat .tag.coral{ background:var(--coral); color:var(--cream); }
   .treat .info{ padding-top:1.2rem; display:flex; flex-direction:column; gap:.45rem; align-items:flex-start; }
   .treat .info .cat{ font-size:.62rem; letter-spacing:.22em; text-transform:uppercase;
