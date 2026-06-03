@@ -232,15 +232,16 @@
   .treat{ position:relative; display:flex; flex-direction:column;
     flex:0 0 clamp(310px, 31vw, 420px); }
   .rail-arrow{ position:absolute; top:34%; transform:translateY(-50%); z-index:5;
-    width:46px; height:46px; border-radius:50%; border:0; cursor:pointer;
-    background:transparent; color:var(--blue);
-    display:grid; place-items:center; opacity:.7;
+    width:44px; height:44px; border-radius:50%; border:0; cursor:pointer;
+    background:rgba(246,240,227,.78); color:var(--blue);
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+    display:grid; place-items:center; opacity:.92;
     touch-action:manipulation;
-    transition:opacity .3s var(--ease), transform .25s var(--ease); }
-  .rail-arrow:hover{ opacity:1; transform:translateY(-50%) scale(1.08); }
+    transition:background-color .3s var(--ease), opacity .3s var(--ease), transform .25s var(--ease); }
+  .rail-arrow:hover{ background:var(--cream); opacity:1; transform:translateY(-50%) scale(1.06); }
   .rail-arrow:active{ transform:translateY(-50%) scale(.94); }
-  .rail-arrow:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; border-radius:50%; }
-  .rail-arrow svg{ width:22px; height:22px; }
+  .rail-arrow:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; }
+  .rail-arrow svg{ width:18px; height:18px; }
   .rail-arrow.prev{ left:1.8vw; }
   .rail-arrow.next{ right:1.8vw; }
   .treat .photo{ position:relative; aspect-ratio:1/1; background:var(--cream-2); border-radius:8px;
