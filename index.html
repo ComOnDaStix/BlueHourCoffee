@@ -342,9 +342,10 @@
 
   .visit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2vw; padding-top:3vw; }
   .visit-grid .block{ text-align:center; }
-  .visit-grid .block .label{ display:block; margin-bottom:1rem; }
-  .visit-grid .block .val{ font-weight:500; text-transform:lowercase;
-    font-size:clamp(1.3rem,2.6vw,2.4rem); line-height:1.04; letter-spacing:-.03em; }
+  .visit-grid .block .label{ display:block; margin-bottom:1.1rem; }
+  .visit-grid .block .val{ font-weight:400; text-transform:lowercase;
+    font-size:clamp(.95rem,1.25vw,1.1rem); line-height:1.55; letter-spacing:0;
+    color:rgba(26,26,26,.82); }
   .visit-grid .block .val a{ position:relative; }
   .visit-grid .block .val a::after{ content:""; position:absolute; left:0; right:0; bottom:2px; height:1.5px;
     background:currentColor; transform:scaleX(0); transform-origin:right; transition:transform .5s var(--ease); }
