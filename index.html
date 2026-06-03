@@ -272,6 +272,13 @@
     display:flex; justify-content:center; align-items:center; }
   .menu-foot .btn{ padding:.7rem 1.8rem .75rem; font-size:clamp(.72rem,.95vw,.84rem); }
 
+  /* ---------- run club head (centered headline above split-screen) ---------- */
+  #club .club-head{ background:var(--cream); text-align:center;
+    padding:clamp(4rem,7vw,6rem) var(--pad) clamp(2.4rem,4vw,3.5rem); }
+  #club .club-head h2{ margin:0; font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight:500; text-transform:lowercase; white-space:nowrap;
+    font-size:clamp(2.4rem,9.5vw,9rem); line-height:1; letter-spacing:-.04em; color:var(--blue); }
+
   /* ---------- secondary lookbook (between menu + run club) ---------- */
   .lookbook-strip{ display:grid; grid-template-columns:1fr 1fr; background:#0c1660; color:var(--cream); }
   .lookbook-strip ::selection{ background:var(--cream); color:var(--blue); }
@@ -656,20 +663,23 @@
   </div>
 </section>
 
-<!-- ============ RUN CLUB (split-screen: photo left, schedule right) ============ -->
-<section id="club" class="lookbook-strip" aria-label="Sunday Run Club" style="scroll-margin-top:64px;">
-  <figure>
-    <img src="IMAGES/2C3A1025.jpeg" alt="Inside Blue Hour Coffee" loading="lazy">
-  </figure>
-  <div class="caption rv">
-    <span class="label">Sundays</span>
-    <h3>Sunday<br>Run Club.</h3>
-    <div class="run-times">
-      <div class="row"><span class="name">Meet Out Front</span><span class="cat">2410 N Murray</span><span class="price">8:00</span></div>
-      <div class="row"><span class="name">We Run</span><span class="cat">Oak Leaf Trail</span><span class="price">8:30</span></div>
-      <div class="row"><span class="name">Distance</span><span class="cat">Easy, Flat</span><span class="price">3 MI</span></div>
-      <div class="row"><span class="name">Every Pace</span><span class="cat">No Sign-Up</span><span class="price">All</span></div>
-      <div class="row"><span class="name">Coffee After</span><span class="cat">Cars & Coffee Monthly</span><span class="price">On Us</span></div>
+<!-- ============ RUN CLUB (centered headline + split-screen below) ============ -->
+<section id="club" style="scroll-margin-top:64px;">
+  <div class="club-head rv">
+    <h2>sunday run club</h2>
+  </div>
+  <div class="lookbook-strip">
+    <figure>
+      <img src="IMAGES/2C3A1025.jpeg" alt="Inside Blue Hour Coffee" loading="lazy">
+    </figure>
+    <div class="caption rv">
+      <div class="run-times">
+        <div class="row"><span class="name">Meet Out Front</span><span class="cat">2410 N Murray</span><span class="price">8:00</span></div>
+        <div class="row"><span class="name">We Run</span><span class="cat">Oak Leaf Trail</span><span class="price">8:30</span></div>
+        <div class="row"><span class="name">Distance</span><span class="cat">Easy, Flat</span><span class="price">3 MI</span></div>
+        <div class="row"><span class="name">Every Pace</span><span class="cat">No Sign-Up</span><span class="price">All</span></div>
+        <div class="row"><span class="name">Coffee After</span><span class="cat">Cars & Coffee Monthly</span><span class="price">On Us</span></div>
+      </div>
     </div>
   </div>
 </section>
