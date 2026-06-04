@@ -353,7 +353,7 @@
   /* ---------- footer (solid cobalt) ---------- */
   footer{ background:var(--blue); color:var(--cream); padding:clamp(3.6rem,5vw,5.5rem) var(--pad) 1.6rem; }
   footer ::selection{ background:var(--cream); color:var(--blue); }
-  .foot-grid{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:clamp(2.4rem,4vw,4.5rem); align-items:start; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr 1fr; gap:clamp(2.4rem,4vw,6rem); align-items:start; }
   .foot-grid h4{ margin:0 0 1.2rem; font-size:.7rem; letter-spacing:.22em; text-transform:uppercase; font-weight:500; color:rgba(246,240,227,.55); }
   .foot-grid ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.85rem; }
   .foot-grid li a, .foot-grid li{ font-size:.92rem; color:rgba(246,240,227,.92); }
@@ -428,8 +428,9 @@
 
     .visit-grid{ grid-template-columns:1fr; gap:8vw; }
 
-    .foot-grid{ grid-template-columns:1fr 1fr; gap:8vw 4vw; }
-    .news{ grid-column:1 / -1; }
+    .foot-grid{ grid-template-columns:1fr; gap:3rem; }
+    .foot-visit{ text-align:left; }
+    .foot-visit ul{ align-items:flex-start; }
     .totop{ right:5vw; bottom:5vw; }
 
     .menu-banner{ grid-template-columns:1fr; gap:1.6rem; align-items:flex-start; }
@@ -727,24 +728,6 @@
           <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M14 3h2.4c.2 1.6 1.1 3 2.6 3.6.6.3 1.3.4 2 .5v2.5c-1.7 0-3.3-.5-4.6-1.4v6.1a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.6a3 3 0 1 0 2.1 2.9V3Z"/></svg>
         </a>
       </div>
-    </div>
-
-    <div>
-      <h4>Company</h4>
-      <ul>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">Wholesale</a></li>
-        <li><a href="#">Privacy Policy</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <h4>Shop</h4>
-      <ul>
-        <li><a href="#shop">Beans</a></li>
-        <li><a href="#shop">Merch &amp; Drops</a></li>
-        <li><a href="#shop">Gift Cards</a></li>
-      </ul>
     </div>
 
     <div class="foot-visit">
