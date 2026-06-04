@@ -81,6 +81,17 @@
     transition:background-color .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease); cursor:pointer; }
   .loc:hover{ background:var(--blue); color:var(--cream); border-color:var(--blue); }
   header.on-dark .loc:hover{ background:var(--cream); color:var(--blue); border-color:var(--cream); }
+  .cart-btn{ position:relative; margin-left:.95rem; background:none; border:0; color:inherit;
+    cursor:pointer; display:inline-flex; align-items:center; padding:.3rem; line-height:0;
+    transition:transform .25s var(--ease); }
+  .cart-btn:hover{ transform:translateY(-1px); }
+  .cart-btn:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; border-radius:6px; }
+  .cart-btn svg{ width:22px; height:22px; }
+  .cart-btn__count{ position:absolute; top:-3px; right:-6px; min-width:17px; height:17px; padding:0 4px;
+    border-radius:100px; background:var(--coral); color:var(--cream); font-size:.6rem; font-weight:700;
+    display:grid; place-items:center; line-height:1; box-shadow:0 2px 6px rgba(0,0,0,.22); }
+  .cart-btn__count.bump{ animation:cartBump .42s var(--ease); }
+  @keyframes cartBump{ 0%{ transform:scale(1);} 40%{ transform:scale(1.4);} 100%{ transform:scale(1);} }
   .burger{ display:none; background:none; border:0; color:inherit; font-size:.72rem; letter-spacing:.14em;
     text-transform:uppercase; font-weight:500; cursor:pointer; }
 
@@ -321,6 +332,67 @@
     .drink-modal__media{ aspect-ratio:5/3; min-height:0; }
   }
 
+  /* ---------- cart drawer ---------- */
+  .cart-drawer{ position:fixed; inset:0; z-index:110; pointer-events:none; }
+  .cart-drawer[hidden]{ display:none; }
+  .cart-drawer__backdrop{ position:absolute; inset:0; background:rgba(10,17,64,.5);
+    -webkit-backdrop-filter:blur(5px); backdrop-filter:blur(5px);
+    opacity:0; transition:opacity .3s var(--ease); cursor:pointer; }
+  .cart-drawer.open{ pointer-events:auto; }
+  .cart-drawer.open .cart-drawer__backdrop{ opacity:1; }
+  .cart-drawer__panel{ position:absolute; top:0; right:0; height:100%;
+    width:min(420px,100%); background:var(--cream); color:var(--blue);
+    display:flex; flex-direction:column;
+    box-shadow:-20px 0 60px rgba(0,0,0,.32);
+    transform:translateX(100%); transition:transform .34s var(--ease); }
+  .cart-drawer.open .cart-drawer__panel{ transform:none; }
+  .cart-drawer__head{ display:flex; align-items:center; justify-content:space-between;
+    padding:1.5rem 1.5rem .4rem; }
+  .cart-drawer__head h2{ margin:0; font-family:var(--grot); font-weight:600; text-transform:uppercase;
+    letter-spacing:.04em; font-size:1.15rem; }
+  .cart-drawer__close{ background:none; border:0; color:var(--blue); font-size:1.7rem; line-height:1;
+    cursor:pointer; padding:0 .2rem; transition:transform .2s var(--ease); }
+  .cart-drawer__close:hover{ transform:scale(1.12); }
+  .cart-drawer__sub{ margin:0; padding:0 1.5rem 1rem; font-size:.62rem; letter-spacing:.2em;
+    text-transform:uppercase; color:rgba(26,26,26,.5); font-weight:500;
+    border-bottom:1px solid rgba(26,26,26,.1); }
+  .cart-drawer__items{ flex:1; overflow-y:auto; padding:.4rem 1.5rem; display:flex; flex-direction:column; }
+  .cart-drawer__empty{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:.4rem; text-align:center; color:rgba(26,26,26,.5); font-size:.95rem; padding:2rem; }
+  .cart-drawer__empty span{ font-size:.78rem; letter-spacing:.04em; }
+  .cart-item{ display:grid; grid-template-columns:56px 1fr auto; gap:.9rem; align-items:start;
+    padding:1.1rem 0; border-bottom:1px solid rgba(26,26,26,.1); }
+  .cart-item__img{ width:56px; height:56px; border-radius:7px; object-fit:cover; object-position:center top;
+    background:var(--cream-2); }
+  .cart-item__info{ display:flex; flex-direction:column; gap:.25rem; min-width:0; }
+  .cart-item__name{ font-family:var(--grot); font-weight:600; text-transform:uppercase; letter-spacing:.03em;
+    font-size:.82rem; line-height:1.2; }
+  .cart-item__unit{ font-size:.74rem; color:rgba(26,26,26,.55); }
+  .cart-item__qty{ display:inline-flex; align-items:center; gap:.3rem; margin-top:.35rem; }
+  .cart-item__qty button{ width:24px; height:24px; border-radius:50%; border:1px solid rgba(26,26,26,.25);
+    background:none; color:var(--blue); cursor:pointer; font-size:1rem; line-height:1; display:grid;
+    place-items:center; transition:background-color .2s var(--ease), border-color .2s var(--ease); }
+  .cart-item__qty button:hover{ background:var(--blue); color:var(--cream); border-color:var(--blue); }
+  .cart-item__qty span{ min-width:18px; text-align:center; font-size:.85rem; font-weight:600; }
+  .cart-item__remove{ margin-left:.5rem; background:none; border:0; cursor:pointer;
+    font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(26,26,26,.45);
+    text-decoration:underline; text-underline-offset:2px; }
+  .cart-item__remove:hover{ color:var(--coral); }
+  .cart-item__line{ font-family:var(--grot); font-weight:600; font-size:.85rem; white-space:nowrap; }
+  .cart-drawer__foot{ padding:1.2rem 1.5rem calc(1.4rem + env(safe-area-inset-bottom));
+    border-top:1px solid rgba(26,26,26,.14); background:var(--cream-2); }
+  .cart-drawer__total{ display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--grot); margin-bottom:.2rem; }
+  .cart-drawer__total span:first-child{ font-size:.62rem; letter-spacing:.2em; text-transform:uppercase;
+    font-weight:600; color:rgba(26,26,26,.6); }
+  .cart-drawer__total span:last-child{ font-weight:600; font-size:1.4rem; letter-spacing:-.01em; }
+  .cart-drawer__note{ margin:.5rem 0 0; font-size:.78rem; line-height:1.45; color:var(--coral); min-height:0; }
+  .cart-drawer__note:empty{ display:none; }
+  .cart-drawer__checkout{ width:100%; text-align:center; margin-top:.9rem; padding:.85rem 1rem;
+    font-size:.78rem; }
+  .cart-drawer__checkout[disabled]{ opacity:.5; cursor:not-allowed; }
+  .cart-drawer__checkout.loading{ opacity:.7; cursor:progress; }
+
   .menu-foot{ margin-top:5vw;
     display:flex; justify-content:center; align-items:center; }
   .menu-foot .btn{ padding:.7rem 1.8rem .75rem; font-size:clamp(.72rem,.95vw,.84rem); }
@@ -551,6 +623,10 @@
 
   <div class="actions">
     <a class="loc" href="#menu">Order Pick Up</a>
+    <button class="cart-btn" data-cart-open aria-label="Open your order">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-btn__count" data-cart-count hidden>0</span>
+    </button>
   </div>
 </header>
 
@@ -805,6 +881,46 @@
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+<!-- ============ DRINK MODAL ============ -->
+<div class="drink-modal" data-modal hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="drink-modal-name">
+  <div class="drink-modal__backdrop" data-modal-close></div>
+  <div class="drink-modal__panel" role="document">
+    <button class="drink-modal__close" data-modal-close aria-label="Close">&times;</button>
+    <div class="drink-modal__media">
+      <img data-modal-img src="" alt="">
+    </div>
+    <div class="drink-modal__body">
+      <span class="drink-modal__cat" data-modal-cat></span>
+      <h3 class="drink-modal__name" id="drink-modal-name" data-modal-name></h3>
+      <p class="drink-modal__desc" data-modal-desc></p>
+      <div class="drink-modal__meta">
+        <span class="drink-modal__price" data-modal-price></span>
+        <span class="drink-modal__temp" data-modal-temp></span>
+      </div>
+      <button class="btn solid" data-modal-add>Add to Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CART DRAWER ============ -->
+<div class="cart-drawer" data-cart hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Your order">
+  <div class="cart-drawer__backdrop" data-cart-close></div>
+  <aside class="cart-drawer__panel">
+    <div class="cart-drawer__head">
+      <h2>Your Order</h2>
+      <button class="cart-drawer__close" data-cart-close aria-label="Close">&times;</button>
+    </div>
+    <p class="cart-drawer__sub">Pickup · 2410 N Murray</p>
+    <div class="cart-drawer__items" data-cart-items></div>
+    <div class="cart-drawer__empty" data-cart-empty>Your order is empty.<span>Tap a drink, then “Add to Order.”</span></div>
+    <div class="cart-drawer__foot">
+      <div class="cart-drawer__total"><span>Subtotal</span><span data-cart-subtotal>$0.00</span></div>
+      <p class="cart-drawer__note" data-cart-note></p>
+      <button class="btn solid cart-drawer__checkout" data-cart-checkout>Checkout · Pickup</button>
+    </div>
+  </aside>
+</div>
+
 <script>
   document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 
@@ -963,9 +1079,14 @@
       priceEl.textContent = treat.dataset.price || '';
       tempEl.textContent = tTemp ? tTemp.textContent.trim() : '';
       tempEl.classList.toggle('iced-only', !!treat.querySelector('.temp.iced-only'));
+      // record current drink so the cart can add it
+      modal.dataset.drinkName = tName ? tName.textContent.trim() : '';
+      modal.dataset.drinkPrice = treat.dataset.price || '';
+      modal.dataset.drinkImg = tImg ? tImg.src : '';
       modal.hidden = false;
       modal.setAttribute('aria-hidden', 'false');
-      requestAnimationFrame(() => modal.classList.add('open'));
+      void modal.offsetWidth;             // commit display change so the open transition runs
+      modal.classList.add('open');
       document.body.style.overflow = 'hidden';
     };
 
@@ -998,27 +1119,180 @@
 
     modal.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', closeModal));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+
+    // "Add to Order" → push current drink into the cart, then swap modal for the drawer
+    const addBtn = modal.querySelector('[data-modal-add]');
+    if (addBtn) addBtn.addEventListener('click', () => {
+      if (window.BlueHourCart) {
+        window.BlueHourCart.add({
+          name: modal.dataset.drinkName || '',
+          price: modal.dataset.drinkPrice || '',
+          img: modal.dataset.drinkImg || '',
+        });
+        closeModal();
+        window.BlueHourCart.open();
+      }
+    });
+  })();
+
+  // ============ CART + SHOPIFY CHECKOUT ============
+  (function(){
+    // ---- CONFIG: fill these in after the Shopify setup guide ----
+    const BLUE_HOUR_SHOP = {
+      domain: 'YOUR-SHOP.myshopify.com',            // e.g. blue-hour-coffee.myshopify.com
+      storefrontToken: 'YOUR_STOREFRONT_ACCESS_TOKEN',
+      apiVersion: '2025-10',
+      variants: {                                   // drink name  →  Shopify variant id
+        'Banana Foster Latte': 'YOUR_VARIANT_ID',
+        'Vanilla Latte':       'YOUR_VARIANT_ID',
+        'Mont Blanc':          'YOUR_VARIANT_ID',
+        'Ube Matcha':          'YOUR_VARIANT_ID',
+        'Black Sesame Matcha': 'YOUR_VARIANT_ID',
+        'Vanilla Matcha':      'YOUR_VARIANT_ID',
+        'Espresso Tonic':      'YOUR_VARIANT_ID',
+        'Lemon Green Tea':     'YOUR_VARIANT_ID',
+        'Hibiscus Lime':       'YOUR_VARIANT_ID',
+      },
+    };
+    // -------------------------------------------------------------
+
+    const STORE_KEY = 'blueHourCart.v1';
+    const drawer   = document.querySelector('[data-cart]');
+    const itemsEl  = drawer.querySelector('[data-cart-items]');
+    const emptyEl  = drawer.querySelector('[data-cart-empty]');
+    const subEl    = drawer.querySelector('[data-cart-subtotal]');
+    const noteEl   = drawer.querySelector('[data-cart-note]');
+    const checkoutBtn = drawer.querySelector('[data-cart-checkout]');
+    const countEl  = document.querySelector('[data-cart-count]');
+    const openBtns = document.querySelectorAll('[data-cart-open]');
+
+    const money = (n) => '$' + (Math.round(n * 100) / 100).toFixed(2);
+    const parsePrice = (p) => Number(String(p).replace(/[^0-9.]/g, '')) || 0;
+    const placeholder = (v) => !v || /YOUR[_-]/.test(v);
+    const isConfigured = () => !placeholder(BLUE_HOUR_SHOP.domain) && !placeholder(BLUE_HOUR_SHOP.storefrontToken);
+    const toGid = (raw) => String(raw).startsWith('gid://') ? raw : 'gid://shopify/ProductVariant/' + raw;
+
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { cart = []; }
+    const save = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(cart)); } catch (e) {} };
+    const count = () => cart.reduce((n, it) => n + it.qty, 0);
+    const subtotal = () => cart.reduce((n, it) => n + it.price * it.qty, 0);
+
+    function add(drink) {
+      const name = (drink.name || '').trim();
+      if (!name) return;
+      const existing = cart.find(it => it.name === name);
+      if (existing) existing.qty += 1;
+      else cart.push({ name, price: parsePrice(drink.price), img: drink.img || '', qty: 1 });
+      save(); render(); bumpCount();
+    }
+    function setQty(name, delta) {
+      const it = cart.find(x => x.name === name); if (!it) return;
+      it.qty += delta;
+      if (it.qty <= 0) cart = cart.filter(x => x.name !== name);
+      save(); render();
+    }
+    function removeItem(name) { cart = cart.filter(x => x.name !== name); save(); render(); }
+
+    function bumpCount() {
+      if (!countEl) return;
+      countEl.classList.remove('bump'); void countEl.offsetWidth; countEl.classList.add('bump');
+    }
+
+    function render() {
+      const c = count();
+      if (countEl) { countEl.textContent = c; countEl.hidden = c === 0; }
+      const empty = cart.length === 0;
+      emptyEl.style.display = empty ? '' : 'none';
+      itemsEl.style.display = empty ? 'none' : '';
+      subEl.textContent = money(subtotal());
+      checkoutBtn.disabled = empty;
+      noteEl.textContent = '';
+      itemsEl.innerHTML = '';
+      cart.forEach(it => {
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML =
+          '<img class="cart-item__img" src="' + it.img + '" alt="">' +
+          '<div class="cart-item__info">' +
+            '<span class="cart-item__name"></span>' +
+            '<span class="cart-item__unit">' + money(it.price) + ' each</span>' +
+            '<span class="cart-item__qty">' +
+              '<button data-dec aria-label="Decrease">&minus;</button>' +
+              '<span>' + it.qty + '</span>' +
+              '<button data-inc aria-label="Increase">+</button>' +
+              '<button class="cart-item__remove" data-remove>Remove</button>' +
+            '</span>' +
+          '</div>' +
+          '<span class="cart-item__line">' + money(it.price * it.qty) + '</span>';
+        row.querySelector('.cart-item__name').textContent = it.name;
+        row.querySelector('[data-dec]').addEventListener('click', () => setQty(it.name, -1));
+        row.querySelector('[data-inc]').addEventListener('click', () => setQty(it.name, +1));
+        row.querySelector('[data-remove]').addEventListener('click', () => removeItem(it.name));
+        itemsEl.appendChild(row);
+      });
+    }
+
+    function open() {
+      drawer.hidden = false;
+      drawer.setAttribute('aria-hidden', 'false');
+      void drawer.offsetWidth;            // commit display change so the slide-in transition runs
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setTimeout(() => { drawer.hidden = true; }, 340);
+    }
+
+    async function checkout() {
+      if (cart.length === 0) return;
+      if (!isConfigured()) {
+        noteEl.textContent = 'Online ordering is being set up — please order at the counter for now.';
+        return;
+      }
+      const lines = [];
+      for (const it of cart) {
+        const variant = BLUE_HOUR_SHOP.variants[it.name];
+        if (placeholder(variant)) {
+          noteEl.textContent = '“' + it.name + '” isn’t available for online order yet.';
+          return;
+        }
+        lines.push({ merchandiseId: toGid(variant), quantity: it.qty });
+      }
+      noteEl.textContent = '';
+      checkoutBtn.classList.add('loading');
+      checkoutBtn.textContent = 'Starting checkout…';
+      const query = 'mutation cartCreate($lines:[CartLineInput!]!){cartCreate(input:{lines:$lines}){cart{checkoutUrl} userErrors{message}}}';
+      try {
+        const res = await fetch('https://' + BLUE_HOUR_SHOP.domain + '/api/' + BLUE_HOUR_SHOP.apiVersion + '/graphql.json', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': BLUE_HOUR_SHOP.storefrontToken },
+          body: JSON.stringify({ query, variables: { lines } }),
+        });
+        const json = await res.json();
+        const url = json && json.data && json.data.cartCreate && json.data.cartCreate.cart && json.data.cartCreate.cart.checkoutUrl;
+        const errs = json && json.data && json.data.cartCreate && json.data.cartCreate.userErrors;
+        if (url) { window.location.href = url; return; }
+        noteEl.textContent = (errs && errs[0] && errs[0].message) || 'Couldn’t start checkout. Please try again.';
+      } catch (e) {
+        noteEl.textContent = 'Network problem starting checkout. Please try again.';
+      } finally {
+        checkoutBtn.classList.remove('loading');
+        checkoutBtn.textContent = 'Checkout · Pickup';
+      }
+    }
+
+    openBtns.forEach(b => b.addEventListener('click', open));
+    drawer.querySelectorAll('[data-cart-close]').forEach(b => b.addEventListener('click', close));
+    checkoutBtn.addEventListener('click', checkout);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawer.hidden) close(); });
+
+    render();
+    window.BlueHourCart = { add, open, close };
   })();
 </script>
-
-<div class="drink-modal" data-modal hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="drink-modal-name">
-  <div class="drink-modal__backdrop" data-modal-close></div>
-  <div class="drink-modal__panel" role="document">
-    <button class="drink-modal__close" data-modal-close aria-label="Close">&times;</button>
-    <div class="drink-modal__media">
-      <img data-modal-img src="" alt="">
-    </div>
-    <div class="drink-modal__body">
-      <span class="drink-modal__cat" data-modal-cat></span>
-      <h3 class="drink-modal__name" id="drink-modal-name" data-modal-name></h3>
-      <p class="drink-modal__desc" data-modal-desc></p>
-      <div class="drink-modal__meta">
-        <span class="drink-modal__price" data-modal-price></span>
-        <span class="drink-modal__temp" data-modal-temp></span>
-      </div>
-      <a class="btn solid" data-modal-cta href="#menu">Order Pick Up</a>
-    </div>
-  </div>
-</div>
 </body>
 </html>
