@@ -612,7 +612,7 @@
   <button class="burger" data-burger aria-expanded="false">Menu</button>
   <nav class="top" data-nav>
     <a href="#menu">Menu</a>
-    <a href="#club">Run Club</a>
+    <a href="#run-club">Run Club</a>
     <a href="#story">Story</a>
   </nav>
 
@@ -812,33 +812,9 @@
   </div>
 </section>
 
-<!-- ============ RUN CLUB (centered headline + split-screen below) ============ -->
-<section id="club" style="scroll-margin-top:64px;">
-  <div class="club-head rv">
-    <span class="eyebrow">Every Sunday · 2410 N Murray</span>
-    <h2>sunday run club</h2>
-    <p class="lede">Easy three-mile loop along the Oak Leaf Trail. Every pace welcome, coffee after on us.</p>
-  </div>
-  <div class="lookbook-strip">
-    <figure>
-      <img src="IMAGES/MRC-003.jpg" alt="Run club on the Oak Leaf Trail" loading="lazy">
-    </figure>
-    <div class="caption rv">
-      <div class="run-times">
-        <div class="row"><span class="name">Meet Out Front</span><span class="cat">2410 N Murray</span><span class="price">8:00</span></div>
-        <div class="row"><span class="name">We Run</span><span class="cat">Oak Leaf Trail</span><span class="price">8:30</span></div>
-        <div class="row"><span class="name">Distance</span><span class="cat">Easy, Flat</span><span class="price">3 MI</span></div>
-        <div class="row"><span class="name">Every Pace</span><span class="cat">No Sign-Up</span><span class="price">All</span></div>
-        <div class="row"><span class="name">Coffee After</span><span class="cat">Cars & Coffee Monthly</span><span class="price">On Us</span></div>
-      </div>
-      <p class="tagline">Every Sunday. Rain or shine.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ RUN CLUB GALLERY BAND (photo + link to run-club.html) ============ -->
+<!-- ============ RUN CLUB (text overlaid on the trail photo) ============ -->
 <section id="run-club" class="campaign" style="scroll-margin-top:80px;">
-  <img class="bg-img" src="IMAGES/MRC-002.jpg" alt="" aria-hidden="true">
+  <img class="bg-img" src="IMAGES/MRC-003.jpg" alt="" aria-hidden="true">
   <div class="overlay" aria-hidden="true"></div>
   <div class="inner rv">
     <h2>run club</h2>
@@ -957,7 +933,7 @@
   const toTop = document.querySelector('[data-totop]');
   const header = document.querySelector('header');
   const darkSelector = '.hero, footer';
-  const trackedSelector = '.hero, #story, #menu, .campaign, #club, footer';
+  const trackedSelector = '.hero, #story, #menu, .campaign, footer';
   const trackedSections = Array.from(document.querySelectorAll(trackedSelector));
 
   const onScroll = () => {
