@@ -7,6 +7,11 @@ temporary screenshots/
 # node
 node_modules/
 
+# secrets / env — never commit Square tokens etc. (they live in Vercel env vars)
+.env
+.env.*
+*.env
+
 # claude code tooling
 .claude/
 
