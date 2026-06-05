@@ -398,15 +398,15 @@
   .menu-foot .btn{ padding:.7rem 1.8rem .75rem; font-size:clamp(.72rem,.95vw,.84rem); }
 
   /* ---------- run club head (centered headline above split-screen) ---------- */
-  #club .club-head{ background:var(--cream); text-align:center;
+  #run-club .club-head{ background:var(--cream); text-align:center;
     padding:clamp(1.6rem,3vw,2.6rem) var(--pad) clamp(1.4rem,2.4vw,2rem); }
-  #club .club-head .eyebrow{ display:block;
+  #run-club .club-head .eyebrow{ display:block;
     font-size:clamp(.64rem,.9vw,.78rem); letter-spacing:.22em; text-transform:uppercase;
     color:rgba(26,26,26,.6); font-weight:500; }
-  #club .club-head h2{ margin:.6rem 0 .4rem; font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  #run-club .club-head h2{ margin:.6rem 0 .4rem; font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight:500; text-transform:lowercase; white-space:nowrap;
     font-size:clamp(2.4rem,9.5vw,9rem); line-height:1; letter-spacing:-.04em; color:var(--blue); }
-  #club .club-head .lede{ margin:4.4rem auto 0; font-size:clamp(.98rem,1.2vw,1.08rem); line-height:1.55;
+  #run-club .club-head .lede{ margin:4.4rem auto 0; font-size:clamp(.98rem,1.2vw,1.08rem); line-height:1.55;
     max-width:36rem; color:rgba(26,26,26,.78); }
 
   /* ---------- secondary lookbook (between menu + run club) ---------- */
@@ -812,14 +812,28 @@
   </div>
 </section>
 
-<!-- ============ RUN CLUB (text overlaid on the trail photo) ============ -->
-<section id="run-club" class="campaign" style="scroll-margin-top:80px;">
-  <img class="bg-img" src="IMAGES/MRC-003.jpg" alt="" aria-hidden="true">
-  <div class="overlay" aria-hidden="true"></div>
-  <div class="inner rv">
-    <h2>run club</h2>
-    <p>The crew, the miles, and the coffee after. A look at every Sunday on the Oak Leaf Trail.</p>
-    <a class="arrow-link cream" href="run-club.html">Gallery</a>
+<!-- ============ RUN CLUB (centered headline + split-screen: running photo + schedule) ============ -->
+<section id="run-club" style="scroll-margin-top:64px;">
+  <div class="club-head rv">
+    <span class="eyebrow">Every Sunday · 2410 N Murray</span>
+    <h2>sunday run club</h2>
+    <p class="lede">Easy three-mile loop along the Oak Leaf Trail. Every pace welcome, coffee after on us.</p>
+  </div>
+  <div class="lookbook-strip">
+    <figure>
+      <img src="IMAGES/MRC-003.jpg" alt="Run club on the Oak Leaf Trail" loading="lazy">
+    </figure>
+    <div class="caption rv">
+      <div class="run-times">
+        <div class="row"><span class="name">Meet Out Front</span><span class="cat">2410 N Murray</span><span class="price">8:00</span></div>
+        <div class="row"><span class="name">We Run</span><span class="cat">Oak Leaf Trail</span><span class="price">8:30</span></div>
+        <div class="row"><span class="name">Distance</span><span class="cat">Easy, Flat</span><span class="price">3 MI</span></div>
+        <div class="row"><span class="name">Every Pace</span><span class="cat">No Sign-Up</span><span class="price">All</span></div>
+        <div class="row"><span class="name">Coffee After</span><span class="cat">Cars & Coffee Monthly</span><span class="price">On Us</span></div>
+      </div>
+      <p class="tagline">Every Sunday. Rain or shine.</p>
+      <a class="arrow-link" href="run-club.html">Gallery</a>
+    </div>
   </div>
 </section>
 
