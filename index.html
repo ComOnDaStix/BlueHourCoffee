@@ -236,12 +236,14 @@
   .treats-rail{ position:relative; padding:3.6vw 0 1.4vw;
     margin:0 calc(var(--pad) * -1); }
   .treats-scroller{ overflow-x:auto; overflow-y:hidden; scrollbar-width:none;
-    scroll-behavior:smooth; padding-bottom:.6rem; }
+    scroll-behavior:smooth; padding-bottom:.6rem;
+    scroll-snap-type:x mandatory; scroll-padding-left:var(--pad);
+    -webkit-overflow-scrolling:touch; }
   .treats-scroller::-webkit-scrollbar{ display:none; }
   .treats-track{ display:flex; gap:clamp(1.2rem,2vw,2rem); width:max-content;
     padding:0 var(--pad); }
   .treat{ position:relative; display:flex; flex-direction:column;
-    flex:0 0 clamp(310px, 31vw, 420px); }
+    flex:0 0 clamp(310px, 31vw, 420px); scroll-snap-align:start; }
   .rail-arrow{ position:absolute; top:34%; transform:translateY(-50%); z-index:5;
     width:44px; height:44px; border-radius:50%; border:0; cursor:pointer;
     background:rgba(246,240,227,.78); color:var(--blue);
@@ -252,6 +254,7 @@
   .rail-arrow:hover{ background:var(--cream); opacity:1; transform:translateY(-50%) scale(1.06); }
   .rail-arrow:active{ transform:translateY(-50%) scale(.94); }
   .rail-arrow:focus-visible{ outline:2px solid var(--coral); outline-offset:3px; }
+  .rail-arrow:disabled{ opacity:.32; pointer-events:none; }
   .rail-arrow svg{ width:18px; height:18px; }
   .rail-arrow.prev{ left:1.8vw; }
   .rail-arrow.next{ right:1.8vw; }
@@ -558,12 +561,9 @@
     .foot-visit ul{ align-items:flex-start; }
     .totop{ right:5vw; bottom:5vw; }
 
-    .menu-banner{ grid-template-columns:1fr; gap:1.6rem; align-items:flex-start; }
-    .menu-banner .lede{ justify-self:start; }
+    .menu-banner{ gap:1.4rem; }
     .treat{ flex:0 0 64vw; }
-    .rail-arrow{ width:40px; height:40px; }
-    .rail-arrow.prev{ left:4vw; }
-    .rail-arrow.next{ right:4vw; }
+    .rail-arrow{ display:none; }   /* mobile: swipe the rail instead of tap-arrows */
     .menu-foot{ flex-direction:column; align-items:flex-start; gap:1.4rem; }
     .lookbook-strip{ grid-template-columns:1fr; }
     .lookbook-strip figure{ aspect-ratio:3/4; }
@@ -572,6 +572,7 @@
   @media (max-width:540px){
     .grid{ grid-template-columns:1fr; }
     .treat{ flex:0 0 75vw; }
+    .menu-banner h2{ font-size:clamp(1.85rem,8.4vw,2.4rem); }   /* keep "drinks of the hour" on one centered line */
   }
 </style>
 </head>
@@ -976,7 +977,7 @@
     else el.textContent = h<open ? ('Opens '+open+'am') : ('Closed · back at '+open+'am');
   })();
 
-  // drinks rail: scroll-driven loop with arrow controls + auto drift
+  // drinks rail: native swipe + scroll-snap; arrows on desktop; gentle auto-advance
   (function(){
     const rail = document.querySelector('.treats-rail');
     const scroller = rail?.querySelector('[data-scroller]');
@@ -985,73 +986,49 @@
     const next = rail?.querySelector('[data-next]');
     if (!scroller || !track) return;
 
-    // Clone the card set once so we can wrap invisibly past the half boundary
-    Array.from(track.children).forEach(c => track.appendChild(c.cloneNode(true)));
-
     const stepWidth = () => {
       const card = track.querySelector('.treat');
-      if (!card) return 280;
+      if (!card) return 300;
       const gap = parseFloat(getComputedStyle(track).gap) || 24;
       return card.getBoundingClientRect().width + gap;
     };
-    const half = () => track.scrollWidth / 2;
+    const maxScroll = () => scroller.scrollWidth - scroller.clientWidth;
 
-    let hovering = false;
-    let interactedAt = 0;
-    let smoothUntil = 0;
-    let lastTs = 0;
+    function updateArrows(){
+      const x = scroller.scrollLeft, max = maxScroll();
+      if (prev) prev.disabled = x <= 2;
+      if (next) next.disabled = x >= max - 2;
+    }
+
+    let paused = false, resumeTimer = 0;
+    const pause = (ms) => { paused = true; clearTimeout(resumeTimer); resumeTimer = setTimeout(() => { paused = false; }, ms || 4000); };
+
+    prev?.addEventListener('click', (e) => { e.stopPropagation(); scroller.scrollBy({ left: -stepWidth(), behavior: 'smooth' }); pause(); });
+    next?.addEventListener('click', (e) => { e.stopPropagation(); scroller.scrollBy({ left:  stepWidth(), behavior: 'smooth' }); pause(); });
+
+    scroller.addEventListener('scroll', updateArrows, { passive: true });
+    addEventListener('resize', updateArrows);
+    scroller.addEventListener('pointerdown', () => pause(), { passive: true });
+    scroller.addEventListener('wheel', () => pause(), { passive: true });
+    scroller.addEventListener('touchstart', () => pause(), { passive: true });
+    rail.addEventListener('pointerenter', () => { paused = true; });
+    rail.addEventListener('pointerleave', () => { paused = false; });
+    updateArrows();
+
+    // Gentle auto-advance — desktop pointers only, ping-pongs at the ends, pauses on interaction.
+    const desktop = matchMedia('(hover:hover) and (pointer:fine)').matches;
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const DRIFT_PX_PER_SEC = 26;
-
-    rail.addEventListener('pointerenter', () => hovering = true);
-    rail.addEventListener('pointerleave', () => hovering = false);
-
-    function instantSet(left){
-      scroller.style.scrollBehavior = 'auto';
-      scroller.scrollLeft = left;
-      // restore via rAF so the assignment commits first
-      requestAnimationFrame(() => { scroller.style.scrollBehavior = ''; });
+    if (desktop && !reduceMotion){
+      let dir = 1;
+      setInterval(() => {
+        if (paused) return;
+        const max = maxScroll();
+        if (max <= 0) return;
+        if (dir > 0 && scroller.scrollLeft >= max - 2) dir = -1;
+        else if (dir < 0 && scroller.scrollLeft <= 2) dir = 1;
+        scroller.scrollBy({ left: dir * stepWidth(), behavior: 'smooth' });
+      }, 3400);
     }
-
-    function wrapIfNeeded(){
-      const h = half();
-      if (scroller.scrollLeft >= h) instantSet(scroller.scrollLeft - h);
-      else if (scroller.scrollLeft < 0.5) instantSet(scroller.scrollLeft + h);
-    }
-
-    function tick(ts){
-      if (!lastTs) lastTs = ts;
-      const dt = (ts - lastTs) / 1000;
-      lastTs = ts;
-      const now = performance.now();
-      if (!reduceMotion && !hovering && now > smoothUntil && now - interactedAt > 1500) {
-        scroller.scrollLeft += DRIFT_PX_PER_SEC * dt;
-        if (scroller.scrollLeft >= half()) instantSet(scroller.scrollLeft - half());
-      }
-      requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-
-    function nudge(direction){
-      interactedAt = performance.now();
-      smoothUntil = interactedAt + 700;
-      // Before scrolling backward from near the start, jump invisibly to the mirror
-      if (direction < 0 && scroller.scrollLeft < stepWidth() * 1.2) {
-        instantSet(scroller.scrollLeft + half());
-      }
-      scroller.scrollBy({ left: direction * stepWidth(), behavior: 'smooth' });
-      setTimeout(wrapIfNeeded, 650);
-    }
-    prev?.addEventListener('click', () => nudge(-1));
-    next?.addEventListener('click', () => nudge(1));
-
-    // Pause drift while the user is actively scrolling (wheel / touch)
-    let scrollTimer;
-    scroller.addEventListener('scroll', () => {
-      interactedAt = performance.now();
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(wrapIfNeeded, 140);
-    }, { passive: true });
   })();
 
   // drink modal (closer-look on click of a .treat card)
@@ -1104,8 +1081,14 @@
     document.querySelectorAll('.treat').forEach(t => {
       t.tabIndex = 0;
       t.setAttribute('role', 'button');
+      let sx = 0, sy = 0, moved = false;
+      t.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; moved = false; }, { passive: true });
+      t.addEventListener('pointermove', (e) => {
+        if (Math.abs(e.clientX - sx) > 10 || Math.abs(e.clientY - sy) > 10) moved = true;
+      }, { passive: true });
       t.addEventListener('click', (e) => {
         if (e.target.closest('a,button')) return;
+        if (moved) return;            // a swipe, not a tap — don't open the product
         lastTrigger = t;
         openModal(t);
       });
