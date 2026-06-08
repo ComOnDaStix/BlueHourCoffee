@@ -1074,15 +1074,38 @@
     prev?.addEventListener('click', (e) => { e.stopPropagation(); step(-1); pause(); });
     next?.addEventListener('click', (e) => { e.stopPropagation(); step( 1); pause(); });
 
-    // Re-home only once scrolling has come to rest, so we never fight an
-    // in-flight smooth animation (which would otherwise swallow the step).
-    let settleTimer = 0;
-    const settle = () => { clearTimeout(settleTimer); settleTimer = setTimeout(normalize, 120); };
+    // Re-home strategy:
+    //  - Desktop (arrows + auto-advance): re-home only once scrolling has come
+    //    to rest, so we never interrupt an in-flight smooth scroll and swallow
+    //    a step. step() also re-homes before each move.
+    //  - Touch devices (native momentum swipe): re-home *during* momentum too —
+    //    a fast flick never pauses long enough for the settle timer to fire, so
+    //    without this it marches through the clones and jams at the end. Shifts
+    //    are whole-set, landing on pixel-identical content, so it stays seamless.
+    //    We hold off while a finger is actively down (touching) to avoid
+    //    teleporting mid-drag.
+    const touchDevice = matchMedia('(hover: none), (pointer: coarse)').matches || ('ontouchstart' in window);
+    let settleTimer = 0, touching = false, rehomeQueued = false;
+    const settle = () => {
+      // Always re-home once scrolling rests (120ms quiet) — the safety net that
+      // recovers the position no matter what (even off the scroll wall).
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(normalize, 120);
+      // On touch, also re-home *during* momentum so a fast flick can't reach the
+      // wall before it rests. Held off while a finger is actively dragging, to
+      // avoid teleporting the content out from under it.
+      if (touchDevice && !touching && !rehomeQueued) {
+        rehomeQueued = true;
+        requestAnimationFrame(() => { rehomeQueued = false; if (!touching) normalize(); });
+      }
+    };
     scroller.addEventListener('scroll', settle, { passive: true });
     addEventListener('resize', settle);
     scroller.addEventListener('pointerdown', () => pause(), { passive: true });
     scroller.addEventListener('wheel', () => pause(), { passive: true });
-    scroller.addEventListener('touchstart', () => pause(), { passive: true });
+    scroller.addEventListener('touchstart', () => { touching = true; pause(); }, { passive: true });
+    scroller.addEventListener('touchend', () => { touching = false; }, { passive: true });
+    scroller.addEventListener('touchcancel', () => { touching = false; }, { passive: true });
     rail.addEventListener('pointerenter', () => { paused = true; });
     rail.addEventListener('pointerleave', () => { paused = false; });
 
