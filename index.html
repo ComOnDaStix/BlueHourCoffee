@@ -986,47 +986,104 @@
     const next = rail?.querySelector('[data-next]');
     if (!scroller || !track) return;
 
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // --- Seamless infinite loop ---------------------------------------------
+    // Clone a full set of cards on each side: [clones][originals][clones].
+    // The cards never run out, so the arrows (and swipe, and auto-advance)
+    // loop forever instead of stopping at an end. After each scroll settles we
+    // silently re-home into the middle copy — invisible, since the copies are
+    // pixel-identical.
+    const originals = Array.from(track.children);
+    const setCount = originals.length;
+    if (setCount > 1) {
+      const clones = [];
+      const lead = document.createDocumentFragment();
+      const tail = document.createDocumentFragment();
+      originals.forEach(n => { const c = n.cloneNode(true); clones.push(c); lead.appendChild(c); });
+      originals.forEach(n => { const c = n.cloneNode(true); clones.push(c); tail.appendChild(c); });
+      // Clones are decorative duplicates: keep them out of the tab order and the
+      // accessibility tree so keyboard / screen-reader users get the 9 real
+      // cards once, not 27. They stay mouse-clickable (the modal wiring below).
+      clones.forEach(c => { c.classList.add('treat--clone'); c.setAttribute('aria-hidden', 'true'); c.setAttribute('tabindex', '-1'); });
+      track.insertBefore(lead, track.firstChild);   // prepend one set, in order
+      track.appendChild(tail);                       // append one set, in order
+    }
+
     const stepWidth = () => {
       const card = track.querySelector('.treat');
       if (!card) return 300;
       const gap = parseFloat(getComputedStyle(track).gap) || 24;
       return card.getBoundingClientRect().width + gap;
     };
-    const maxScroll = () => scroller.scrollWidth - scroller.clientWidth;
+    // Width of one full set = distance between a card and its clone one set
+    // over. It's also the scrollLeft at which the first *original* card sits at
+    // the start, so it doubles as our home offset.
+    const setSpan = () => setCount > 1
+      ? track.children[setCount].offsetLeft - track.children[0].offsetLeft
+      : 0;
 
-    function updateArrows(){
-      const x = scroller.scrollLeft, max = maxScroll();
-      if (prev) prev.disabled = x <= 2;
-      if (next) next.disabled = x >= max - 2;
+    // Instant scroll regardless of the scroller's CSS scroll-behavior:smooth —
+    // the re-home (and load offset) must teleport, not animate, or the loop
+    // visibly rewinds across every card instead of looping seamlessly.
+    const jumpTo = (x) => {
+      const prev = scroller.style.scrollBehavior;
+      scroller.style.scrollBehavior = 'auto';
+      scroller.scrollLeft = x;
+      scroller.style.scrollBehavior = prev;
+    };
+
+    // Pull scrollLeft back into the middle copy [span, 2*span). Seamless: every
+    // copy is identical, so shifting by a whole span lands on the same pixels
+    // and preserves the current snap point.
+    function normalize(){
+      const span = setSpan();
+      if (span <= 0) return;
+      const x = scroller.scrollLeft;
+      const rel = ((x - span) % span + span) % span;
+      const target = span + rel;
+      if (Math.abs(target - x) > 0.5) jumpTo(target);
     }
 
     let paused = false, resumeTimer = 0;
     const pause = (ms) => { paused = true; clearTimeout(resumeTimer); resumeTimer = setTimeout(() => { paused = false; }, ms || 4000); };
+    const step = (dir) => {
+      // Re-home FIRST so there's always a full clone-set of runway ahead. The
+      // settle handler only re-homes once scrolling stops, but rapid arrow
+      // clicks never let it stop — without this they'd march past the clones
+      // and jam against the scroll wall (the original "it stops" bug). The jump
+      // is invisible: it lands on pixel-identical content before stepping.
+      normalize();
+      if (reduceMotion) jumpTo(scroller.scrollLeft + dir * stepWidth());
+      else scroller.scrollBy({ left: dir * stepWidth(), behavior: 'smooth' });
+    };
 
-    prev?.addEventListener('click', (e) => { e.stopPropagation(); scroller.scrollBy({ left: -stepWidth(), behavior: 'smooth' }); pause(); });
-    next?.addEventListener('click', (e) => { e.stopPropagation(); scroller.scrollBy({ left:  stepWidth(), behavior: 'smooth' }); pause(); });
+    prev?.addEventListener('click', (e) => { e.stopPropagation(); step(-1); pause(); });
+    next?.addEventListener('click', (e) => { e.stopPropagation(); step( 1); pause(); });
 
-    scroller.addEventListener('scroll', updateArrows, { passive: true });
-    addEventListener('resize', updateArrows);
+    // Re-home only once scrolling has come to rest, so we never fight an
+    // in-flight smooth animation (which would otherwise swallow the step).
+    let settleTimer = 0;
+    const settle = () => { clearTimeout(settleTimer); settleTimer = setTimeout(normalize, 120); };
+    scroller.addEventListener('scroll', settle, { passive: true });
+    addEventListener('resize', settle);
     scroller.addEventListener('pointerdown', () => pause(), { passive: true });
     scroller.addEventListener('wheel', () => pause(), { passive: true });
     scroller.addEventListener('touchstart', () => pause(), { passive: true });
     rail.addEventListener('pointerenter', () => { paused = true; });
     rail.addEventListener('pointerleave', () => { paused = false; });
-    updateArrows();
 
-    // Gentle auto-advance — desktop pointers only, ping-pongs at the ends, pauses on interaction.
+    // Start on the first original card (middle copy), not a lead clone. The
+    // pixels are identical to scrollLeft 0, so this is invisible on load.
+    jumpTo(setSpan());
+
+    // Gentle auto-advance — desktop pointers only, loops forward, pauses on interaction.
     const desktop = matchMedia('(hover:hover) and (pointer:fine)').matches;
-    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (desktop && !reduceMotion){
-      let dir = 1;
       setInterval(() => {
         if (paused) return;
-        const max = maxScroll();
-        if (max <= 0) return;
-        if (dir > 0 && scroller.scrollLeft >= max - 2) dir = -1;
-        else if (dir < 0 && scroller.scrollLeft <= 2) dir = 1;
-        scroller.scrollBy({ left: dir * stepWidth(), behavior: 'smooth' });
+        if (setSpan() <= 0) return;
+        step(1);
       }, 3400);
     }
   })();
@@ -1079,8 +1136,14 @@
     };
 
     document.querySelectorAll('.treat').forEach(t => {
-      t.tabIndex = 0;
-      t.setAttribute('role', 'button');
+      // Carousel clones stay mouse-clickable but out of the tab order / a11y
+      // tree (they keep their aria-hidden + tabindex="-1"); only real cards
+      // become focusable, role=button, keyboard-activatable.
+      const isClone = t.classList.contains('treat--clone');
+      if (!isClone) {
+        t.tabIndex = 0;
+        t.setAttribute('role', 'button');
+      }
       let sx = 0, sy = 0, moved = false;
       t.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; moved = false; }, { passive: true });
       t.addEventListener('pointermove', (e) => {
@@ -1092,13 +1155,15 @@
         lastTrigger = t;
         openModal(t);
       });
-      t.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          lastTrigger = t;
-          openModal(t);
-        }
-      });
+      if (!isClone) {
+        t.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            lastTrigger = t;
+            openModal(t);
+          }
+        });
+      }
     });
 
     modal.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', closeModal));
