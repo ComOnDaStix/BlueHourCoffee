@@ -36,13 +36,18 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Your cart is empty.' });
   }
 
-  // Build Square line items (amounts in cents). Prices come from the menu,
-  // not the client's word — but we re-validate shape here as a safety net.
+  // Build Square line items. When the browser supplies a Square catalog id
+  // (variationId), we charge by that — so the PRICE COMES FROM SQUARE, not the
+  // client (authoritative + tamper-proof). If there's no catalog id (Square
+  // catalog not set up yet), we fall back to an ad-hoc line priced from the site.
   let lineItems;
   try {
     lineItems = items.map((it) => {
-      const cents = Math.round(Number(it.price) * 100);
       const qty = Math.max(1, parseInt(it.qty, 10) || 1);
+      if (it.variationId && /^[A-Za-z0-9]/.test(String(it.variationId))) {
+        return { catalog_object_id: String(it.variationId), quantity: String(qty) };
+      }
+      const cents = Math.round(Number(it.price) * 100);
       if (!it.name || !Number.isFinite(cents) || cents <= 0) throw new Error('bad item');
       return {
         name: String(it.name).slice(0, 500),

@@ -1118,6 +1118,7 @@
       modal.dataset.drinkName = tName ? tName.textContent.trim() : '';
       modal.dataset.drinkPrice = treat.dataset.price || '';
       modal.dataset.drinkImg = tImg ? tImg.src : '';
+      modal.dataset.drinkVariationId = treat.dataset.variationId || '';
       modal.hidden = false;
       modal.setAttribute('aria-hidden', 'false');
       void modal.offsetWidth;             // commit display change so the open transition runs
@@ -1177,6 +1178,7 @@
           name: modal.dataset.drinkName || '',
           price: modal.dataset.drinkPrice || '',
           img: modal.dataset.drinkImg || '',
+          variationId: modal.dataset.drinkVariationId || '',
         });
         closeModal();
         window.BlueHourCart.open();
@@ -1209,8 +1211,8 @@
       const name = (drink.name || '').trim();
       if (!name) return;
       const existing = cart.find(it => it.name === name);
-      if (existing) existing.qty += 1;
-      else cart.push({ name, price: parsePrice(drink.price), img: drink.img || '', qty: 1 });
+      if (existing) { existing.qty += 1; if (drink.variationId) existing.variationId = drink.variationId; }
+      else cart.push({ name, price: parsePrice(drink.price), img: drink.img || '', qty: 1, variationId: drink.variationId || '' });
       save(); render(); bumpCount();
     }
     function setQty(name, delta) {
@@ -1284,7 +1286,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            items: cart.map(it => ({ name: it.name, price: it.price, qty: it.qty })),
+            items: cart.map(it => ({ name: it.name, price: it.price, qty: it.qty, variationId: it.variationId || '' })),
           }),
         });
         const data = await res.json().catch(() => ({}));
@@ -1305,6 +1307,26 @@
 
     render();
     window.BlueHourCart = { add, open, close };
+  })();
+
+  // pull live prices + catalog ids from Square so it's the single source of truth
+  (function(){
+    const norm = (s) => String(s || '').toLowerCase().replace(/[™®]/g, '').replace(/\s+/g, ' ').trim();
+    fetch('/api/menu')
+      .then(r => r.ok ? r.json() : { items: [] })
+      .then(data => {
+        const map = {};
+        (data.items || []).forEach(it => { map[norm(it.name)] = it; });
+        document.querySelectorAll('.treat').forEach(t => {
+          const h3 = t.querySelector('h3');
+          if (!h3) return;
+          const m = map[norm(h3.textContent)];
+          if (!m) return;                                  // not in Square yet → keep built-in price
+          if (typeof m.priceCents === 'number') t.dataset.price = '$' + (m.priceCents / 100).toFixed(2);
+          if (m.variationId) t.dataset.variationId = m.variationId;
+        });
+      })
+      .catch(() => {});
   })();
 </script>
 </body>
