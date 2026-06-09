@@ -271,6 +271,13 @@
   .treat:hover .photo{ transform:translateY(-4px); }
   .treat .photo img{ width:100%; height:100%; object-fit:cover; object-position:center top; transform:scale(1.06); transform-origin:center top; transition:transform .9s var(--ease); }
   .treat:hover .photo img{ transform:scale(1.09); }
+  /* dynamic menu: an item with no Square photo yet gets a clean name card */
+  .treat .photo.no-img{ display:grid; place-items:center; padding:1.2rem; }
+  .treat .photo__ph{ font-family:var(--grot); font-weight:600; text-transform:uppercase; letter-spacing:.04em;
+    font-size:clamp(1rem,2.4vw,1.35rem); line-height:1.25; color:rgba(26,26,26,.4); text-align:center; }
+  .drink-modal__media.no-img{ display:grid; place-items:center; }
+  .drink-modal__media.no-img::after{ content:attr(data-ph); font-family:var(--grot); font-weight:600;
+    text-transform:uppercase; letter-spacing:.05em; font-size:1.25rem; color:rgba(26,26,26,.4); text-align:center; padding:1.5rem; }
   .treat .tag{ position:absolute; top:2rem; right:1.8rem; z-index:2;
     background:var(--cream); color:var(--blue);
     font-size:.56rem; letter-spacing:.18em; text-transform:uppercase; font-weight:600;
@@ -690,117 +697,7 @@
 
   <div class="treats-rail rv" aria-label="Signature drinks">
     <div class="treats-scroller" data-scroller>
-    <div class="treats-track" data-track>
-    <article class="treat" data-cat="coffee" data-price="$6.50">
-      <div class="photo">
-        <span class="tag coral">Signature</span>
-        <img src="IMAGES/BlueHour_Banana_Foster_Latte.png" alt="Banana Foster Latte" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Latte</span>
-        <h3>Banana Foster Latte</h3>
-        <p>Brown butter · banana · cinnamon · brown sugar</p>
-        <span class="temp">Hot or Iced</span>
-      </div>
-    </article>
-
-    <article class="treat" data-cat="coffee" data-price="$5.75">
-      <div class="photo">
-        <img src="IMAGES/BlueHour_Vanilla_Latte.png" alt="Vanilla Latte" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Latte</span>
-        <h3>Vanilla Latte</h3>
-        <p>Madagascar vanilla · raw sugar</p>
-        <span class="temp">Hot or Iced</span>
-      </div>
-    </article>
-
-    <article class="treat" data-cat="coffee" data-price="$6.50">
-      <div class="photo">
-        <img src="IMAGES/BlueHour_Mont_Blanc.png" alt="Mont Blanc" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Cold Brew</span>
-        <h3>Mont Blanc</h3>
-        <p>Kyoto cold brew · orange cold foam · nutmeg · orange zest</p>
-        <span class="temp iced-only">Iced Only</span>
-      </div>
-    </article>
-
-    <article class="treat" data-cat="matcha" data-price="$6.75">
-      <div class="photo">
-        <img src="IMAGES/BlueHour_Ube_Matcha.png" alt="Ube Matcha" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Matcha</span>
-        <h3>Ube Matcha</h3>
-        <p>Ube (purple yam) · brown sugar</p>
-        <span class="temp">Hot or Iced</span>
-      </div>
-    </article>
-
-    <article class="treat" data-cat="matcha" data-price="$6.75">
-      <div class="photo">
-        <img src="IMAGES/BlueHour_Black_Sesame_Matcha.png" alt="Black Sesame Matcha" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Matcha</span>
-        <h3>Black Sesame Matcha</h3>
-        <p>Black sesame · honey</p>
-        <span class="temp">Hot or Iced</span>
-      </div>
-    </article>
-
-    <article class="treat" data-cat="matcha" data-price="$6.25">
-      <div class="photo">
-        <span class="tag">Best Seller</span>
-        <img src="IMAGES/BlueHour_Vanilla_Matcha.png" alt="Vanilla Matcha" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Matcha</span>
-        <h3>Vanilla Matcha</h3>
-        <p>Madagascar vanilla · raw sugar</p>
-        <span class="temp">Hot or Iced</span>
-      </div>
-    </article>
-
-    <article class="treat" data-cat="tea" data-price="$5.75">
-      <div class="photo">
-        <img src="IMAGES/BlueHour_Espresso_Tonic.png" alt="Espresso Tonic" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Espresso Tonic</span>
-        <h3>Espresso Tonic</h3>
-        <p>Hibiscus · tonic · espresso</p>
-        <span class="temp iced-only">Iced Only</span>
-      </div>
-    </article>
-
-    <article class="treat" data-cat="tea" data-price="$5.50">
-      <div class="photo">
-        <img src="IMAGES/BlueHour_Lemon_Green_Tea.png" alt="Lemon Green Tea" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Green Tea</span>
-        <h3>Lemon Green Tea</h3>
-        <p>Green tea · honey · lemon · blood orange · pink salt</p>
-        <span class="temp">Hot or Iced</span>
-      </div>
-    </article>
-
-    <article class="treat" data-cat="tea" data-price="$5.50">
-      <div class="photo">
-        <img src="IMAGES/BlueHour_Hibiscus_Lime.png" alt="Hibiscus Lime" loading="lazy">
-      </div>
-      <div class="info">
-        <span class="cat">Refresher</span>
-        <h3>Hibiscus Lime</h3>
-        <p>Hibiscus · lime · coconut water · raw sugar · pink salt</p>
-        <span class="temp iced-only">Iced Only</span>
-      </div>
-    </article>
-    </div>
+    <div class="treats-track" data-track><!-- drink cards render here, live from your Square catalog (/api/menu) --></div>
     </div>
     <button class="rail-arrow prev" data-prev aria-label="Previous drinks">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -990,8 +887,11 @@
     else el.textContent = h<open ? ('Opens '+open+'am') : ('Closed · back at '+open+'am');
   })();
 
-  // drinks rail: native swipe + scroll-snap; arrows on desktop; gentle auto-advance
-  (function(){
+  // drinks rail: native swipe + scroll-snap; arrows on desktop; gentle auto-advance.
+  // Exposed as a function so the menu builder can start it AFTER the cards have
+  // been rendered from Square (it clones whatever cards exist when called).
+  window.__initDrinksRail = function(){
+    if (window.__railStarted) return; window.__railStarted = true;
     const rail = document.querySelector('.treats-rail');
     const scroller = rail?.querySelector('[data-scroller]');
     const track = rail?.querySelector('[data-track]');
@@ -1122,7 +1022,7 @@
         step(1);
       }, 3400);
     }
-  })();
+  };
 
   // fade out the mobile "swipe for more" hint once the user actually swipes the rail
   (function(){
@@ -1144,6 +1044,7 @@
     const descEl = modal.querySelector('[data-modal-desc]');
     const priceEl = modal.querySelector('[data-modal-price]');
     const tempEl = modal.querySelector('[data-modal-temp]');
+    const mediaEl = modal.querySelector('.drink-modal__media');
     let lastTrigger = null;
 
     const openModal = (treat) => {
@@ -1152,16 +1053,25 @@
       const tName = treat.querySelector('h3');
       const tDesc = treat.querySelector('.info p');
       const tTemp = treat.querySelector('.temp');
-      img.src = tImg ? tImg.src : '';
-      img.alt = tImg ? tImg.alt : '';
+      const name = tName ? tName.textContent.trim() : '';
+      if (tImg) {
+        img.src = tImg.src; img.alt = tImg.alt; img.style.display = '';
+        if (mediaEl) mediaEl.classList.remove('no-img');
+      } else {
+        img.removeAttribute('src'); img.style.display = 'none';
+        if (mediaEl) { mediaEl.classList.add('no-img'); mediaEl.dataset.ph = name; }
+      }
       catEl.textContent = tCat ? tCat.textContent.trim() : '';
-      nameEl.textContent = tName ? tName.textContent.trim() : '';
+      catEl.style.display = tCat ? '' : 'none';
+      nameEl.textContent = name;
       descEl.textContent = tDesc ? tDesc.textContent.trim() : '';
+      descEl.style.display = tDesc ? '' : 'none';
       priceEl.textContent = treat.dataset.price || '';
       tempEl.textContent = tTemp ? tTemp.textContent.trim() : '';
+      tempEl.style.display = tTemp ? '' : 'none';
       tempEl.classList.toggle('iced-only', !!treat.querySelector('.temp.iced-only'));
       // record current drink so the cart can add it
-      modal.dataset.drinkName = tName ? tName.textContent.trim() : '';
+      modal.dataset.drinkName = name;
       modal.dataset.drinkPrice = treat.dataset.price || '';
       modal.dataset.drinkImg = tImg ? tImg.src : '';
       modal.dataset.drinkVariationId = treat.dataset.variationId || '';
@@ -1182,36 +1092,42 @@
       }, 260);
     };
 
-    document.querySelectorAll('.treat').forEach(t => {
-      // Carousel clones stay mouse-clickable but out of the tab order / a11y
-      // tree (they keep their aria-hidden + tabindex="-1"); only real cards
-      // become focusable, role=button, keyboard-activatable.
-      const isClone = t.classList.contains('treat--clone');
-      if (!isClone) {
-        t.tabIndex = 0;
-        t.setAttribute('role', 'button');
-      }
-      let sx = 0, sy = 0, moved = false;
-      t.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; moved = false; }, { passive: true });
-      t.addEventListener('pointermove', (e) => {
-        if (Math.abs(e.clientX - sx) > 10 || Math.abs(e.clientY - sy) > 10) moved = true;
-      }, { passive: true });
-      t.addEventListener('click', (e) => {
-        if (e.target.closest('a,button')) return;
-        if (moved) return;            // a swipe, not a tap — don't open the product
-        lastTrigger = t;
-        openModal(t);
-      });
-      if (!isClone) {
-        t.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            lastTrigger = t;
-            openModal(t);
-          }
+    // Wire each drink card to open the modal. Exposed so the menu builder can
+    // call it once the cards are rendered from Square; the [data-wired] guard
+    // makes re-calls a no-op.
+    window.__wireDrinkCards = function(){
+      document.querySelectorAll('.treat:not([data-wired])').forEach(t => {
+        t.dataset.wired = '1';
+        // Carousel clones stay mouse-clickable but out of the tab order / a11y
+        // tree (they keep their aria-hidden + tabindex="-1"); only real cards
+        // become focusable, role=button, keyboard-activatable.
+        const isClone = t.classList.contains('treat--clone');
+        if (!isClone) {
+          t.tabIndex = 0;
+          t.setAttribute('role', 'button');
+        }
+        let sx = 0, sy = 0, moved = false;
+        t.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; moved = false; }, { passive: true });
+        t.addEventListener('pointermove', (e) => {
+          if (Math.abs(e.clientX - sx) > 10 || Math.abs(e.clientY - sy) > 10) moved = true;
+        }, { passive: true });
+        t.addEventListener('click', (e) => {
+          if (e.target.closest('a,button')) return;
+          if (moved) return;            // a swipe, not a tap — don't open the product
+          lastTrigger = t;
+          openModal(t);
         });
-      }
-    });
+        if (!isClone) {
+          t.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              lastTrigger = t;
+              openModal(t);
+            }
+          });
+        }
+      });
+    };
 
     modal.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', closeModal));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
@@ -1355,24 +1271,67 @@
     window.BlueHourCart = { add, open, close };
   })();
 
-  // pull live prices + catalog ids from Square so it's the single source of truth
+  // Build the drinks rail live from the Square catalog (/api/menu), then start
+  // the carousel + modal wiring. Square is the single source of truth — items,
+  // prices, photos and descriptions all come from there. An item with no photo
+  // yet renders as a clean name-only card; add a photo in Square and it appears.
   (function(){
-    const norm = (s) => String(s || '').toLowerCase().replace(/[™®]/g, '').replace(/\s+/g, ' ').trim();
+    const track = document.querySelector('.treats-rail [data-track]');
+    if (!track) return;
+    const money = (c) => '$' + (Number(c) / 100).toFixed(2);
+
+    // Safety net if Square is briefly unreachable: a working, orderable menu
+    // (name + price; checkout still posts these to Square as custom items).
+    const FALLBACK = [
+      {name:'Latte',priceCents:600},{name:'Americano',priceCents:400},{name:'Cortado 4oz',priceCents:450},
+      {name:'Double Espresso',priceCents:400},{name:'Drip coffee',priceCents:400},{name:'Flat white 6oz',priceCents:550},
+      {name:'Cappuccino 8oz',priceCents:550},{name:'Cafe con leche',priceCents:550},{name:'Spec. Coffee',priceCents:800},
+      {name:'Cold Brew',priceCents:700},{name:'Matcha',priceCents:900},{name:'Refresher',priceCents:600},
+      {name:'Pastry',priceCents:750},{name:'Retail coffee',priceCents:1850}
+    ];
+
+    function buildCard(it){
+      const art = document.createElement('article');
+      art.className = 'treat';
+      if (it.category) art.dataset.cat = it.category;
+      art.dataset.price = money(it.priceCents);
+      if (it.variationId) art.dataset.variationId = it.variationId;
+
+      const photo = document.createElement('div');
+      photo.className = 'photo';
+      if (it.imageUrl) {
+        const im = document.createElement('img');
+        im.src = it.imageUrl; im.alt = it.name; im.loading = 'lazy';
+        photo.appendChild(im);
+      } else {
+        photo.classList.add('no-img');
+        const ph = document.createElement('span');
+        ph.className = 'photo__ph'; ph.textContent = it.name;
+        photo.appendChild(ph);
+      }
+
+      const info = document.createElement('div');
+      info.className = 'info';
+      if (it.category) { const c = document.createElement('span'); c.className = 'cat'; c.textContent = it.category; info.appendChild(c); }
+      const h3 = document.createElement('h3'); h3.textContent = it.name; info.appendChild(h3);
+      if (it.description) { const p = document.createElement('p'); p.textContent = it.description; info.appendChild(p); }
+
+      art.appendChild(photo); art.appendChild(info);
+      return art;
+    }
+
+    function render(items){
+      const list = (items && items.length) ? items : FALLBACK;
+      track.innerHTML = '';
+      list.forEach(it => track.appendChild(buildCard(it)));
+      if (window.__initDrinksRail) window.__initDrinksRail();   // clones + infinite loop + arrows
+      if (window.__wireDrinkCards) window.__wireDrinkCards();   // tap-to-open-modal on every card
+    }
+
     fetch('/api/menu')
       .then(r => r.ok ? r.json() : { items: [] })
-      .then(data => {
-        const map = {};
-        (data.items || []).forEach(it => { map[norm(it.name)] = it; });
-        document.querySelectorAll('.treat').forEach(t => {
-          const h3 = t.querySelector('h3');
-          if (!h3) return;
-          const m = map[norm(h3.textContent)];
-          if (!m) return;                                  // not in Square yet → keep built-in price
-          if (typeof m.priceCents === 'number') t.dataset.price = '$' + (m.priceCents / 100).toFixed(2);
-          if (m.variationId) t.dataset.variationId = m.variationId;
-        });
-      })
-      .catch(() => {});
+      .then(d => render(d.items || []))
+      .catch(() => render([]));
   })();
 </script>
 </body>
